@@ -3,13 +3,13 @@
 
    <div class="row  border-bottom white-bg dashboard-header">
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-			<form role="form">
+			<form role="form" id="form_crear_empleado">
 				<h2>Registro de Empleados</small></h2>
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-3 ">
 						<div class="form-group ">
-	                        <input type="text" name="num_empleado" id="num_empleado" class="form-control input-lg" placeholder="No. Empleado." tabindex="1">
+	                        <input type="text" name="num_plaza" id="num_plaza" class="form-control input-lg" placeholder="Num. Plaza" tabindex="1">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-9">
@@ -29,11 +29,6 @@
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email" tabindex="5">
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6">
-						<div class="form-group">
 							<input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control input-lg" placeholder="Fecha Nacimiento" tabindex="6">
 						</div>
 					</div>
@@ -47,9 +42,14 @@
 							<input type="text" name="rfc" id="rfc" class="form-control input-lg" placeholder="RFC" tabindex="8">
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 ">
+						<div class="form-group ">
+	                        <input type="text" name="num_empleado" id="num_empleado" class="form-control input-lg" placeholder="Num. Empleado" tabindex="1">
+						</div>
+					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<select class="form-control input-lg" tabindex="9">
+							<select class="form-control input-lg" id="depto">
 								<option value="" selected disabled hidden>Seleccione Departamento</option>
 								<?php
 			                  		foreach ($deptos as $fila) {
@@ -61,7 +61,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							<select class="form-control input-lg" tabindex="10">
+							<select class="form-control input-lg" id="puesto">
 								<option value="" selected disabled hidden>Seleccione Puesto</option>
 								<?php
 			                  		foreach ($puestos as $fila) {
@@ -77,7 +77,7 @@
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-md-6">
-						<input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" onclick="guardar_empleado();">
+						<a href="" id="btn_guardar_empleado" class="btn btn-primary btn-block btn-lg" tabindex="7" onclick="guardar_empleado(event);">Registrar</a>
 					</div>
 				</div>
 			</form>

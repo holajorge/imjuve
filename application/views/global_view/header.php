@@ -20,12 +20,15 @@
 
     <link href="<?php echo base_url('assets/css/animate.css'); ?> " rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?> " rel="styesheet">
-
+    <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">
+    <script>
+      var baseURL = "<?php echo base_url(); ?>"
+    </script>
     <style>
         @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
-/*
- *
+/*  
+ *  
  *   INSPINIA - Responsive Admin Theme
  *   version 2.6.2
  *
@@ -8445,15 +8448,15 @@ body.md-skin {
                     <li class="active">
                         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Empleados</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="active"><a href="index.html">Lista de empleados</a></li>
+                            <li class="active"><a href="<?php echo base_url('empleado_controller/lista_empleado'); ?>">Lista de empleados</a></li>
                             <li><a href="<?php echo base_url('Empleado_controller/create'); ?> ">Alta de empleados</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Percepciones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="graph_flot.html">Lista de percepciones</a></li>
-                            <li><a href="graph_morris.html">Alta percepción</a></li>
+                            <li><a href="<?php echo base_url('Percepciones_ctrl/index'); ?>">Lista de percepciones</a></li>
+                            <li><a href="<?php echo base_url('Percepciones_ctrl/create'); ?> ">Alta de Percepciones</a></li>
                         </ul>
                     </li>
                     <li>

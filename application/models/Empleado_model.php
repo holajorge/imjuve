@@ -28,4 +28,8 @@ class Empleado_model extends CI_Model {
             return false;
         }
    }
+
+   public function guardar_empleado($empleado){
+      return $this->db->insert('cat_empleados', $empleado);
+   }
 }
