@@ -12,9 +12,9 @@ class Percepciones_ctrl extends CI_Controller {
 
 	public function index()
 	{
-		$data['deptos'] = $this->Percepciones_model->getAll();
+		$data['percepciones'] = $this->Percepciones_model->getAll();
 		$this->load->view('global_view/header');
-		$this->load->view('admin/percepciones/index_percepciones',$data);
+		$this->load->view('admin/percepciones/lista_percepciones',$data);
 		$this->load->view('global_view/foother');
 	}
 
@@ -26,14 +26,10 @@ class Percepciones_ctrl extends CI_Controller {
 	}
 	public function create_percepciones()
 	{
-		$indicador = $this->input->post('indicador');
-		$nombre = $this->input->post('nombre');
-		$tipo = $this->input->post('tipo');
-
 		$percepcion = array(
-			'indicador' => $indicador,		 
-		    'nombre' => $nombre,	
-		    'tipo' => $tipo,
+			'indicador' => $this->input->post('indicador'),		 
+		    'nombre' => $this->input->post('nombre'),	
+		    'tipo' => $this->input->post('tipo'),
 		    'opcion_default' => 1,	       
 		    );
 		$query = $this->Percepciones_model->insertPercepciones($percepcion);
@@ -43,7 +39,6 @@ class Percepciones_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);	
-		
 	}
 
 }
