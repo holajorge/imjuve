@@ -8445,11 +8445,58 @@ body.md-skin {
                             IN+
                         </div>
                     </li>
-                    <li class="active">
+                    <li <?php                          
+                          if (isset($active)) {
+                            if ($active == "nomina") {
+                            echo "class='active'";
+                            }
+                          }
+                          
+                        ?>
+                    >
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="">Periodos</a></li>
+                            <li <?php                          
+                                  if (isset($active1)) {
+                                    if ($active1 == "alta_nomina") {
+                                    echo "class='active'";
+                                    }
+                                  }
+                                  
+                                ?>
+                            ><a href="<?php echo base_url('admin_controller/detalle_nomina'); ?> ">Alta de nómina</a></li>
+                        </ul>
+                    </li>
+                    <li <?php                          
+                          if (isset($active)) {
+                            if ($active == "empleado") {
+                            echo "class='active'";
+                            }
+                          }
+                          
+                        ?>
+                    >
                         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Empleados</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="active"><a href="<?php echo base_url('empleado_controller/lista_empleado'); ?>">Lista de empleados</a></li>
-                            <li><a href="<?php echo base_url('Empleado_controller/create'); ?> ">Alta de empleados</a></li>
+                            <li <?php                          
+                                  if (isset($active1)) {
+                                    if ($active1 == "lista_empleado") {
+                                    echo "class='active'";
+                                    }
+                                  }
+                                  
+                                ?>
+                            ><a href="<?php echo base_url('empleado_controller/lista_empleado'); ?>">Lista de empleados</a></li>
+                            <li <?php                          
+                                  if (isset($active1)) {
+                                    if ($active1 == "alta_empleado") {
+                                    echo "class='active'";
+                                    }
+                                  }
+                                  
+                                ?>
+                            ><a href="<?php echo base_url('Empleado_controller/create'); ?> ">Alta de empleados</a></li>
                         </ul>
                     </li>
                     <li>

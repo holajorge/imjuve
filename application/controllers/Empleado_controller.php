@@ -3,41 +3,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Empleado_controller extends CI_Controller {
 
-	public function __construct()
+    public function __construct()
     {
         parent::__construct();
         // $this->load->library('bcrypt');
         $this->load->model('Empleado_model');
     }
-	public function index()
-	{
-		
-	}
+    public function index()
+    {
+        
+    }
 
-	public function create(){
-		$data['deptos'] = $this->Empleado_model->get_departamentos();
-		$data['puestos'] = $this->Empleado_model->get_puestos();
-		$this->load->view('global_view/header');
-		$this->load->view('admin/registro',$data);
-		$this->load->view('global_view/foother');
-	}
+    public function create(){
+        $data['deptos'] = $this->Empleado_model->get_departamentos();
+        $data['puestos'] = $this->Empleado_model->get_puestos();
+        $dato['active'] = "empleado";
+        $dato['active1'] = "alta_empleado";
+        $this->load->view('global_view/header',$dato);
+        $this->load->view('admin/registro',$data);
+        $this->load->view('global_view/foother');
+    }
 
-	public function lista_empleado(){
-		$this->load->view('global_view/header');
-		$this->load->view('admin/empleados/lista_empleados');
-		$this->load->view('global_view/foother');
-	}
+    public function lista_empleado(){
+        $data['empleados'] = $this->Empleado_model->get_lista_empleados();
 
-	public function get_lista_empleados(){
-		
-	}
+        $dato['active'] = "empleado";
+        $dato['active1'] = "lista_empleado";
 
-	public function guardar_empleado(){
-		$no_plaza = $this->input->post("no_plaza");
+        $this->load->view('global_view/header',$dato);
+        $this->load->view('admin/empleados/lista_empleados',$data);
+        $this->load->view('global_view/foother');
+    }
+
+    public function guardar_empleado(){
+        $no_plaza = $this->input->post("no_plaza");
         $nombre = $this->input->post("nombre");
         $ap_paterno = $this->input->post("ap_paterno");
         $ap_materno = $this->input->post("ap_materno");
         $fecha_nacimiento = $this->input->post("fecha_nacimiento");
+        $fecha_ingreso = $this->input->post("fecha_ingreso");
         $curp = $this->input->post("curp");
         $id_depto = $this->input->post("id_depto");
         $id_puesto = $this->input->post("id_puesto");
@@ -45,18 +49,19 @@ class Empleado_controller extends CI_Controller {
         $rfc = $this->input->post("rfc");
 
         $emplado = array(
-        			'no_plaza' => $no_plaza, 
-        			'nombre' => $nombre,
-        			'ap_paterno' => $ap_paterno,
-        			'ap_materno' => $ap_materno,
-        			'fecha_nacimiento' => $fecha_nacimiento,
-        			'curp' => $curp,
-        			'id_depto' => $id_depto,
-        			'id_puesto' => $id_puesto,
-        			'no_empleado' => $no_empleado,
-        			'rfc' => $rfc
-        			);
-		$query = $this->Empleado_model->guardar_empleado($emplado);
+                    'no_plaza' => $no_plaza, 
+                    'nombre' => $nombre,
+                    'ap_paterno' => $ap_paterno,
+                    'ap_materno' => $ap_materno,
+                    'fecha_nacimiento' => $fecha_nacimiento,
+                    'fecha_ingreso' => $fecha_ingreso,
+                    'curp' => $curp,
+                    'id_depto' => $id_depto,
+                    'id_puesto' => $id_puesto,
+                    'no_empleado' => $no_empleado,
+                    'rfc' => $rfc
+                    );
+        $query = $this->Empleado_model->guardar_empleado($emplado);
         if ($query == 1) {
             $result['resultado'] = true;
         } else {
@@ -64,6 +69,6 @@ class Empleado_controller extends CI_Controller {
         }
 
         echo json_encode($result);
-	}
+    }
 
 }

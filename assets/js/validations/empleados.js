@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	inicalizarDataTable("tabla_lista_empleados");
+    inicalizarDataTable("tabla_lista_empleados");
 });
 
 function guardar_empleado(event){
@@ -9,7 +9,8 @@ function guardar_empleado(event){
     var nombre = document.getElementById('nombre').value;
     var ap_paterno = document.getElementById('ape_paterno').value;
     var ap_materno = document.getElementById('ape_materno').value;
-    var fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
+    var fecha_nacimiento = document.getElementById('fecha_nacimiento').value; 
+    var fecha_ingreso = document.getElementById('fecha_ingreso').value;
     var curp = document.getElementById('curp').value;
     var id_depto = document.getElementById('depto').value;
     var id_puesto = document.getElementById('puesto').value;
@@ -18,7 +19,7 @@ function guardar_empleado(event){
 
     // console.log("id_depto " + id_depto);
     // console.log("id_puesto " + id_puesto);
-	$.ajax({
+    $.ajax({
             url: baseURL + "empleado_controller/guardar_empleado",
             type: "POST",
             data: {
@@ -27,6 +28,7 @@ function guardar_empleado(event){
                 ap_paterno: ap_paterno,
                 ap_materno: ap_materno,
                 fecha_nacimiento: fecha_nacimiento,
+                fecha_ingreso: fecha_ingreso,
                 curp: curp,
                 id_depto: id_depto,
                 id_puesto: id_puesto,
@@ -35,8 +37,8 @@ function guardar_empleado(event){
             },
             success: function(respuesta) {
                 var obj = JSON.parse(respuesta);
-	                if (obj.resultado === true) {
-	                   //Limpiar formulario
+                    if (obj.resultado === true) {
+                       //Limpiar formulario
                        $("#form_crear_empleado")[0].reset(); 
                        //Mensaje de operación realizada con éxito
                         setTimeout(function() {
@@ -49,7 +51,7 @@ function guardar_empleado(event){
                             toastr.success('Los datos se guardaron correctamente', 'DATOS GUARDADOS');
 
                         }, 1300);
-	                } 
+                    } 
             }
     });
 }

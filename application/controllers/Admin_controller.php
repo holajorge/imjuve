@@ -13,4 +13,12 @@ class Admin_controller extends CI_Controller {
 	public function getSkinConfig(){
 		$this->load->view('skin-config');
 	}
+
+	public function detalle_nomina(){
+		$dato['active'] = "nomina";
+		$dato['active1'] = "alta_nomina";
+        $this->load->view('global_view/header',$dato);
+		$this->load->view('admin/nomina/detalle_nomina');
+		$this->load->view('global_view/foother');
+	}
 }
