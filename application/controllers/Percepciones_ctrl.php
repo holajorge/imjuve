@@ -12,15 +12,19 @@ class Percepciones_ctrl extends CI_Controller {
 
 	public function index()
 	{
+		$dato['active'] = "percepcion";
+        $dato['active1'] = "lista_percepciones";
 		$data['percepciones'] = $this->Percepciones_model->getAll();
-		$this->load->view('global_view/header');
+		$this->load->view('global_view/header', $dato);
 		$this->load->view('admin/percepciones/lista_percepciones',$data);
 		$this->load->view('global_view/foother');
 	}
 
 	public function create()
 	{
-		$this->load->view('global_view/header');
+		$dato['active'] = "percepcion";
+        $dato['active1'] = "percepciones";
+		$this->load->view('global_view/header', $dato);
 		$this->load->view('admin/percepciones/percepciones');
 		$this->load->view('global_view/foother');
 	}
@@ -39,6 +43,14 @@ class Percepciones_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);	
+	}
+	public function delete_Percepcion()
+	{
+		$id = $this->input->post('id');
+		 $this->Percepciones_model->eliminarPercepcion($id);
+		
+		return true;
+       
 	}
 
 }

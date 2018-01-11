@@ -23,6 +23,12 @@ class Percepciones_model extends CI_Model {
    	 	return $this->db->insert('cat_percepciones', $percepcion);
    }
 
+   function eliminarPercepcion($id)
+   {
+    $this->db->where('id_percepcion', $id);
+    return $this->db->delete('cat_percepciones'); 
+   }
+
 }
 
 /* End of file Percepciones_model.php */

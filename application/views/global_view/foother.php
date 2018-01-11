@@ -49,7 +49,11 @@
     <!-- Percepciones -->
     <script src="<?php echo base_url('assets/js/validations/percepciones.js'); ?>"></script>
 
-    
+     <!-- js Deducciones -->
+    <script src="<?php echo base_url('assets/js/validations/deducciones.js'); ?>"></script>
+
+     <!-- js Puesto -->
+    <script src="<?php echo base_url('assets/js/validations/puesto.js'); ?>"></script>
    
    
 </body>
