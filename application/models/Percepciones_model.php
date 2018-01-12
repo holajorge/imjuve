@@ -20,6 +20,17 @@ class Percepciones_model extends CI_Model {
         }
    }
 
+   public function existIndicador($indicador){
+
+      $query= $this->db->query("select * from cat_percepciones where indicador='".$indicador."'");             
+      if ($query -> num_rows() > 0){
+        return true;
+      }else{
+       return false;
+      }
+
+   }
+
    public function insertPercepciones( $percepcion){
    	 	return $this->db->insert('cat_percepciones', $percepcion);
    }

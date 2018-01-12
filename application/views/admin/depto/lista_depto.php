@@ -7,7 +7,8 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tabla_lista_empleados">
                             <thead>
                                 <tr>                                    
-                                    <th class="text-center">Nombre</th>                                    
+                                    <th class="text-center">Nombre</th>  
+                                    <th class="text-center">Direccion</th>                                     
                                     <th class="text-center">Acciones</th>   
                                 </tr>
                             </thead>
@@ -15,6 +16,7 @@
                                 <?php foreach ($deptos as  $depto): ?>
                                     <tr class="gradeA">                                       
                                         <td><?php echo $depto->nombre?></td>  
+                                         <td><?php echo $depto->direccion?></td>  
                                         <td class="text-center">
                                             <button type="button" class="btn btn-danger" onclick="deleteDepto('<?php echo $depto->id_depto ?>')">Eliminar</button>
                                             <!-- <a class="btn btn-info" href="#" data-toggle="modal" data-target="#editarPercepcion">Editar</a> -->

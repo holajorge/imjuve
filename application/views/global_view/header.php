@@ -11,17 +11,15 @@
 
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
-
      <!-- Toastr style -->
     <link href="<?php echo base_url('assets/css/plugins/toastr/toastr.min.css'); ?> " rel="stylesheet">
-
     <!-- Gritter -->
     <link href="<?php echo base_url('assets/js/plugins/gritter/jquery.gritter.css'); ?> " rel="stylesheet">
 
     <link href="<?php echo base_url('assets/css/animate.css'); ?> " rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?> " rel="styesheet">
-    <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">
-   
+    <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">   
+    
     <script>
       var baseURL = "<?php echo base_url(); ?>"
     </script>
@@ -8450,7 +8448,7 @@
                       <div class="logo-element">IV+ </div>
                     </li>
                     <li <?php  if (isset($active)) {   if ($active == "nomina") {  echo "class='active'";  }  }  ?> >
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
+                        <a href="index.html"><i class="fa fa-dollar"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="">Periodos</a></li>
                             <li <?php  if (isset($active1)) {  if ($active1 == "alta_nomina") { echo "class='active'"; }}?>>
@@ -8458,7 +8456,7 @@
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "empleado") {  echo "class='active'";   }}  ?> > 
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Empleados</span> <span class="fa arrow"></span></a>
+                        <a href="index.html"><i class="fa fa-user"></i> <span class="nav-label">Empleados</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li <?php if (isset($active1)) {  if ($active1 == "lista_empleado") { echo "class='active'";}  }  ?> >              
                               <a href="<?php echo base_url('empleado_controller/lista_empleado'); ?>">Lista de empleados</a>
@@ -8469,28 +8467,28 @@
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "percepcion") {  echo "class='active'";   }}  ?> >
-                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Percepciones</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Percepciones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_percepciones") {  echo "class='active'";  }  }  ?> ><a href="<?php echo base_url('Percepciones_ctrl/index'); ?>">Lista de percepciones</a></li>
                             <li <?php  if (isset($active)) {   if ($active1 == "percepciones") {  echo "class='active'";  }  }  ?> ><a href="<?php echo base_url('Percepciones_ctrl/create'); ?> ">Alta de Percepciones</a></li>
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "deduccion") {  echo "class='active'";   }}  ?> >
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Deducciones</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Deducciones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_deducciones") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Deduciones_ctrl/index'); ?>" >Lista de Deducciones</a></li>
                             <li <?php  if (isset($active1)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Deduciones_ctrl/create'); ?>" >Alta Deducción</a></li>
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "puesto") {  echo "class='active'";   }}  ?> >
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Puestos</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user-md"></i> <span class="nav-label">Puestos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_puestos") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Puesto_ctrl/index'); ?>">Lista de Puestos</a></li>
                             <li <?php  if (isset($active1)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Puesto_ctrl/create'); ?>">Alta Puesto</a></li>
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "depto") {  echo "class='active'";   }}  ?>>
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Departamentos</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Departamentos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_departamentos") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/index'); ?>">Lista de Departamentos</a></li>
                             <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/create'); ?>">Alta Departamento</a></li>

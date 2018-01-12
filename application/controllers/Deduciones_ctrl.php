@@ -41,6 +41,24 @@ class Deduciones_ctrl extends CI_Controller {
         }
         echo json_encode($result);	
 	}
+	public function edit_deduccion(){
+
+		$id = $this->input->post('id');
+		$deduccion = array(
+			'indicador' => $this->input->post('indicador'),		 
+		    'nombre' => $this->input->post('nombre'),	
+		    'tipo' => $this->input->post('tipo'),
+		    'opcion_default' => 1,	       
+		    'status' => 1,
+		    );
+		$query = $this->Deduciones_model->updateDeducciones($id,$deduccion);
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
 
 }
 

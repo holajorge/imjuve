@@ -28,6 +28,18 @@ class Percepciones_ctrl extends CI_Controller {
 		$this->load->view('admin/percepciones/percepciones');
 		$this->load->view('global_view/foother');
 	}
+
+	public function searchIndicador(){
+		$indicador= $this->input->post('indicador');
+	    $query = $this->Percepciones_model->existIndicador($indicador);
+	    if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+
 	public function create_percepciones()
 	{
 		$percepcion = array(

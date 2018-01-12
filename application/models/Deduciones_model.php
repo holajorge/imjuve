@@ -22,6 +22,11 @@ class Deduciones_model extends CI_Model {
    	 	return $this->db->insert('cat_deducciones', $deduccion);
    }
 
+   public function updateDeducciones($id, $percepcion){
+       $this->db->where('id_deduccion', $id);
+      return $this->db->update('cat_deducciones', $percepcion);
+   }
+
 
 }
 

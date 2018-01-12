@@ -27,3 +27,38 @@ function savePuesto(event){
         } 
     });
 }
+
+ function editPuesto(id){
+
+            var nivel=document.getElementById("nivel"+id).innerHTML;    
+            var nombre=document.getElementById("nombre"+id).innerHTML;            
+
+            document.getElementById("idEditar").innerHTML=id+"";
+            document.getElementById("idEditar").value=id;              
+            document.getElementById("nivelEditar").value=nivel;
+            document.getElementById("nombreEditar").value=nombre;                      
+    }
+
+ function savePercepcionEdit(){
+
+        $.ajax({
+                url: baseURL + "Percepciones_ctrl/edit_perception",
+                type: "POST",
+                data: $("#formPercepcionEditar").serialize(),
+                success: function(respuesta) {
+                    var obj = JSON.parse(respuesta);
+                        if (obj.resultado === true) {
+                          $("#editarPercepcion").modal('hide');
+                                setTimeout(function() {
+                                toastr.options = {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    showMethod: 'slideDown',
+                                    timeOut: 4000
+                                };
+                            toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                        }, 1300);
+                }
+            } 
+        });
+    }
