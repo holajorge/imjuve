@@ -1,4 +1,5 @@
-        </div>    
+        </div>
+            
     </div>
 	<!-- Mainly scripts -->
     <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js'); ?> "></script>
@@ -55,6 +56,8 @@
      <!-- js Puesto -->
     <script src="<?php echo base_url('assets/js/validations/puesto.js'); ?>"></script>
    
+    <!-- js Depto -->
+    <script src="<?php echo base_url('assets/js/validations/depto.js'); ?>"></script>
    
 </body>
 </html>

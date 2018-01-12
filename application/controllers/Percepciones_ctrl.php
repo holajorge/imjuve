@@ -34,7 +34,8 @@ class Percepciones_ctrl extends CI_Controller {
 			'indicador' => $this->input->post('indicador'),		 
 		    'nombre' => $this->input->post('nombre'),	
 		    'tipo' => $this->input->post('tipo'),
-		    'opcion_default' => 1,	       
+		    'opcion_default' => 1,
+		    'status' => 1,	       
 		    );
 		$query = $this->Percepciones_model->insertPercepciones($percepcion);
 		if ($query == 1) {
@@ -46,11 +47,29 @@ class Percepciones_ctrl extends CI_Controller {
 	}
 	public function delete_Percepcion()
 	{
-		$id = $this->input->post('id');
+		 $id = $this->input->post('id');
 		 $this->Percepciones_model->eliminarPercepcion($id);
 		
 		return true;
-       
+	}
+	public function edit_perception(){
+
+		$id = $this->input->post('id');
+		$percepcion = array(
+			'indicador' => $this->input->post('indicador'),		 
+		    'nombre' => $this->input->post('nombre'),	
+		    'tipo' => $this->input->post('tipo'),
+		    'opcion_default' => 1,	       
+		    'status' => 1,
+		    );
+		$query = $this->Percepciones_model->updatePercepciones($id,$percepcion);
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+
 	}
 
 }

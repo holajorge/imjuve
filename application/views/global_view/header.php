@@ -21,8 +21,7 @@
     <link href="<?php echo base_url('assets/css/animate.css'); ?> " rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?> " rel="styesheet">
     <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
     <script>
       var baseURL = "<?php echo base_url(); ?>"
     </script>
@@ -8490,39 +8489,57 @@
                             <li <?php  if (isset($active1)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Puesto_ctrl/create'); ?>">Alta Puesto</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li <?php  if (isset($active)) {     if ($active == "depto") {  echo "class='active'";   }}  ?>>
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Departamentos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="form_basic.html">Lista de departamentos</a></li>
-                            <li><a href="form_advanced.html">Alta departamento</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "lista_departamentos") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/index'); ?>">Lista de Departamentos</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/create'); ?>">Alta Departamento</a></li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </nav>
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
-        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Panel de control</span>
-                </li>
+          <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Panel de control</span>
+                    </li>
 
 
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul>
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+          </div>
+         <!--  <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2><?php echo $active?></h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Tables</a>
+                        </li>
+                        <li class="active">
+                            <strong>Data Tables</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
 
-        </nav>
-        </div>
+                </div>
+          </div> -->
+
                 
 
         

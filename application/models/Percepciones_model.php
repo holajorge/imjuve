@@ -10,6 +10,7 @@ class Percepciones_model extends CI_Model {
    public function getAll(){
    	 	$this->db->select('*');
         $this->db->from('cat_percepciones');
+        $this->db->where('status', 1);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -23,9 +24,14 @@ class Percepciones_model extends CI_Model {
    	 	return $this->db->insert('cat_percepciones', $percepcion);
    }
 
+   public function updatePercepciones($id, $percepcion){
+             $this->db->where('id_percepcion', $id);
+      return $this->db->update('cat_percepciones', $percepcion);
+
+   }
+
    function eliminarPercepcion($id)
    {
-    $this->db->where('id_percepcion', $id);
     return $this->db->delete('cat_percepciones'); 
    }
 

@@ -28,6 +28,19 @@
         });
     }
 
+    function editPercepcion(id){
+
+            var indicador=document.getElementById("indicador"+id).innerHTML;    
+            var nombre=document.getElementById("nombre"+id).innerHTML;            
+            var tipo=document.getElementById("tipo"+id).innerHTML;              
+
+            document.getElementById("idEditar").innerHTML=id+"";
+            document.getElementById("idEditar").value=id;              
+            document.getElementById("indicadorEditar").value=indicador;
+            document.getElementById("nombreEditar").value=nombre;  
+            document.getElementById("tipoEditar").value=tipo;                           
+    }
+
     function deletePercepcion(id){
 
        swal({
@@ -59,3 +72,26 @@
         });
     }
 
+    function savePercepcionEdit(){
+
+        $.ajax({
+                url: baseURL + "Percepciones_ctrl/edit_perception",
+                type: "POST",
+                data: $("#formPercepcionEditar").serialize(),
+                success: function(respuesta) {
+                    var obj = JSON.parse(respuesta);
+                        if (obj.resultado === true) {
+                          $("#editarPercepcion").modal('hide');
+                                setTimeout(function() {
+                                toastr.options = {
+                                    closeButton: true,
+                                    progressBar: true,
+                                    showMethod: 'slideDown',
+                                    timeOut: 4000
+                                };
+                            toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                        }, 1300);
+                }
+            } 
+        });
+    }
