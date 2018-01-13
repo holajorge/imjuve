@@ -2,6 +2,10 @@ $(document).ready(function() {
     inicalizarDataTable("tabla_lista_empleados");
 });
 
+function hola(){
+    console.log("hola");
+}
+
 function guardar_empleado(event){
     event.preventDefault()
     document.getElementById('btn_guardar_empleado').disabled;

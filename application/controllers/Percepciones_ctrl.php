@@ -91,6 +91,17 @@ class Percepciones_ctrl extends CI_Controller {
 
 	}
 
+	public function lista_percepciones(){
+		$query = $this->Percepciones_model->getAll();
+		if ($query != false) {
+            $result['resultado'] = true;
+            $result['percepciones'] = $query;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);
+	}
+
 }
 
 /* End of file Percepciones_ctrl.php */
