@@ -10,6 +10,7 @@ class Puesto_model extends CI_Model {
     public function getAll(){
    	 	$this->db->select('*');
         $this->db->from('cat_puestos');
+         $this->db->where('status', 1);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -17,11 +18,13 @@ class Puesto_model extends CI_Model {
         } else {
             return false;
         }
-    }
+    }    
 
     public function insertPuesto( $puesto){
    	 	return $this->db->insert('cat_puestos', $puesto);
     }
+
+
 
 }
 

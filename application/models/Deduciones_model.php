@@ -8,10 +8,10 @@ class Deduciones_model extends CI_Model {
    	}
    	public function getAll(){
    	 	
-   	 	$this->db->select('*');
-        $this->db->from('cat_deducciones');
-        $query = $this->db->get();
-
+   	 	$this->db->select('*');      
+      $this->db->from('cat_deducciones');
+       $this->db->where('status', 1);
+      $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
@@ -20,6 +20,11 @@ class Deduciones_model extends CI_Model {
    }
    public function insertDeducciones( $deduccion){
    	 	return $this->db->insert('cat_deducciones', $deduccion);
+   }
+
+   public function updateDeducciones($id, $percepcion){
+       $this->db->where('id_deduccion', $id);
+      return $this->db->update('cat_deducciones', $percepcion);
    }
 
 

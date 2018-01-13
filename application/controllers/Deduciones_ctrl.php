@@ -10,15 +10,22 @@ class Deduciones_ctrl extends CI_Controller {
     }
 	public function index()
 	{		
-        $dato['active'] = "deduccion";
+	  if($this->session->userdata('tipo_usuario')=="admin"){
+	      
+	    $dato['active'] = "deduccion";
         $dato['active1'] = "lista_deducciones";
 		$data['deducciones'] = $this->Deduciones_model->getAll();
 		$this->load->view('global_view/header', $dato);
 		$this->load->view('admin/deducciones/lista_deducciones',$data);
 		$this->load->view('global_view/foother');
+	  }else{
+	      redirect('login_ctrl');
+	    }
+        
 	}
 	public function create()
 	{
+
 		$dato['active'] = "deduccion";
 		$dato['active1'] = "registro";        
 		$this->load->view('global_view/header', $dato);
@@ -34,6 +41,24 @@ class Deduciones_ctrl extends CI_Controller {
 		    'opcion_default' => 1,	       
 		    );
 		$query = $this->Deduciones_model->insertDeducciones($deduccion);
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+	public function edit_deduccion(){
+
+		$id = $this->input->post('id');
+		$deduccion = array(
+			'indicador' => $this->input->post('indicador'),		 
+		    'nombre' => $this->input->post('nombre'),	
+		    'tipo' => $this->input->post('tipo'),
+		    'opcion_default' => 1,	       
+		    'status' => 1,
+		    );
+		$query = $this->Deduciones_model->updateDeducciones($id,$deduccion);
 		if ($query == 1) {
             $result['resultado'] = true;
         } else {

@@ -11,12 +11,19 @@ class Puesto_ctrl extends CI_Controller {
 
     public function index()
 	{
-		$dato['active'] = "puesto";
-        $dato['active1'] = "lista_puestos";
-		$data['puestos'] = $this->Puesto_model->getAll();
-		$this->load->view('global_view/header', $dato);
-		$this->load->view('admin/puesto/lista_puesto',$data);
-		$this->load->view('global_view/foother');
+		if($this->session->userdata('tipo_usuario')=="admin"){
+	    
+		    $dato['active'] = "puesto";
+	        $dato['active1'] = "lista_puestos";
+			$data['puestos'] = $this->Puesto_model->getAll();
+			$this->load->view('global_view/header', $dato);
+			$this->load->view('admin/puesto/lista_puesto',$data);
+			$this->load->view('global_view/foother');
+
+	    }else{
+	      redirect('login_ctrl');
+	    }
+		
 	}
 
 	public function create()
