@@ -12,16 +12,23 @@ class Percepciones_ctrl extends CI_Controller {
 
 	public function index()
 	{
-		$dato['active'] = "percepcion";
-        $dato['active1'] = "lista_percepciones";
-		$data['percepciones'] = $this->Percepciones_model->getAll();
-		$this->load->view('global_view/header', $dato);
-		$this->load->view('admin/percepciones/lista_percepciones',$data);
-		$this->load->view('global_view/foother');
+		if($this->session->userdata('tipo_usuario')=="admin"){
+	      	$dato['active'] = "percepcion";
+            $dato['active1'] = "lista_percepciones";
+		    $data['percepciones'] = $this->Percepciones_model->getAll();
+		    $this->load->view('global_view/header', $dato);
+		    $this->load->view('admin/percepciones/lista_percepciones',$data);
+		    $this->load->view('global_view/foother');
+	      }else{
+	      redirect('login_ctrl');
+    	}
+
 	}
 
 	public function create()
 	{
+		$dato['nombre'] = $this->session->userdata('nombre');
+      	$dato['apellido'] = $this->session->userdata('apellido');
 		$dato['active'] = "percepcion";
         $dato['active1'] = "percepciones";
 		$this->load->view('global_view/header', $dato);

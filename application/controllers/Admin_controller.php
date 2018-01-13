@@ -5,9 +5,16 @@ class Admin_controller extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('global_view/header');
-		$this->load->view('admin/index');
-		$this->load->view('global_view/foother');
+		if($this->session->userdata('tipo_usuario')=="admin"){
+
+			$this->load->view('global_view/header');
+			$this->load->view('admin/index');
+			$this->load->view('global_view/foother');
+      
+        }else{
+        redirect('login_ctrl');
+    }
+		
 	}
 
 	public function getSkinConfig(){

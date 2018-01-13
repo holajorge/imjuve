@@ -10,15 +10,22 @@ class Deduciones_ctrl extends CI_Controller {
     }
 	public function index()
 	{		
-        $dato['active'] = "deduccion";
+	  if($this->session->userdata('tipo_usuario')=="admin"){
+	      
+	    $dato['active'] = "deduccion";
         $dato['active1'] = "lista_deducciones";
 		$data['deducciones'] = $this->Deduciones_model->getAll();
 		$this->load->view('global_view/header', $dato);
 		$this->load->view('admin/deducciones/lista_deducciones',$data);
 		$this->load->view('global_view/foother');
+	  }else{
+	      redirect('login_ctrl');
+	    }
+        
 	}
 	public function create()
 	{
+
 		$dato['active'] = "deduccion";
 		$dato['active1'] = "registro";        
 		$this->load->view('global_view/header', $dato);

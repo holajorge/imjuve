@@ -10,12 +10,17 @@ class Depto_ctrl extends CI_Controller {
     }
 	public function index()
 	{
-		$dato['active'] = "depto";
-        $dato['active1'] = "lista_departamentos";
-		$data['deptos'] = $this->Depto_model->getAll();
-		$this->load->view('global_view/header', $dato);
-		$this->load->view('admin/depto/lista_depto',$data);
-		$this->load->view('global_view/foother');	
+		 if($this->session->userdata('tipo_usuario')=="admin"){
+	      	$dato['active'] = "depto";
+	        $dato['active1'] = "lista_departamentos";
+			$data['deptos'] = $this->Depto_model->getAll();
+			$this->load->view('global_view/header', $dato);
+			$this->load->view('admin/depto/lista_depto',$data);
+			$this->load->view('global_view/foother');	
+	      }else{
+	      redirect('login_ctrl');
+	    }
+		
 	}
 	public function create()
 	{
