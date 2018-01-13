@@ -20,7 +20,7 @@
                                         <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>
                                         <td> <label  id="tipo<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->tipo?></label></td>  
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')">Eliminar</button>                                  
+                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')">Desabilitar</button>                                  
                                             <button class="btn btn-info" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion">Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                

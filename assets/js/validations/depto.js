@@ -48,10 +48,7 @@ function saveDeptoEdit(){
         success: function(respuesta) {
             var obj = JSON.parse(respuesta);
                if (obj.resultado === true) {
-                $(".custom-close").on('click', function() {
-                    $('#formDeptoEditar').modal('hide');
-                });
-                
+                 $('#editarDepto').modal('hide');
                  setTimeout(function() {
                  toastr.options = {
                  closeButton: true,

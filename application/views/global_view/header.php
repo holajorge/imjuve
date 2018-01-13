@@ -107,6 +107,13 @@
                             <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/create'); ?>">Alta Departamento</a></li>
                         </ul>
                     </li>
+                    <li <?php  if (isset($active)) {     if ($active == "usuarios") {  echo "class='active'";   }}  ?>>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Usuarios</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li <?php  if (isset($active)) {   if ($active1 == "lista_usuarios") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('User_ctrl/list'); ?>">Lista de Usuarios</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('User_ctrl/create'); ?>">Alta Usuario</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
