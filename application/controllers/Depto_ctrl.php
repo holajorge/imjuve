@@ -14,6 +14,7 @@ class Depto_ctrl extends CI_Controller {
 	      	$dato['active'] = "depto";
 	        $dato['active1'] = "lista_departamentos";
 			$data['deptos'] = $this->Depto_model->getAll();
+			$data['direcciones'] = $this->Depto_model->get_direccionesxdpto(); 
 			$this->load->view('global_view/header', $dato);
 			$this->load->view('admin/depto/lista_depto',$data);
 			$this->load->view('global_view/foother');	
@@ -45,6 +46,23 @@ class Depto_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);	
+	}
+	public function edit_depto()
+	{
+		$id = $this->input->post('id');
+		$depto = array(	 
+		    'nombre' => $this->input->post('nombre'),	
+		    'id_direccion' => $this->input->post('direccion'),     
+		    'status' => 1,
+		    );
+		$query = $this->Depto_model->updateDepto($id,$depto);
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+
 	}
 }
 
