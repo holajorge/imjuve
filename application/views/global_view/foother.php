@@ -43,6 +43,9 @@
     <script src="<?php echo base_url('assets/js/plugins/dataTables/datatables.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/plugins/dataTables/function_dataTables.js'); ?>"></script>
 
+    <!-- js Nómina -->
+    <script src="<?php echo base_url('assets/js/validations/nomina.js'); ?>"></script>
+    
     <!-- js empleado -->
     <script src="<?php echo base_url('assets/js/validations/empleados.js'); ?>"></script>
 
@@ -54,6 +57,8 @@
 
      <!-- js Puesto -->
     <script src="<?php echo base_url('assets/js/validations/puesto.js'); ?>"></script>
+
+    
    
    
 </body>

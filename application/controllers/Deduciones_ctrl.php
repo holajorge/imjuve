@@ -42,6 +42,17 @@ class Deduciones_ctrl extends CI_Controller {
         echo json_encode($result);	
 	}
 
+	public function lista_deducciones(){
+		$query = $this->Deduciones_model->getAll();
+		if ($query != false) {
+            $result['resultado'] = true;
+            $result['percepciones'] = $query;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);
+	}
+
 }
 
 /* End of file Deduciones_ctrl.php */
