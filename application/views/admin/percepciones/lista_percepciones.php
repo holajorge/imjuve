@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-content">
+                <div class="ibox-content">                   
                   <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tabla_lista_empleados">
                             <thead>
-                                <tr>
+                                <tr>                                    
                                     <th class="text-center">indicador</th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Acciones</th>   
@@ -18,15 +18,14 @@
                                         <td><label  id="indicador<?php echo $percepcion->id_percepcion ?>"><?php echo  $percepcion->indicador ?></label></td> 
                                         <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>  
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')">Eliminar</button>                                  
+                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')">Desabilitar</button>                                  
                                             <button class="btn btn-info" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion">Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                
                                 <?php endforeach ?>
-                            </tbody>
-                            
+                            </tbody>                            
                         </table>
-                    </div>
+                  </div>
                 </div>
             </div>
         </div>

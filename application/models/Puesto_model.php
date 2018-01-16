@@ -20,7 +20,7 @@ class Puesto_model extends CI_Model {
         }
     }    
 
-    public function insertPuesto( $puesto){
+    public function insertPuesto($puesto){
    	 	return $this->db->insert('cat_puestos', $puesto);
     }
 

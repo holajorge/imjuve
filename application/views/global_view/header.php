@@ -4,7 +4,11 @@
 <head>
 
     <meta charset="utf-8">
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+>>>>>>> 4a4cd8640eadfc747c03eb1def5a7f15d95b94d9
     <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/logo/favicon.png');?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -109,6 +113,13 @@
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_departamentos") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/index'); ?>">Lista de Departamentos</a></li>
                             <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/create'); ?>">Alta Departamento</a></li>
+                        </ul>
+                    </li>
+                    <li <?php  if (isset($active)) {     if ($active == "usuarios") {  echo "class='active'";   }}  ?>>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Usuarios</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li <?php  if (isset($active)) {   if ($active1 == "lista_usuarios") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('User_ctrl/list'); ?>">Lista de Usuarios</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('User_ctrl/create'); ?>">Alta Usuario</a></li>
                         </ul>
                     </li>
                 </ul>
