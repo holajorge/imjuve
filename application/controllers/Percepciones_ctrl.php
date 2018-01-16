@@ -51,9 +51,7 @@ class Percepciones_ctrl extends CI_Controller {
 	{
 		$percepcion = array(
 			'indicador' => $this->input->post('indicador'),		 
-		    'nombre' => $this->input->post('nombre'),	
-		    'tipo' => $this->input->post('tipo'),
-		    'opcion_default' => 1,
+		    'nombre' => $this->input->post('nombre'),
 		    'status' => 1,	       
 		    );
 		$query = $this->Percepciones_model->insertPercepciones($percepcion);
@@ -76,9 +74,7 @@ class Percepciones_ctrl extends CI_Controller {
 		$id = $this->input->post('id');
 		$percepcion = array(
 			'indicador' => $this->input->post('indicador'),		 
-		    'nombre' => $this->input->post('nombre'),	
-		    'tipo' => $this->input->post('tipo'),
-		    'opcion_default' => 1,	       
+		    'nombre' => $this->input->post('nombre'),       
 		    'status' => 1,
 		    );
 		$query = $this->Percepciones_model->updatePercepciones($id,$percepcion);

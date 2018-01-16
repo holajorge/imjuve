@@ -38,9 +38,12 @@
 
     <!-- Toastr -->
     <script src="<?php echo base_url('assets/js/plugins/toastr/toastr.min.js'); ?>"></script>
+    <!-- Sweet alert -->
+    <script src="<?php echo base_url('assets/js/plugins/sweetalert/sweetalert.min.js'); ?>"></script>
 
     <!-- Data tables -->
     <script src="<?php echo base_url('assets/js/plugins/dataTables/datatables.min.js'); ?>"></script>
+
     <script src="<?php echo base_url('assets/js/plugins/dataTables/function_dataTables.js'); ?>"></script>
 
     <!-- js Nómina -->
@@ -58,10 +61,12 @@
      <!-- js Puesto -->
     <script src="<?php echo base_url('assets/js/validations/puesto.js'); ?>"></script>
 
-    
-   
     <!-- js Depto -->
     <script src="<?php echo base_url('assets/js/validations/depto.js'); ?>"></script>
+
+    <!-- js Depto -->
+    <script src="<?php echo base_url('assets/js/validations/periodos.js'); ?>"></script>
+    
     
 </body>
 </html>

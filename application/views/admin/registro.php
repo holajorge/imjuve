@@ -87,6 +87,20 @@
 							</select>
 						</div>
 					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<label for="tipo_trabajador">Puesto</label>
+							<select class="form-control input-lg" id="tipo_trabajador" name="tipo_trabajador" tabindex="11">
+								<option value="" selected disabled hidden>Seleccione Tipo de Empleado</option>
+								<?php
+			                  		foreach ($tipo_trabajador as $fila) {
+			                 	?>
+			                 		<option value="<?php echo $fila->id_tipo_trabajador ?>"> <?php echo $fila->nombre_tipo_trabajador ?></option>
+			           			<?php } ?> 
+							</select>
+						</div>
+					</div>
 					
 				</div>
 				

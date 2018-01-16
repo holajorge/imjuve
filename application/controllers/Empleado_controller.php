@@ -17,6 +17,7 @@ class Empleado_controller extends CI_Controller {
     public function create(){
         $data['deptos'] = $this->Empleado_model->get_departamentos();
         $data['puestos'] = $this->Empleado_model->get_puestos();
+        $data['tipo_trabajador'] = $this->Empleado_model->get_tipoTrabajador();
         $dato['active'] = "empleado";
         $dato['active1'] = "alta_empleado";
         $this->load->view('global_view/header',$dato);
@@ -47,6 +48,7 @@ class Empleado_controller extends CI_Controller {
         $id_puesto = $this->input->post("id_puesto");
         $no_empleado = $this->input->post("no_empleado");
         $rfc = $this->input->post("rfc");
+        $id_tipo_trabajador = $this->input->post("id_tipo_trabajador");
 
         $emplado = array(
                     'no_plaza' => $no_plaza, 
@@ -59,7 +61,8 @@ class Empleado_controller extends CI_Controller {
                     'id_depto' => $id_depto,
                     'id_puesto' => $id_puesto,
                     'no_empleado' => $no_empleado,
-                    'rfc' => $rfc
+                    'rfc' => $rfc,
+                    'id_tipo_trabajador' => $id_tipo_trabajador
                     );
         $query = $this->Empleado_model->guardar_empleado($emplado);
         if ($query == 1) {

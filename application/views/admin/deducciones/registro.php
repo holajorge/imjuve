@@ -15,12 +15,6 @@
 							<label for="nombre">Nombre Deduccion</label>
 	                        <input type="text" name="nombre" id="nombre" class="form-control input-lg" tabindex="2">
 						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-9">
-						<div class="form-group">
-							<label for="tipo">Tipo Deduccion</label>
-	                        <input type="text" name="tipo" id="tipo" class="form-control input-lg"  tabindex="3">
-						</div>
 					</div>					
 				</div>				
 				<hr class="colorgraph">

@@ -18,6 +18,7 @@ function guardar_empleado(event){
     var curp = document.getElementById('curp').value;
     var id_depto = document.getElementById('depto').value;
     var id_puesto = document.getElementById('puesto').value;
+    var id_tipo_trabajador = document.getElementById('tipo_trabajador').value;
     var no_empleado = document.getElementById('num_empleado').value;
     var rfc = document.getElementById('rfc').value;
 
@@ -37,7 +38,8 @@ function guardar_empleado(event){
                 id_depto: id_depto,
                 id_puesto: id_puesto,
                 no_empleado: no_empleado,
-                rfc: rfc
+                rfc: rfc,
+                id_tipo_trabajador: id_tipo_trabajador
             },
             success: function(respuesta) {
                 var obj = JSON.parse(respuesta);

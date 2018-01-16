@@ -5,12 +5,15 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/logo/favicon.png');?>"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>INSPINIA | Dashboard</title>
 
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
+    <!-- sweetAlert -->
+    <link href="<?php echo base_url('assets/css/plugins/sweetalert/sweetalert.css');?>" rel="stylesheet">
      <!-- Toastr style -->
     <link href="<?php echo base_url('assets/css/plugins/toastr/toastr.min.css'); ?> " rel="stylesheet">
     <!-- Gritter -->
@@ -62,7 +65,9 @@
                     <li <?php  if (isset($active)) {   if ($active == "nomina") {  echo "class='active'";  }  }  ?> >
                         <a href="index.html"><i class="fa fa-dollar"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="">Periodos</a></li>
+                            <li <?php  if (isset($active1)) {  if ($active1 == "periodos") { echo "class='active'"; }}?>>
+                                <a href="<?php echo base_url('nomina_controller/periodos'); ?> ">Periodos</a>
+                            </li>
                             <li <?php  if (isset($active1)) {  if ($active1 == "alta_nomina") { echo "class='active'"; }}?>>
                               <a href="<?php echo base_url('nomina_controller/detalle_nomina'); ?> ">Alta de nómina</a></li>
                         </ul>

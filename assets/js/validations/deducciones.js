@@ -31,14 +31,12 @@ function saveDeduccion(){
 function editDeduccion(id){
 
     var indicador=document.getElementById("indicador"+id).innerHTML;    
-    var nombre=document.getElementById("nombre"+id).innerHTML;            
-    var tipo=document.getElementById("tipo"+id).innerHTML;              
+    var nombre=document.getElementById("nombre"+id).innerHTML;                         
 
     document.getElementById("idEditar").innerHTML=id+"";
     document.getElementById("idEditar").value=id;              
     document.getElementById("indicadorEditar").value=indicador;
-    document.getElementById("nombreEditar").value=nombre;  
-    document.getElementById("tipoEditar").value=tipo;            
+    document.getElementById("nombreEditar").value=nombre;           
 }
 
 function saveDeduccionEdit(){

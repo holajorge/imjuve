@@ -38,9 +38,27 @@ class Puesto_ctrl extends CI_Controller {
 	{
 		$puesto = array(
 		    'nivel' => $this->input->post('nivel'),			    
-		    'nombre' => $this->input->post('nombre'),	       
+		    'nombre' => $this->input->post('nombre'),	
+		    'status'  => 1,      
 		    );
 		$query = $this->Puesto_model->insertPuesto($puesto);
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+	public function edit_puestos(){
+
+		$id_puesto = $this->input->post('id');	
+		$puesto = array(
+		    'nivel' => $this->input->post('nivel'),			    
+		    'nombre' => $this->input->post('nombre'),	
+
+		    );
+
+		$query = $this->Puesto_model->updatePuesto($id_puesto, $puesto);
 		if ($query == 1) {
             $result['resultado'] = true;
         } else {

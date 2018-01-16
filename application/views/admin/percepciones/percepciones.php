@@ -30,14 +30,6 @@
 	                        <input type="text" name="nombre" id="perception_nombre" class="form-control input-lg" tabindex="2">
 	                        <span class="error">This field is required</span>
 						</div>
-					</div>
-
-					<div class="col-xs-12 col-sm-6 col-md-9">
-						<div class="form-group">
-							<label for="tipo">Tipo Percepcion</label>
-	                        <input type="text" name="tipo" id="perception_tipo" class="form-control input-lg"  tabindex="3">
-	                        <span class="error">This field is required</span>
-						</div>
 					</div>					
 				</div>
 				

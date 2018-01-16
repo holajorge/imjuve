@@ -1,4 +1,5 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<!-- <div class="wrapper wrapper-content animated fadeInRight"> -->
+<div class="row border-bottom white-bg dashboard-header">
 	<div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
@@ -28,8 +29,9 @@
 							  
 						</div>
 					</div>
-					
+					<!-- **************************************************** -->
 					<!-- Pestaña detalle de nómina -->
+					<!-- **************************************************** -->
 				    <div role="tabpanel" class="tab-pane" id="det_nomina">
 				    	<div class="margin-top"></div>
 				    	<!-- **************************************************** -->
@@ -37,31 +39,31 @@
 				    		
 				    	</div>
 				    	<!-- **************************************************** -->
+				    	<!-- DROPDOWN LISTA DE PERIODOS DE NÓMINA -->
+				    	<!-- **************************************************** -->
+				    	<div class="row">
+					    	<div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
+								<div class="dropdown">
+								  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    SELECCIONAR PERIODO QUINQUENAL
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="dropdown_lista_periodos">
+								    <!-- área donde se imprime el ajax -->
+								  </ul>
+								</div>
+					    	</div>
+				    	</div>
+				    	<h2 class="text-center"> <strong id="txt_per_quinq">  </strong></h2>
+				    	<!-- **************************************************** -->
+						<!-- tablas del detalle de nómina -->
+						<!-- **************************************************** -->
+						<div style="display: none;" id="det_nomina_oculto">
 				    	<!-- modal -->
 							<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="lista_percepciones();">
+						<button type="button" class="btn btn-primary" onclick="lista_percepciones();">
 						  Agregar percepciones
 						</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						      </div>
-						      <div class="modal-body" id="lista_percepciones">
-						        <!-- ÁREA DE PERCEPCIONES -->
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						        <button type="button" class="btn btn-primary" onclick="addPercepcionesAnomina();">Agregar</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-		            	<!-- fin modal -->
 
 		            	<table class="table table-bordered table-striped" id="id_tab_per">
 		            		<thead>
@@ -73,7 +75,7 @@
 			                        <th>INDICADOR</th>
 			                        <th>DESCRIPCIÓN</th>
 			                        <th>IMPORTE</th>
-			                        <th>TIPO</th>
+			                        <th>ELIMINAR</th>
 			                    </tr>
 		                    </thead>
 		 					<tbody id="body_tabla_percepciones">
@@ -90,29 +92,9 @@
 						<!-- *********************************************************************** -->
 						<!-- modal -->
 							<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_deducciones" onclick="lista_deducciones();">
+						<button type="button" class="btn btn-primary" onclick="lista_deducciones();">
 						  Agregar deducciones
 						</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="modal_deducciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						      </div>
-						      <div class="modal-body" id="lista_deducciones">
-						        <!-- ÁREA DE DEDUCCIONES -->
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						        <button type="button" class="btn btn-primary" onclick="addDeduccionAnomina();">Agregar</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-		            	<!-- fin modal -->
 						<!-- *********************************************************************** -->
 						<table class="table table-bordered table-striped" id="id_tab_ded">
 		            		<thead>
@@ -137,9 +119,49 @@
 			                    </tr>
 		                    </tfoot>
 						</table>
-						<button type="button" class="btn btn-primary" onclick="guardar_datos_nomina();">
+						<!-- ********************************************************* -->
+						<!-- TABLA DE APORTACIONES -->
+						<!-- ********************************************************* -->
+						<!-- modal -->
+							<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" onclick="lista_aportaciones();">
+						  Agregar aportaciones
+						</button>
+						<!-- *********************************************************************** -->
+						<table class="table table-bordered table-striped" id="id_tab_apor">
+		            		<thead>
+		            			<tr>
+		            				<th COLSPAN="4" class="text-center success">APORTACIONES</th>
+		            			</tr>
+			                    <tr class="warning">
+			                    	<th style="display: none;">ID</th>
+			                        <th>INDICADOR</th>
+			                        <th>DESCRIPCIÓN</th>
+			                        <th>IMPORTE</th>
+			                        <th>ELIMINAR</th>
+			                    </tr>
+		                    </thead>
+		 					<tbody id="body_tabla_aportaciones">
+							  
+							</tbody>
+							<tfoot>
+		                    	<tr>
+			                        <th COLSPAN="2">TOTAL</th>
+			                        <th id="total_aportaciones"></th>
+			                    </tr>
+		                    </tfoot>
+						</table>
+						<!-- **************************************************** -->
+						<!-- BOTON GUARDAR-->
+						<!-- **************************************************** -->
+						<button type="button" class="btn btn-primary pull-right" onclick="guardar_datos_nomina();">
 						  guardar
 						</button>
+
+						</div>
+						<!-- **************************************************** -->
+						<!-- fin tablas detalle de nómina -->
+						<!-- **************************************************** -->
 					</div>
 				  </div>
 

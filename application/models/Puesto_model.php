@@ -24,6 +24,13 @@ class Puesto_model extends CI_Model {
    	 	return $this->db->insert('cat_puestos', $puesto);
     }
 
+   public function updatePuesto($id_puesto, $puesto){
+
+              $this->db->where('id_puesto', $id_puesto);
+      return $this->db->update('cat_puestos', $puesto);
+    
+   }
+
 
 
 }

@@ -39,16 +39,16 @@ function savePuesto(event){
             document.getElementById("nombreEditar").value=nombre;                      
     }
 
- function savePercepcionEdit(){
+ function savePuestoEdit(){
 
         $.ajax({
-                url: baseURL + "Percepciones_ctrl/edit_perception",
+                url: baseURL + "Puesto_ctrl/edit_puestos",
                 type: "POST",
-                data: $("#formPercepcionEditar").serialize(),
+                data: $("#formPuestosEditar").serialize(),
                 success: function(respuesta) {
                     var obj = JSON.parse(respuesta);
                         if (obj.resultado === true) {
-                          $("#editarPercepcion").modal('hide');
+                          $("#editarPuesto").modal('hide');
                                 setTimeout(function() {
                                 toastr.options = {
                                     closeButton: true,

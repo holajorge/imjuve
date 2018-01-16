@@ -42,7 +42,7 @@
         <h4 class="modal-title" id="myModalLabel">Editar Puesto</h4>        
       </div>
       <div class="modal-body">
-        <form role="form" id="formPuestoEditar">
+        <form role="form" id="formPuestosEditar">
             <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4">

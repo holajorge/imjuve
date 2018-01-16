@@ -8,8 +8,7 @@
                             <thead>
                                 <tr>
                                     <th>indicador</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th> 
+                                    <th>Nombre</th> 
                                     <th class="text-center">Acciones</th>                                                  
                                 </tr>
                             </thead>
@@ -17,8 +16,7 @@
                             <?php foreach ($deducciones as  $deduccion): ?>                                                                
                                 <tr class="gradeA">
                                     <td><label  id="indicador<?php echo $deduccion->id_deduccion ?>"><?php echo  $deduccion->indicador ?></label></td> 
-                                    <td><label  id="nombre<?php echo $deduccion->id_deduccion ?>"><?php echo $deduccion->nombre?></label></td>
-                                    <td> <label  id="tipo<?php echo $deduccion->id_deduccion ?>"><?php echo $deduccion->tipo?></label></td>  
+                                    <td><label  id="nombre<?php echo $deduccion->id_deduccion ?>"><?php echo $deduccion->nombre?></label></td>  
                                     <td class="text-center">
                                         <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $deduccion->id_deduccion ?>')">Desabilitar</button>                                  
                                         <button class="btn btn-info" onclick="editDeduccion('<?php echo $deduccion->id_deduccion ?>')" data-toggle="modal" data-target="#editarDeduccion">Editar</button>                                                               
@@ -58,13 +56,7 @@
                             <label for="nombre">Nombre Percepcion</label>
                             <input type="text" name="nombre" id="nombreEditar" class="form-control input-lg" tabindex="2">
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-9">
-                        <div class="form-group">
-                            <label for="tipo">Tipo Percepcion</label>
-                            <input type="text" name="tipo" id="tipoEditar" class="form-control input-lg"  tabindex="3">
-                        </div>
-                    </div>                                     
+                    </div>                                    
                 </div>                
         </form>
       </div>

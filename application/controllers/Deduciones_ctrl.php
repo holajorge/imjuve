@@ -36,9 +36,8 @@ class Deduciones_ctrl extends CI_Controller {
 	{
 		$deduccion = array(
 			'indicador' => $this->input->post('indicador'),		 
-		    'nombre' => $this->input->post('nombre'),	
-		    'tipo' => $this->input->post('tipo'),
-		    'opcion_default' => 1,	       
+		    'nombre' => $this->input->post('nombre'),
+		    'status' => 1,	       
 		    );
 		$query = $this->Deduciones_model->insertDeducciones($deduccion);
 		if ($query == 1) {
@@ -53,8 +52,7 @@ class Deduciones_ctrl extends CI_Controller {
 		$id = $this->input->post('id');
 		$deduccion = array(
 			'indicador' => $this->input->post('indicador'),		 
-		    'nombre' => $this->input->post('nombre'),	
-		    'tipo' => $this->input->post('tipo'),
+		    'nombre' => $this->input->post('nombre'),
 		    'opcion_default' => 1,	       
 		    'status' => 1,
 		    );
@@ -71,7 +69,7 @@ class Deduciones_ctrl extends CI_Controller {
 		$query = $this->Deduciones_model->getAll();
 		if ($query != false) {
             $result['resultado'] = true;
-            $result['percepciones'] = $query;
+            $result['deducciones'] = $query;
         } else {
             $result['resultado'] = false;
         }
