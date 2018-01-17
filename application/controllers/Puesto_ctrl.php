@@ -11,7 +11,7 @@ class Puesto_ctrl extends CI_Controller {
 
     public function index()
 	{
-		if($this->session->userdata('tipo_usuario')=="admin"){
+		if($this->session->userdata('logged_in')==true){
 	    
 		    $dato['active'] = "puesto";
 	        $dato['active1'] = "lista_puestos";
@@ -65,22 +65,6 @@ class Puesto_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);	
-	}
-
-	public function edit_puesto(){
-
-		$puesto = array(
-		    'nivel' => $this->input->post('nivel'),			    
-		    'nombre' => $this->input->post('nombre'),	       
-		    );
-		$query = $this->Puesto_model->uptadePuesto($puesto);
-		if ($query == 1) {
-            $result['resultado'] = true;
-        } else {
-            $result['resultado'] = false;
-        }
-        echo json_encode($result);	
-
 	}
 
 }

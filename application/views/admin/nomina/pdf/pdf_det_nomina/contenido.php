@@ -1,10 +1,13 @@
-<table class="table table-bordered table-striped" id="">
+<!-- ************************************************************************ -->
+<!-- PERCEPCIONES-->
+<!-- ************************************************************************ -->
+<table class="table table-striped" id="" style="font-size: 12px;">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">PERCEPCIONES</th>
         </tr>
         <tr class="warning">                    
-            <th class="text-center">INDICADOR</th>
+            <th class="text-center">CÓDIGO</th>
             <th class="text-center">DESCRIPCIÓN</th>
             <th class="text-center">IMPORTE</th>
         </tr>
@@ -12,10 +15,12 @@
     <tbody>
         <?php $total_percepciones = 0; ?>
         <?php foreach ($percepciones as $fila){ ?>
+            
             <tr>
-                <td> <?php echo $fila->indicador; ?> </td>
-                <td> <?php echo $fila->nombre; ?> </td>
-                <td class="text-right"> <?php echo $fila->importe; ?> </td>
+                <td width="15%"> <?php echo $fila->indicador; ?> </td>
+                <td width="65%"> <?php echo $fila->nombre; ?> </td>
+                <td width="20%" class="text-right"> $<?php echo number_format($fila->importe,2); ?> 
+                </td>
             </tr>
         <?php $total_percepciones += $fila->importe; ?>
         <?php } ?>
@@ -23,18 +28,20 @@
     <tfoot>
         <tr>
          <th class="text-right" COLSPAN="2">TOTAL</th>
-         <th class="text-right"> <?php echo $total_percepciones; ?> </th>
+         <th class="text-right"> $<?php echo number_format($total_percepciones,2); ?> </th>
         </tr>
     </tfoot>
 </table>
-
-<table class="table table-bordered table-striped" id="">
+<!-- ************************************************************************ -->
+<!-- DEDUCCIONES -->
+<!-- ************************************************************************ -->
+<table class="table table-bordered table-striped" id="" style="font-size: 12px;">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">DEDUCCIONES</th>
         </tr>
         <tr class="warning">                    
-            <th class="text-center">INDICADOR</th>
+            <th class="text-center">CÓDIGO</th>
             <th class="text-center">DESCRIPCIÓN</th>
             <th class="text-center">IMPORTE</th>
         </tr>
@@ -43,9 +50,9 @@
             <?php $total_deduccion = 0; ?>
             <?php foreach ($deducciones as $fila){ ?>
             <tr>
-                <td > <?php echo $fila->indicador; ?> </td>
-                <td > <?php echo $fila->nombre; ?> </td>
-                <td class="text-right"> <?php echo $fila->importe; ?> </td>
+                <td width="15%"> <?php echo $fila->indicador; ?> </td>
+                <td width="65%"> <?php echo $fila->nombre; ?> </td>
+                <td width="20%" class="text-right"> $<?php echo number_format($fila->importe,2); ?> </td>
             </tr>
             <?php $total_deduccion += $fila->importe; ?>
             <?php } ?>
@@ -54,26 +61,20 @@
     <tfoot>
         <tr>
          <th class="text-right" COLSPAN="2">TOTAL</th>
-         <th class="text-right"> <?php echo $total_deduccion; ?></th>
+         <th class="text-right"> $<?php echo number_format($total_deduccion,2); ?></th>
         </tr>
     </tfoot>
 </table>
-
-<!-- ************************************************************************ -->
-<!-- Imprimir Líquido -->
-<!-- ************************************************************************ -->
-<?php $liquido = $total_percepciones - $total_deduccion; ?>
-<h4 class="text-right"> Líquido: $<?php echo $liquido; ?></h4>
 <!-- ************************************************************************ -->
 <!-- APORTACIONES -->
 <!-- ************************************************************************ -->
-<table class="table table-bordered table-striped" id="">
+<table class="table" id="" style="font-size: 12px;">
     <thead>
         <tr>
-            <th COLSPAN="3" class="text-center success">DEDUCCIONES</th>
+            <th COLSPAN="3" class="text-center success">APORTACIONES</th>
         </tr>
         <tr class="warning">                    
-            <th class="text-center">INDICADOR</th>
+            <th class="text-center">CÓDIGO</th>
             <th class="text-center">DESCRIPCIÓN</th>
             <th class="text-center">IMPORTE</th>
         </tr>
@@ -81,10 +82,10 @@
     <tbody id="">
             <?php $total_aportaciones = 0; ?>
             <?php foreach ($aportaciones as $fila){ ?>
-            <tr>
-                <td > <?php echo $fila->indicador; ?> </td>
-                <td > <?php echo $fila->nombre; ?> </td>
-                <td class="text-right"> <?php echo $fila->importe; ?> </td>
+            <tr class="success">
+                <td width="15%"> <?php echo $fila->indicador; ?> </td>
+                <td width="65%"> <?php echo $fila->nombre; ?> </td>
+                <td width="20%" class="text-right"> $<?php echo number_format($fila->importe,2); ?> </td>
             </tr>
             <?php $total_aportaciones += $fila->importe; ?>
             <?php } ?>
@@ -93,10 +94,15 @@
     <tfoot>
         <tr>
          <th class="text-right" COLSPAN="2">TOTAL</th>
-         <th class="text-right"> <?php echo $total_aportaciones; ?></th>
+         <th class="text-right"> $<?php echo number_format($total_aportaciones,2); ?></th>
         </tr>
     </tfoot>
 </table>
+<!-- ************************************************************************ -->
+<!-- Imprimir Líquido -->
+<!-- ************************************************************************ -->
+<?php $liquido = $total_percepciones - $total_deduccion; ?>
+<h5 class="text-right"> <strong> Líquido: $<?php echo number_format($liquido,2); ?> </strong></h5>
 <!-- ************************************************************************ -->
 <!-- ÁREA DE FIRMAS -->
 <!-- ************************************************************************ -->
@@ -106,4 +112,7 @@
 </h5>
 <h5 class="text-center">
     RECIBÍ TRANSFERENCIA
+</h5>
+<h5 class="text-center">
+    $<?php echo number_format($liquido,2); ?>
 </h5>

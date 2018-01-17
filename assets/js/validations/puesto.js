@@ -42,15 +42,9 @@ function savePuesto(event){
  function savePuestoEdit(){
 
         $.ajax({
-<<<<<<< HEAD
                 url: baseURL + "Puesto_ctrl/edit_puestos",
                 type: "POST",
                 data: $("#formPuestosEditar").serialize(),
-=======
-                url: baseURL + "Puesto_ctrl/edit_puesto",
-                type: "POST",
-                data: $("#formPuestoEditar").serialize(),
->>>>>>> 4a4cd8640eadfc747c03eb1def5a7f15d95b94d9
                 success: function(respuesta) {
                     var obj = JSON.parse(respuesta);
                         if (obj.resultado === true) {
