@@ -10,7 +10,7 @@ class Depto_ctrl extends CI_Controller {
     }
 	public function index()
 	{
-		 if($this->session->userdata('tipo_usuario')=="admin"){
+		 if($this->session->userdata('logged_in')==true){
 	      	$dato['active'] = "depto";
 	        $dato['active1'] = "lista_departamentos";
 			$data['deptos'] = $this->Depto_model->getAll();

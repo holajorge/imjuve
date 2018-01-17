@@ -240,7 +240,7 @@ function lista_percepciones(){
                         html += "<td style='display: none;'>" + obj.percepciones[l].id_percepcion + "</td>";
                         html += "<td>" + obj.percepciones[l].indicador + "</td>";
                         html += "<td>" + obj.percepciones[l].nombre +"</td>";
-                        html += "<td>" + "<input type='number' id='id_per_"+obj.percepciones[l].id_percepcion+"' onkeyup='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> " +"</td>";
+                        html += "<td>" + "<input type='number' id='id_per_"+obj.percepciones[l].id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> " +"</td>";
                         html += "<td>" + "<button type='button' id='borrar_celda_per' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>" +"</td>";
                         html += "</tr>";
                     }
@@ -296,6 +296,9 @@ function calc_total_percepciones(){
     calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
     $("#total_percepcion").html(total_percepciones.toFixed(2));
     calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+    //calcular el total del líquido cada vez que se haga un cambio al input
+    calcular_liquido();
+    
 }
 
 function calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio1, sueldoConfianza1){
@@ -370,9 +373,9 @@ function lista_deducciones(){
                             html += "<td>" + obj.deducciones[l].nombre +"</td>";
                             //html += "<td>" + "<input type='checkbox' name='check_ded[]' value='"+ num_fila +"'>" +"</td>";
                             if (id_d > 1 & id_d <= 6) {
-                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>";
+                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>";
                             }else{
-                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
+                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
                             }
                             html += "<td>" +"<button type='button' id='borrar_celda_ded' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
                             html += "</tr>"; 
@@ -403,60 +406,65 @@ function calc_total_deducciones(){
         }
     }
     $("#total_deducciones").html(total_deducciones.toFixed(2));
+    //calcular el total del líquido cada vez que se haga un cambio al input
+    calcular_liquido();
 }
 //************************************************************************************
 //PREPARAR DATOS PARA GUARDAR NÓMINA EN LA BASE DE DATOS
 //************************************************************************************
 
 function guardar_datos_nomina(){
-    swal({
-        title: "Confirmar",
-        text: "¿Desea guardar los datos de la nómina?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si, Guardar!",
-        closeOnConfirm: false
-    }, function () {
         
     var id_nomina = document.getElementById("id_per_q_nomina").value;
-    //console.log("id_nomina: " + id_nomina);
-
     var id_empleado = document.getElementById("id_empleado_en_nomina").value;
-    //console.log("id_empleado: " + id_empleado);
-
     var data_percepciones = get_data_tabla(".importe_percepcion","tabla_percepciones","id_per_");
-    //console.log(data_percepciones);
-
     var data_deducciones = get_data_tabla(".importe_deduccion","tabla_deducciones","id_ded_");
-    //console.log(data_deducciones);
-
     var data_aportaciones = get_data_tabla(".importe_aportacion","tabla_aportaciones","id_apor_");
-    //console.log(data_aportaciones);
+    
+    //SE VERIFICA QUE NO HAYAN CAMPOS VACIOS Y QUE SE HAYAN SELECCIONADO LAS 3 TABLAS
+    if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
+        swal({
+            title: " ",
+            text: "FALTAN CAMPOS POR LLENAR",
+            type: "warning"
+        });
+    }else{
+        swal({
+            title: "Confirmar",
+            text: "¿Desea guardar los datos de la nómina?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si, Guardar!",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                url: baseURL + "Nomina_controller/guardar_detalle_nomina",
+                type: "POST",
+                data: {
+                    id_nomina: id_nomina,
+                    id_empleado: id_empleado,
+                    data_percepciones: data_percepciones,
+                    data_deducciones: data_deducciones,
+                    data_aportaciones: data_aportaciones
+                },
+                success: function(respuesta) {
+                    var obj = JSON.parse(respuesta);
+                        if (obj.resultado === true) {
+                            // alert(obj.data_per[0].importe);
+                            swal("GUARDADO", "LA NÓMINA SE GUARDADO CORRECTAMENTE", "success");
+                            setTimeout(function(){
+                                window.location.replace(baseURL + "Nomina_controller/detalle_nomina");
+                            }, 1500);                    
+                        }
+                } 
+            });
 
-    $.ajax({
-        url: baseURL + "Nomina_controller/guardar_detalle_nomina",
-        type: "POST",
-        data: {
-            id_nomina: id_nomina,
-            id_empleado: id_empleado,
-            data_percepciones: data_percepciones,
-            data_deducciones: data_deducciones,
-            data_aportaciones: data_aportaciones
-        },
-        success: function(respuesta) {
-            var obj = JSON.parse(respuesta);
-                if (obj.resultado === true) {
-                    // alert(obj.data_per[0].importe);
-                    swal("GUARDADO", "LA NÓMINA SE GUARDADO CORRECTAMENTE", "success");
-                    setTimeout(function(){
-                        window.location.replace(baseURL + "Nomina_controller/detalle_nomina");
-                    }, 1500);                    
-                }
-        } 
-    });
+        });
 
-    });
+    }
+
+    
     
 }
 //************************************************************************************
@@ -470,14 +478,27 @@ function get_data_tabla(nombre, tabla, id_input){
     // alert(valores[2].id);
     var data = new Array();
     // var indice_celda = 2;
+    var camposVacios = false;
     for (var i = 0; i < valores.length; i++) {
+
         var id  = valores[i].id;
         var id_data = id.split("_");
         var valor = document.getElementById(id_input+id_data[2]).value;
-
+        document.getElementById(id_input+id_data[2]).removeAttribute("style");
+        if (valor == "" | parseFloat(valor) <= 0) {
+            document.getElementById(id_input+id_data[2]).setAttribute("style", "border-color: red;");
+            camposVacios = true;
+        }
             data.push({"id":id_data[2],"importe":valor});
     }
-
+    //*************************************************************************
+    //SE VALIDA QUE YA SE HAYAN DADO DE ALTA AL MENOS UN CONCEPTO DE 
+    //APORTACIONES, DEDUCCIONES Y PRESTACIONES
+    //***************************************************************************
+    if (valores.length <= 0) {
+        camposVacios = true;
+    }
+    data.push({"camposvacios":camposVacios});
     return data;
     //console.log(data);
 }
@@ -530,9 +551,9 @@ function lista_aportaciones(){
                         html += "<td>" + obj.aportaciones[l].indicador + "</td>";
                         html += "<td>" + obj.aportaciones[l].nombre +"</td>";
                         if (id_apor > 0 & id_apor <= 7) {
-                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>";
+                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>";
                         }else{
-                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
                         }
                         html += "<td>" +"<button type='button' id='borrar_celda_apor' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
                         html += "</tr>";
@@ -632,4 +653,21 @@ function calc_total_aportaciones(){
         }
     }
     $("#total_aportaciones").html(total_aportaciones.toFixed(2));
+}
+
+//************************************************************************************
+//CALCULAR LIQUIDO
+//************************************************************************************
+
+function calcular_liquido(){
+    var total_percepciones = document.getElementById("total_percepcion").innerHTML;
+    var total_deducciones = document.getElementById("total_deducciones").innerHTML;
+    if (total_percepciones == "") {
+        total_percepciones = 0;
+    }
+    if (total_deducciones == "") {
+        total_deducciones = 0;
+    }
+    var liquido = parseFloat(total_percepciones) - parseFloat(total_deducciones);
+    $("#liquido-nom").html("LÍQUIDO: "+liquido.toFixed(2));
 }

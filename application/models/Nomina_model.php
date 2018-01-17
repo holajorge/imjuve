@@ -58,7 +58,7 @@ class Nomina_model extends CI_Model {
       }
   }
   public function guardar_percepciones_nomina($id_nomina,$id_empleado,$data_percepciones){
-    for ($i=0; $i < count($data_percepciones); $i++) { 
+    for ($i=0; $i < (count($data_percepciones)- 1); $i++) { 
       $percepciones_nomina = array(
                     'id_empleado' => $id_empleado, 
                     'id_percepcion' => $data_percepciones[$i]["id"],
@@ -72,7 +72,7 @@ class Nomina_model extends CI_Model {
   }
 
   public function guardar_deducciones_nomina($id_nomina,$id_empleado,$data_deducciones){
-    for ($i=0; $i < count($data_deducciones); $i++) { 
+    for ($i=0; $i < (count($data_deducciones) - 1); $i++) { 
       $deducciones_nomina = array(
                     'id_empleado' => $id_empleado, 
                     'id_deduccion' => $data_deducciones[$i]["id"],
@@ -86,7 +86,7 @@ class Nomina_model extends CI_Model {
   }
 
   public function guardar_aportaciones_nomina($id_nomina,$id_empleado,$data_aportaciones){
-    for ($i=0; $i < count($data_aportaciones); $i++) { 
+    for ($i=0; $i < (count($data_aportaciones) - 1); $i++) { 
       $aportaciones_nomina = array(
                     'id_empleado' => $id_empleado, 
                     'id_aportacion' => $data_aportaciones[$i]["id"],
@@ -103,7 +103,7 @@ class Nomina_model extends CI_Model {
   //***************************************************************************
   public function datos_empleado_nomina($id_empleado, $id_nomina){
 
-    $query = $this->db->query("SELECT cat_empleados.id_empleado,  cat_empleados.nombre as 'empleado', cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.curp, cat_empleados.no_plaza,  cat_empleados.rfc , cat_puestos.nombre as 'puesto',
+    $query = $this->db->query("SELECT cat_empleados.id_empleado,  cat_empleados.nombre as 'empleado', cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.curp, cat_empleados.no_plaza,  cat_empleados.rfc, cat_empleados.horas, cat_puestos.nivel, cat_puestos.nombre as 'puesto',
                       cat_depto.nombre as 'depto', cat_empleados.no_empleado, tab_nomina.periodo_inicio, tab_nomina.periodo_fin, tab_nomina.periodo_quinquenal
                    FROM cat_percepciones, empleadosxpercepciones, tab_nomina,  cat_empleados, cat_puestos, cat_depto
                    WHERE cat_empleados.id_empleado = empleadosxpercepciones.id_empleado 

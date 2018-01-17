@@ -9,10 +9,6 @@ class Empleado_controller extends CI_Controller {
         // $this->load->library('bcrypt');
         $this->load->model('Empleado_model');
     }
-    public function index()
-    {
-        
-    }
 
     public function create(){
         $data['deptos'] = $this->Empleado_model->get_departamentos();

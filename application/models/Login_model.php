@@ -15,10 +15,10 @@ class Login_model extends CI_Model {
    	 						   FROM cat_usuarios ct_us, cat_empleados ct_eds, empleadosxusuario uxe
    	 						   WHERE ct_us.tipo_usuario='".$admin."' AND ct_eds.rfc='".$rfc."' AND uxe.password='".$password."' ");
    	 
-   	$resultado = $query->row();
+   	//$resultado = $query->row();
    	
-   	 if ($resultado) {
-            return $resultado;
+   	 if ($query->num_rows() > 0) {
+            return $query->result();
         } else {
             return false;
         }

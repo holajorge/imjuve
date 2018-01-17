@@ -12,7 +12,7 @@ class Percepciones_ctrl extends CI_Controller {
 
 	public function index()
 	{
-		if($this->session->userdata('tipo_usuario')=="admin"){
+		if($this->session->userdata('logged_in')==true){
 	      	$dato['active'] = "percepcion";
             $dato['active1'] = "lista_percepciones";
 		    $data['percepciones'] = $this->Percepciones_model->getAll();

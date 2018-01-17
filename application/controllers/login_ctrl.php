@@ -11,8 +11,14 @@ class login_ctrl extends CI_Controller {
 
 	public function index()
 	{
-		$data['error'] = $this->session->flashdata('error');
-		$this->load->view('login', $data);		
+		
+			if($this->session->userdata('logged_in')==true){
+				redirect('Admin_controller');
+			}else{
+				$data["error"] = "";
+				$this->load->view('login',$data);
+			}
+					
 	}
 
 	public function autentificarUser(){
@@ -27,17 +33,18 @@ class login_ctrl extends CI_Controller {
 	      // var_dump($fila); die();
 
 	      if($fila){  	    
-	        $tipo = $fila->tipo_usuario;
+	        $tipo = $fila[0]->tipo_usuario;
 		        if($tipo == "admin"){
 			          $data = array(
-			            'id_usuario'   =>  $fila->id_usuario,
-			            'nombre'   =>  $fila->nombre,
-			            'apellido'   =>  $fila->ap_paterno,
-			            'logueado' =>TRUE,
-			            'tipo_usuario'=> $fila->tipo_usuario
+			            'id_usuario'   =>  $fila[0]->id_usuario,
+			            'nombre'   =>  $fila[0]->nombre,
+			            'apellido'   =>  $fila[0]->ap_paterno,
+			            'logged_in' =>TRUE,
+			            'tipo_usuario'=> $fila[0]->tipo_usuario
 			            );
 			          $this->session->set_userdata($data);
-			          $this->logueadoRoot();	      
+
+			          redirect('Admin_controller');	      
 			     } 
 	   	  }else{	
 	   	  	 $this->session->set_flashdata('error', '<strong>Usuario o Contraseña</strong> Incorrecto*');   
@@ -45,17 +52,7 @@ class login_ctrl extends CI_Controller {
 	      } 
 	  }
 	}
-	public function logueadoRoot()
-	{
-	    if($this->session->userdata('logueado'))
-	    {	     
-		     $data['nombre'] = $this->session->userdata('nombre');
-		     $data['apellido'] = $this->session->userdata('apellido'); 
-		     redirect('Admin_controller', $data);	     
-	    }else{
-	         redirect('login_ctrl');
-	    }
-    }
+	
     
     public function cerrar_sesion() 
 	{

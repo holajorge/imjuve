@@ -109,13 +109,10 @@ class Nomina_controller extends CI_Controller {
         //       PDF
         //**********************************************************************************
         $this->load->library('M_pdf');
-        $mpdf = new mPDF('c', 'A4', '', '', '15', '15', '60', '5');
-
-        /**************************************** Hoja de estilos ****************************************************/
+        $mpdf = new mPDF('c', 'A4', '', '', '15', '15', '60', '5');        /**************************************** Hoja de estilos ****************************************************/
         //$stylesheet = file_get_contents('assets/css/pdf/pdf.css');
         $stylesheet = file_get_contents('assets/css/bootstrap.min.css');
-        $mpdf->WriteHTML($stylesheet, 1);
-
+        $mpdf->WriteHTML($stylesheet, 1); 
         /******************************************** head pdf ******************************************************/
         //$data['DatosPaci'] = $this->recepcion_model->DatosPaciente($dato);
         $data['header_pdf'] = $this->Nomina_model->datos_empleado_nomina($id_empleado, $id_nomina);
@@ -138,7 +135,7 @@ class Nomina_controller extends CI_Controller {
         /****************************************** imprmir pagina ********************************************************/
         $mpdf->WriteHTML($html);
         ob_clean();
-        $content = $mpdf->Output('Resultados.pdf', "I");
+        $mpdf->Output('Resultados.pdf', "D");
         //**********************************************************************************
         //    FIN   PDF
         //**********************************************************************************
