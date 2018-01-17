@@ -1,6 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
+            <a type="button" class="col-lg-2 btn btn-primary pull-right" href="<?php echo base_url('Puesto_ctrl/create'); ?>" >Registrar Puesto</a>
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                   <div class="table-responsive">
@@ -13,16 +14,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($puestos as  $puesto): ?>                                                                
-                                <tr class="gradeA"> 
-                                    <td><label  id="nivel<?php echo $puesto->id_puesto ?>"><?php echo  $puesto->nivel ?></label></td> 
-                                    <td><label  id="nombre<?php echo $puesto->id_puesto ?>"><?php echo $puesto->nombre?></label></td>
-                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $puesto->id_puesto ?>')">Desabilitar</button>                                  
-                                        <button class="btn btn-info" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto">Editar</button>                                                               
-                                    </td>  
-                                </tr>                                
-                            <?php endforeach ?>
+                            <?php if ($puestos !=  null): ?>
+                                <?php foreach ($puestos as  $puesto): ?>                                                                
+                                    <tr class="gradeA"> 
+                                        <td><label  id="nivel<?php echo $puesto->id_puesto ?>"><?php echo  $puesto->nivel ?></label></td> 
+                                        <td><label  id="nombre<?php echo $puesto->id_puesto ?>"><?php echo $puesto->nombre?></label></td>
+                                         <td class="text-center">
+                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $puesto->id_puesto ?>')">Desabilitar</button>                                  
+                                            <button class="btn btn-info" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
+                                        </td>  
+                                    </tr>                                
+                                <?php endforeach ?>
+                            <?php else: ?>
+                            <?php endif ?>
                             </tbody>                            
                         </table>
                     </div>

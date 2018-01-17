@@ -1,54 +1,103 @@
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    });
+    $("#formPercepcion").validate({
 
-    function verificarIndicador(){
-      $.ajax({
-       type: "POST",
-       url: baseURL +"Percepciones_ctrl/searchIndicador",
-             data: $("#formPercepcion").serialize(), // serializes the form's elements.,
-             success: function(respuesta){
-               var obj = JSON.parse(respuesta);
-               if (obj.resultado === true) {
-                                setTimeout(function() {
-                                toastr.options = {
-                                    closeButton: true,
-                                    progressBar: true,
-                                    showMethod: 'slideDown',
-                                    timeOut: 4000
-                                };
-                            toastr.warning('Asigne otro numero de indicador', 'INDICADOR YA REGISTRADO');
-                        }, 1300);
-              }
-            }
-      }) 
-    }
-    function savePercepcion(){
-        
+      rules: {
+        indicador: { required: true},
+        nombre: { required: true},            
+      },        
+      messages: {
+        indicador: "Indicador Necesario",
+        nombre: "Nombre Indicador Necesario",            
+      },
+      submitHandler: function(){    
+        var dataString = $("#formPercepcion").serialize();
         $.ajax({
-                url: baseURL + "Percepciones_ctrl/create_percepciones",
-                type: "POST",
-                data: $("#formPercepcion").serialize(),
-                success: function(respuesta) {
-                    var obj = JSON.parse(respuesta);
-                        if (obj.resultado === true) {
-                          
-                           //Limpiar formulario
-                           $("#formPercepcion")[0].reset(); 
-                           //Mensaje de operación realizada con éxito
-                            setTimeout(function() {
-                                toastr.options = {
-                                    closeButton: true,
-                                    progressBar: true,
-                                    showMethod: 'slideDown',
-                                    timeOut: 4000
-                                };
-                            toastr.success('Los datos se guardaron correctamente', 'DATOS GUARDADOS');
-                        }, 1300);
+            type: "POST",
+            url:baseURL + "Percepciones_ctrl/create_percepciones",
+            data: dataString,
+            success: function(respuesta) {
+              var obj = JSON.parse(respuesta);
+                if (obj.resultado === true) {                      
+                   //Limpiar formulario
+                   $("#formPercepcion")[0].reset(); 
+                   //Mensaje de operación realizada con éxito
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                    toastr.success('Los datos se guardaron correctamente', 'DATOS GUARDADOS');
+                }, 1300);
                 }
             } 
         });
-    }
+      }
+    });
+
+    $("#formPercepcionEditar").validate({
+
+      rules: {
+        indicador: { required: true},
+        nombre: { required: true},            
+      },        
+      messages: {
+        indicador: "Indicador Necesario",
+        nombre: "Nombre Indicador Necesario",            
+      },
+      submitHandler: function(){    
+        var dataString = $("#formPercepcionEditar").serialize();
+        $.ajax({
+            type: "POST",
+            url:baseURL + "Percepciones_ctrl/edit_perception",
+            data: dataString,
+            success: function(respuesta) {
+              var obj = JSON.parse(respuesta);
+                if (obj.resultado === true) {                      
+                   //Limpiar formulario
+                   $("#editarPercepcion").modal('hide');
+                   //Mensaje de operación realizada con éxito
+                    setTimeout(function() {
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                    toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                }, 1300);
+                }
+            } 
+        });
+      }
+    });
+
+});
+
+function verificarIndicador(){
+
+  $.ajax({
+   type: "POST",
+   url: baseURL +"Percepciones_ctrl/searchIndicador",
+         data: $("#formPercepcion").serialize(), // serializes the form's elements.,
+         success: function(respuesta){
+           var obj = JSON.parse(respuesta);
+           if (obj.resultado === true) {
+                    setTimeout(function() {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                toastr.warning('Asigne otro numero de indicador', 'INDICADOR YA REGISTRADO');
+            }, 1300);
+          }
+        }
+  }); 
+}
 
     function editPercepcion(id){
 
@@ -90,29 +139,5 @@
                     swal("Error deleting!", "Please try again", "error");
                   }
                 });
-        });
-    }
-
-    function savePercepcionEdit(){
-
-        $.ajax({
-                url: baseURL + "Percepciones_ctrl/edit_perception",
-                type: "POST",
-                data: $("#formPercepcionEditar").serialize(),
-                success: function(respuesta) {
-                    var obj = JSON.parse(respuesta);
-                        if (obj.resultado === true) {
-                          $("#editarPercepcion").modal('hide');
-                                setTimeout(function() {
-                                toastr.options = {
-                                    closeButton: true,
-                                    progressBar: true,
-                                    showMethod: 'slideDown',
-                                    timeOut: 4000
-                                };
-                            toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
-                        }, 1300);
-                }
-            } 
         });
     }

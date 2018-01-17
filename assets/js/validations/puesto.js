@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
 });
 function savePuesto(event){
     event.preventDefault();
