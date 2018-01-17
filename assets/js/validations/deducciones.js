@@ -29,7 +29,7 @@ $(document).ready(function() {
                             showMethod: 'slideDown',
                             timeOut: 4000
                         };
-                    toastr.success('Los datos se guardaron correctamente', 'DATOS GUARDADOS');
+                    toastr.success('Los datos se guardaron correctamente', 'DATOS GUARDADOS');                   
                 }, 1300);
                 }
             } 
@@ -64,9 +64,12 @@ $(document).ready(function() {
                             closeButton: true,
                             progressBar: true,
                             showMethod: 'slideDown',
-                            timeOut: 4000
+                            timeOut: 1200
                         };
-                    toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                    toastr.success('Los datos se guardaron correctamente', 'ACTUALIZANDO DATOS');
+                    setTimeout(function() {                    
+                      window.location.href = baseURL + "Deduciones_ctrl/index";
+                    }, 1300); 
                 }, 1300);
                 }
             } 

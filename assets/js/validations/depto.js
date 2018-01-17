@@ -64,9 +64,12 @@ $(document).ready(function() {
                             closeButton: true,
                             progressBar: true,
                             showMethod: 'slideDown',
-                            timeOut: 4000
+                            timeOut: 1200
                         };
-                    toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                    toastr.success('Los datos se guardaron correctamente', 'ACTUALIZANDO DATOS');
+                    setTimeout(function() {                    
+                      window.location.href = baseURL + "Depto_ctrl/index";
+                    }, 1300);
                 }, 1300);
                 }
             } 

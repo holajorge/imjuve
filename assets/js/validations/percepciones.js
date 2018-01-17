@@ -64,9 +64,12 @@ $(document).ready(function() {
                             closeButton: true,
                             progressBar: true,
                             showMethod: 'slideDown',
-                            timeOut: 4000
+                            timeOut: 1200
                         };
                     toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                    setTimeout(function() {                    
+                          window.location.href = baseURL + "Percepciones_ctrl/index";
+                        }, 1300);
                 }, 1300);
                 }
             } 
