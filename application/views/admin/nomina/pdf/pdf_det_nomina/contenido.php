@@ -1,7 +1,7 @@
 <!-- ************************************************************************ -->
 <!-- PERCEPCIONES-->
 <!-- ************************************************************************ -->
-<table class="table table-striped" id="" style="font-size: 12px;">
+<table class="table table-bordered" id="" style="font-size: 12px;">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">PERCEPCIONES</th>
@@ -68,7 +68,7 @@
 <!-- ************************************************************************ -->
 <!-- APORTACIONES -->
 <!-- ************************************************************************ -->
-<table class="table" id="" style="font-size: 12px;">
+<table class="table table-bordered" id="" style="font-size: 12px;">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">APORTACIONES</th>

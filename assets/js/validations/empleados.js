@@ -110,6 +110,7 @@ $(document).ready(function() {
                                 timeOut: 4000
                             };
                         toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
+                         window.location.replace(baseURL + "empleado_controller/lista_empleado");
                     }, 1300);
                     }
                 } 
