@@ -1,6 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
+            <a type="button" class="col-lg-2 btn btn-primary pull-right" href="<?php echo base_url('Percepciones_ctrl/create'); ?>" >Registrar Percepcion</a> 
             <div class="ibox float-e-margins">
                 <div class="ibox-content">                   
                   <div class="table-responsive">
@@ -13,16 +14,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php if ($percepciones != null): ?>                                                            
                                 <?php foreach ($percepciones as  $percepcion): ?>
                                     <tr class="gradeA">
                                         <td><label  id="indicador<?php echo $percepcion->id_percepcion ?>"><?php echo  $percepcion->indicador ?></label></td> 
                                         <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>  
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')">Desabilitar</button>                                  
-                                            <button class="btn btn-info" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion">Editar</button>                                                               
+                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-times"></span> Desabilitar</button>                                  
+                                            <button class="btn btn-info" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                
                                 <?php endforeach ?>
+                            <?php else: ?>
+                            <?php endif ?>                            
                             </tbody>                            
                         </table>
                   </div>
@@ -35,14 +39,14 @@
 <!-- Modal -->
 <div class="modal fade" id="editarPercepcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Editar Percepciones</h4>        
-      </div>
-      <div class="modal-body">
-        <form role="form" id="formPercepcionEditar">
-            <input type="hidden" name="id" id="idEditar" value="">
+    <form role="form" id="formPercepcionEditar">
+        <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Percepciones</h4>        
+              </div>
+              <div class="modal-body">        
+                <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4">
                         <div class="form-group ">
@@ -56,13 +60,12 @@
                             <input type="text" name="nombre" id="nombreEditar" class="form-control input-lg" tabindex="2">
                         </div>
                     </div>                                     
-                </div>                
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" tabindex="5" onclick="savePercepcionEdit()">Guardar Cambios</button>
-      </div>
-    </div>
-  </div>
+                </div>                       
+              </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-primary" value="Guardar Cambios" tabindex="3">
+            </div>      
+        </div>
+    </form>  
 </div>

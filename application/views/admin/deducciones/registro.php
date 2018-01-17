@@ -20,7 +20,7 @@
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-md-4">
-						<input type="button" value="Registrar" class="btn btn-primary btn-block btn-lg" tabindex="4" onclick="saveDeduccion(event);">
+						<input type="submit" value="Registrar" class="btn btn-primary btn-block btn-lg" tabindex="4">
 					</div>
 				</div>
 			</form>

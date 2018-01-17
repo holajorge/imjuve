@@ -1,6 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
+            <a type="button" class="col-lg-2 btn btn-primary pull-right" href="<?php echo base_url('User_ctrl/create'); ?>" >Registrar Usuario</a>
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                   <div class="table-responsive">
@@ -15,18 +16,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($users as  $user): ?>                                                                
-                                <tr class="gradeA"> 
-                                    <td><label  id="nombre<?php echo $user->id_empleadoxusuario ?>"><?php echo  $user->nombre ?></label></td> 
-                                    <td><label  id="ap_paterno<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->ap_paterno?></label></td>
-                                    <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->usuario?></label></td>
-                                    <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->status?></label></td>
-                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $user->id_empleadoxusuario ?>')">Desabilitar</button>                                  
-                                        <button class="btn btn-info" onclick="editPuesto('<?php echo $user->id_empleadoxusuario ?>')" data-toggle="modal" data-target="#editarUsuario">Editar</button>                                                               
-                                    </td>  
-                                </tr>                                
-                            <?php endforeach ?>
+                            <?php if ($users != null): ?>                                
+                                <?php foreach ($users as  $user): ?>                                                                
+                                    <tr class="gradeA"> 
+                                        <td><label  id="nombre<?php echo $user->id_empleadoxusuario ?>"><?php echo  $user->nombre ?></label></td> 
+                                        <td><label  id="ap_paterno<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->ap_paterno?></label></td>
+                                        <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->usuario?></label></td>
+                                        <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->status?></label></td>
+                                         <td class="text-center">
+                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $user->id_empleadoxusuario ?>')">Desabilitar</button>                                  
+                                            <button class="btn btn-info" onclick="editPuesto('<?php echo $user->id_empleadoxusuario ?>')" data-toggle="modal" data-target="#editarUsuario">Editar</button>                                                               
+                                        </td>  
+                                    </tr>                                
+                                <?php endforeach ?>
+                            <?php else: ?>
+                            <?php endif ?>                            
                             </tbody>                            
                         </table>
                     </div>

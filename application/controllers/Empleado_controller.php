@@ -26,8 +26,11 @@ class Empleado_controller extends CI_Controller {
     }
 
     public function lista_empleado(){
-        $data['empleados'] = $this->Empleado_model->get_lista_empleados();
-
+        $data['deptos'] = $this->Empleado_model->get_departamentos();
+        $data['puestos'] = $this->Empleado_model->get_puestos();
+        $data['tipo_trabajador'] = $this->Empleado_model->get_tipoTrabajador();
+        $data['empleados'] = $this->Empleado_model->get_lista_empleados();        
+        
         $dato['active'] = "empleado";
         $dato['active1'] = "lista_empleado";
 
@@ -48,6 +51,7 @@ class Empleado_controller extends CI_Controller {
         $id_puesto = $this->input->post("id_puesto");
         $no_empleado = $this->input->post("no_empleado");
         $rfc = $this->input->post("rfc");
+        $horas = $this->input->post("horas");
         $id_tipo_trabajador = $this->input->post("id_tipo_trabajador");
 
         $emplado = array(
@@ -62,9 +66,52 @@ class Empleado_controller extends CI_Controller {
                     'id_puesto' => $id_puesto,
                     'no_empleado' => $no_empleado,
                     'rfc' => $rfc,
+                    'horas' => $horas,
                     'id_tipo_trabajador' => $id_tipo_trabajador
                     );
         $query = $this->Empleado_model->guardar_empleado($emplado);
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+
+        echo json_encode($result);
+    }
+    public function updater_empleado(){
+
+        $id_empleado = $this->input->post("id");
+
+        $no_plaza = $this->input->post("no_plaza");
+        $horas = $this->input->post("horas");
+        $nombre = $this->input->post("nombre");
+        $ap_paterno = $this->input->post("ap_paterno");
+        $ap_materno = $this->input->post("ap_materno");
+        $fecha_nacimiento = $this->input->post("fecha_nacimiento");
+        $fecha_ingreso = $this->input->post("fecha_ingreso");
+        $curp = $this->input->post("curp");
+        $rfc = $this->input->post("rfc"); 
+        $id_depto = $this->input->post("depto");
+        $id_puesto = $this->input->post("puesto");
+        $no_empleado = $this->input->post("no_empleado");               
+        $id_tipo_trabajador = $this->input->post("tipo_trabajador");
+
+        $empleado = array(
+            'no_plaza' => $no_plaza, 
+            'horas' => $horas,
+            'nombre' => $nombre,
+            'ap_paterno' => $ap_paterno,
+            'ap_materno' => $ap_materno,
+            'fecha_nacimiento' => $fecha_nacimiento,
+            'fecha_ingreso' => $fecha_ingreso,
+            'curp' => $curp,
+            'id_depto' => $id_depto,
+            'id_puesto' => $id_puesto,
+            'no_empleado' => $no_empleado,
+            'rfc' => $rfc,                    
+            'id_tipo_trabajador' => $id_tipo_trabajador
+        );
+        $query = $this->Empleado_model->updateEmpleado($id_empleado,$empleado);
         if ($query == 1) {
             $result['resultado'] = true;
         } else {
