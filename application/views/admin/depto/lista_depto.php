@@ -41,13 +41,14 @@
 <!-- Modal -->
 <div class="modal fade" id="editarDepto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
+    <form role="form" id="formDeptoEditar">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Editar Repartamento</h4>        
+        <h4 class="modal-title" id="myModalLabel">Editar Repartamento</h4>
       </div>
       <div class="modal-body">
-        <form role="form" id="formDeptoEditar">
+        
             <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -59,21 +60,22 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             <label for="puesto">Direccion</label>
-                            <select class="form-control input-lg" id="direccionEditar" name="direccion">
-                                <option selected disabled hidden>Seleccione Direccion</option>
-                                <?php foreach ($direcciones as $id_direccion=>$nombre)
-                                    echo '<option value="',$id_direccion,'">',$nombre,'</option>';
-                                 ?>                                                                                      
+                            <select class="form-control input-lg" id="direccionEditar" name="direccion">                               
+                                <?php foreach ($direcciones as $direccion): ?>                               
+                                    <option  value="<?php echo $direccion->id_direccion ?>" <?php echo ($depto->direccion == $direccion->nombre) ? 'selected' : '';?>>
+                                            <?php echo $direccion->nombre; ?>
+                                    </option>  
+                                <?php endforeach ?>                                                                                     
                             </select>
                         </div>
                     </div>                                         
-                </div>                
-        </form>
+                </div>                       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary custom-close" tabindex="3" onclick="saveDeptoEdit()">Guardar Cambios</button>
+        <input type="submit" value="Guardar Cambios" class="btn btn-primary custom-close" tabindex="3">
       </div>
     </div>
+ </form>
   </div>
 </div>

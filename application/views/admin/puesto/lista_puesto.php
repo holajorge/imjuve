@@ -36,17 +36,16 @@
     </div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal fade" id="editarPuesto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
+    <form role="form" id="formPuestosEditar">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Editar Puesto</h4>        
       </div>
-      <div class="modal-body">
-        <form role="form" id="formPuestosEditar">
+      <div class="modal-body">        
             <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4">
@@ -61,13 +60,13 @@
                             <input type="text" name="nombre" id="nombreEditar" class="form-control input-lg" tabindex="2">
                         </div>
                     </div>
-                </div>                
-        </form>
+                </div>                        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" tabindex="5" onclick="savePuestoEdit()">Guardar Cambios</button>
+        <button type="submit" class="btn btn-primary" tabindex="5">Guardar Cambios</button>
       </div>
     </div>
+  </form>
   </div>
 </div>

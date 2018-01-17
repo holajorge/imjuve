@@ -14,7 +14,7 @@ class Depto_ctrl extends CI_Controller {
 	      	$dato['active'] = "depto";
 	        $dato['active1'] = "lista_departamentos";
 			$data['deptos'] = $this->Depto_model->getAll();
-			$data['direcciones'] = $this->Depto_model->get_direccionesxdpto(); 
+			$data['direcciones'] = $this->Depto_model->get_direcciones();  
 			$this->load->view('global_view/header', $dato);
 			$this->load->view('admin/depto/lista_depto',$data);
 			$this->load->view('global_view/foother');	

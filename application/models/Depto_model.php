@@ -29,22 +29,6 @@ class Depto_model extends CI_Model {
         }
     }
 
-    public function get_direccionesxdpto(){
-
-       $query = $this->db-> query('SELECT id_direccion,nombre FROM cat_direcciones');
-
-        // si hay resultados
-        if ($query->num_rows() > 0) {
-                // almacenamos en una matriz bidimensional
-          foreach($query->result() as $row)
-           $arrDatos[htmlspecialchars($row->id_direccion, ENT_QUOTES)] =  htmlspecialchars($row->nombre, ENT_QUOTES);
-         
-           $query->free_result();
-           return $arrDatos;
-
-        }
-    }
-
    public function insertDepto( $depto){
    	 	return $this->db->insert('cat_depto', $depto);
    }
