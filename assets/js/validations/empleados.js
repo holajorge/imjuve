@@ -107,19 +107,12 @@ $(document).ready(function() {
                                 closeButton: true,
                                 progressBar: true,
                                 showMethod: 'slideDown',
-<<<<<<< HEAD
                                 timeOut: 1200
                             };  
                         toastr.success('Los datos se guardaron correctamente', 'ACTUALIZANDO DATOS');
                         setTimeout(function() {                    
                           window.location.href = baseURL + "empleado_controller/lista_empleado";
                         }, 1300);
-=======
-                                timeOut: 4000
-                            };
-                        toastr.success('Los datos se guardaron correctamente', 'DATOS ACTUALIZADOS');
-                         window.location.replace(baseURL + "empleado_controller/lista_empleado");
->>>>>>> 3f40c96345bf3d68d8afbcf3b66a1576dcf5ba1b
                     }, 1300);
                     }
                 } 

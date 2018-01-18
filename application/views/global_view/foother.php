@@ -67,7 +67,18 @@
 
     <!-- js Depto -->
     <script src="<?php echo base_url('assets/js/validations/periodos.js'); ?>"></script>
+
+    <!-- js Periodos Modulo -->
+    <script src="<?php echo base_url('assets/js/validations/m_periodo.js'); ?>"></script>
+
+    <!-- js aportaciones -->
+    <script src="<?php echo base_url('assets/js/validations/aportaciones.js'); ?>"></script>
     
-    
+    <!-- js tipo_empleado -->
+    <script src="<?php echo base_url('assets/js/validations/tipo_empleado.js'); ?>"></script>
+
+    <!-- js tipo_empleado -->
+    <script src="<?php echo base_url('assets/js/validations/direccion.js'); ?>"></script>
+
 </body>
 </html>
