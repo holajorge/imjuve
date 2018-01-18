@@ -72,14 +72,31 @@
                               <a href="<?php echo base_url('nomina_controller/detalle_nomina'); ?> ">Alta de nómina</a></li>
                         </ul>
                     </li>
+                    <li <?php  if (isset($active)) {     if ($active == "periodo") {  echo "class='active'";   }}  ?> > 
+                        <a href="index.html"><i class="fa fa-user"></i> <span class="nav-label">Periodos</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li <?php if (isset($active1)) {  if ($active1 == "lista_periodos") { echo "class='active'";}  }  ?> >              
+                              <a href="<?php echo base_url('Periodo_controller/index'); ?>">Lista de Periodos</a>
+                            </li>
+                            <li <?php  if (isset($active1)) { if ($active1 == "alta_periodo") { echo "class='active'";  }   }    ?>   >                                             
+                              <a href="<?php echo base_url('Periodo_controller/create'); ?> ">Alta de Periodo</a>
+                            </li>
+                        </ul>
+                    </li>                    
                     <li <?php  if (isset($active)) {     if ($active == "empleado") {  echo "class='active'";   }}  ?> > 
                         <a href="index.html"><i class="fa fa-user"></i> <span class="nav-label">Empleados</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li <?php if (isset($active1)) {  if ($active1 == "lista_empleado") { echo "class='active'";}  }  ?> >              
                               <a href="<?php echo base_url('empleado_controller/lista_empleado'); ?>">Lista de empleados</a>
                             </li>
+                            <li <?php if (isset($active1)) {  if ($active1 == "lista_TipoEmpleado") { echo "class='active'";}  }  ?> >              
+                              <a href="<?php echo base_url('TipoEmpleado_ctrl/index'); ?>">Lista de Tipo Empleados</a>
+                            </li>
                             <li <?php  if (isset($active1)) { if ($active1 == "alta_empleado") { echo "class='active'";  }   }    ?>   >                                             
                               <a href="<?php echo base_url('Empleado_controller/create'); ?> ">Alta de empleados</a>
+                            </li>
+                            <li <?php  if (isset($active1)) { if ($active1 == "alta_tipo") { echo "class='active'";  }   }    ?>   >                                             
+                              <a href="<?php echo base_url('TipoEmpleado_ctrl/create'); ?> ">Alta de Tipo Empleado</a>
                             </li>
                         </ul>
                     </li>
@@ -97,6 +114,13 @@
                             <li <?php  if (isset($active1)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Deduciones_ctrl/create'); ?>" >Alta Deducción</a></li>
                         </ul>
                     </li>
+                    <li <?php  if (isset($active)) {     if ($active == "aportacion") {  echo "class='active'";   }}  ?>>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Aportaciones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li <?php  if (isset($active)) {   if ($active1 == "lista_aportaciones") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Aportaciones_ctrl/index'); ?>">Lista de Aportaciones</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "alta_aportaciones") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Aportaciones_ctrl/create'); ?>">Alta Aportacion</a></li>
+                        </ul>
+                    </li>
                     <li <?php  if (isset($active)) {     if ($active == "puesto") {  echo "class='active'";   }}  ?> >
                         <a href="#"><i class="fa fa-user-md"></i> <span class="nav-label">Puestos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
@@ -109,6 +133,13 @@
                         <ul class="nav nav-second-level collapse">
                             <li <?php  if (isset($active)) {   if ($active1 == "lista_departamentos") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/index'); ?>">Lista de Departamentos</a></li>
                             <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Depto_ctrl/create'); ?>">Alta Departamento</a></li>
+                        </ul>
+                    </li>
+                    <li <?php  if (isset($active)) {     if ($active == "direccion") {  echo "class='active'";   }}  ?>>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Direcciones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li <?php  if (isset($active)) {   if ($active1 == "lista_direcciones") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Direcciones_ctrl/index'); ?>">Lista de Direcciones</a></li>
+                            <li <?php  if (isset($active)) {   if ($active1 == "registro") {  echo "class='active'";  }  }  ?>><a href="<?php echo base_url('Direcciones_ctrl/create'); ?>">Alta Direcciones</a></li>
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "usuarios") {  echo "class='active'";   }}  ?>>
