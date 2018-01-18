@@ -45,7 +45,7 @@ class Empleado_model extends CI_Model {
     $this->db->select("cat_empleados.id_empleado, cat_empleados.horas,  cat_empleados.no_empleado, cat_empleados.no_plaza, cat_empleados.nombre AS nombre_emp, 
                       cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.fecha_nacimiento,  cat_empleados.curp, 
                       cat_empleados.fecha_ingreso, cat_empleados.curp, cat_empleados.rfc, cat_depto.id_depto, cat_depto.nombre AS nombre_depto,
-                      cat_puestos.id_puesto, cat_puestos.nivel, cat_puestos.nombre AS nombre_puesto, cat_tipo_trabajador.nombre_tipo_trabajador as 'trabajador'");
+                      cat_puestos.id_puesto, cat_puestos.nivel, cat_puestos.nombre AS nombre_puesto, cat_tipo_trabajador.id_tipo_trabajador,cat_tipo_trabajador.nombre_tipo_trabajador as 'trabajador'");
     $this->db->from("cat_depto");
     $this->db->join("cat_empleados","cat_depto.id_depto = cat_empleados.id_depto");
     $this->db->join("cat_puestos","cat_empleados.id_puesto = cat_puestos.id_puesto");

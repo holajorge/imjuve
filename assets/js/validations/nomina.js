@@ -2,7 +2,7 @@ $(document).ready(function() {
     
 });
 
-function buscar_emp_nomina(event){
+function buscar_emp_nomina(event){ //-------------------------------ELIMINAR---
     event.preventDefault();
     $("#resultado_emp_nomina").html("");
     $("#lista_percepciones").html("");
@@ -89,18 +89,51 @@ function buscar_emp_nomina(event){
         } 
     });
 }
+var trabajador_eventual = false;
+function tab_det_nomina(id){
+    trabajador_eventual = false;
+    $("#total_percepcion").html("");
+    $("#total_deducciones").html("");
+    $("#total_aportaciones").html("");
+    $("#liquido-nom").html("");
+    $("#body_tabla_percepciones").html("");
+    $("#body_tabla_deducciones").html("");
+    $("#body_tabla_aportaciones").html("");
+    $("#encabezado_nomina_1").html("");
+    $("#dropdown_lista_periodos").html("");
+    $("#txt_per_quinq").html("");
 
-function tab_det_nomina(fila){
+    var d = document.getElementById("det_nomina_oculto"); 
+        d.setAttribute("style", "display: none;");
     //Se pasa a la siguiente pestaña
     $('#myTabs a[href="#det_nomina"]').tab('show');
     
     // **********************************************************************
+    // variables necesarias
+    var no_plaza=document.getElementById("no_plaza"+id).innerHTML;    
+    var horas=document.getElementById("horas"+id).innerHTML;
+    var nombre=document.getElementById("nombre_emp"+id).innerHTML;
+    var ap_paterno=document.getElementById("ap_paterno"+id).innerHTML;
+    var ap_materno=document.getElementById("ap_materno"+id).innerHTML;
+    var fecha_nacimiento=document.getElementById("fecha_nacimiento"+id).innerHTML;
+    var fecha_ingreso=document.getElementById("fecha_ingreso"+id).innerHTML;        
+    var rfc=document.getElementById("rfc"+id).innerHTML;
+    var no_empleado=document.getElementById("no_empleado"+id).innerHTML;
+    var curp=document.getElementById("curp"+id).innerHTML;   
+    var nombre_depto=document.getElementById("nombre_depto"+id).innerHTML;
+    var nombre_puesto=document.getElementById("nombre_puesto"+id).innerHTML;
+    var trabajador=document.getElementById("trabajador"+id).innerHTML;
+    var id_tipo_trabajador = document.getElementById("id_tipo_trabajador"+id).value;
     //Creación de la tabla de resultados
     var html = "";
+    if (id_tipo_trabajador == 3) {
+        trabajador_eventual = true;
+    }
+    html += "<h2 class='text-center'> TRABAJADOR <strong>  "+ trabajador +" </strong></h2>";
     html += "<table class='table table-bordered'>";
     html += "<tbody>";
     
-        var id_empleado = document.getElementById("miTabla").rows[fila].cells[0].innerText;
+        var id_empleado = id;
 
         html += "<tr>";
         html += "<td COLSPAN='8' class='text-center'> DATOS DEL EMPLEADO</td>";
@@ -108,22 +141,22 @@ function tab_det_nomina(fila){
 
         html += "<tr>";
         html += "<td>  <input type='hidden' id ='id_empleado_en_nomina' value='"+ id_empleado +"'> No. de plaza: </td>";
-        html += "<td>" + " "+document.getElementById("miTabla").rows[fila].cells[1].innerText +"</td>";
+        html += "<td>" + " "+ no_plaza +"</td>";
         html += "<td> No. empleado: </td>";
-        html += "<td>" + " "+ document.getElementById("miTabla").rows[fila].cells[8].innerText+ "</td>";
+        html += "<td>" + " "+ no_empleado+ "</td>";
         html += "<td> Nombre: </td>";
-        html += "<td>" + " "+document.getElementById("miTabla").rows[fila].cells[3].innerText + " " + document.getElementById("miTabla").rows[fila].cells[4].innerText + "</td>";
+        html += "<td>" + " "+ nombre +" "+ap_paterno + " " + ap_materno +"</td>";
         html += "<td> R.F.C: </td>";
-        html += "<td>" + " "+ document.getElementById("miTabla").rows[fila].cells[2].innerText+ "</td>";
+        html += "<td>" + " "+ rfc+ "</td>";
         html += "</tr>";
 
         html += "<tr>";
         html += "<td> Curp: </td>";
-        html += "<td>" + " "+document.getElementById("miTabla").rows[fila].cells[5].innerText + "</td>";
+        html += "<td>" + " "+curp + "</td>";
         html += "<td> Departamento:  </td>";
-        html += "<td>" + " "+ document.getElementById("miTabla").rows[fila].cells[7].innerText+ "</td>";
+        html += "<td>" + " "+ nombre_depto + "</td>";
         html += "<td> Puesto: </td>";
-        html += "<td COLSPAN='3'>" + " "+document.getElementById("miTabla").rows[fila].cells[6].innerText + "</td>";
+        html += "<td COLSPAN='3'>" + nombre_puesto + "</td>";
         html += "</tr>";
         
     html += "</tbody>";
@@ -138,6 +171,7 @@ function tab_det_nomina(fila){
 // LISTAR PERIODO QUINQUENAL
 // ***********************************************************************************
 function listar_periodo_quinquenal(){
+    $("#dropdown_lista_periodos").html("");
     $.ajax({
             url: baseURL + "Nomina_controller/getAll",
             type: "POST",
@@ -194,7 +228,11 @@ function mostrar_tablas_det_nomina(event,id_nomina){
                 
                 var d = document.getElementById("det_nomina_oculto"); 
                     d.setAttribute("style", "display: block;");
-
+                    $("#mostrar_aportaciones").show();
+                //SE OCULTAN LAS APORTACIONES CUANDO ES UN TRABAJADOR DE TIPO EVENTUAL
+                if (trabajador_eventual) {
+                    $("#mostrar_aportaciones").hide();
+                }
                 //LLAMAR A LA FUNCIÓN DE MOSTRAR PERIODO QUINQUENAL
                 mostrar_per_quinquenal(id_nomina);
             }
@@ -367,18 +405,22 @@ function lista_deducciones(){
                     var html = "";
                     for (l in obj.deducciones) {
                             var id_d = obj.deducciones[l].id_deduccion;
+                            if ((trabajador_eventual == true) & (id_d > 1 & id_d <= 6)) {
+
+                            }else{
                             html += "<tr>";
                             html += "<td style='display:none;'>" + obj.deducciones[l].id_deduccion + "</td>";
                             html += "<td>" + obj.deducciones[l].indicador + "</td>";
                             html += "<td>" + obj.deducciones[l].nombre +"</td>";
                             //html += "<td>" + "<input type='checkbox' name='check_ded[]' value='"+ num_fila +"'>" +"</td>";
                             if (id_d > 1 & id_d <= 6) {
-                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>";
+                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
                             }else{
                                 html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
                             }
                             html += "<td>" +"<button type='button' id='borrar_celda_ded' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
                             html += "</tr>"; 
+                        }
                     }
                     $("#body_tabla_deducciones").html(html);
                     //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS DEDUCCIONES
@@ -410,7 +452,7 @@ function calc_total_deducciones(){
     calcular_liquido();
 }
 //************************************************************************************
-//PREPARAR DATOS PARA GUARDAR NÓMINA EN LA BASE DE DATOS
+//PREPARAR Y VALIDAR DATOS PARA GUARDAR
 //************************************************************************************
 
 function guardar_datos_nomina(){
@@ -422,51 +464,56 @@ function guardar_datos_nomina(){
     var data_aportaciones = get_data_tabla(".importe_aportacion","tabla_aportaciones","id_apor_");
     
     //SE VERIFICA QUE NO HAYAN CAMPOS VACIOS Y QUE SE HAYAN SELECCIONADO LAS 3 TABLAS
-    if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
-        swal({
-            title: " ",
-            text: "FALTAN CAMPOS POR LLENAR",
-            type: "warning"
-        });
-    }else{
-        swal({
-            title: "Confirmar",
-            text: "¿Desea guardar los datos de la nómina?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Guardar!",
-            closeOnConfirm: false
-        }, function () {
-            $.ajax({
-                url: baseURL + "Nomina_controller/guardar_detalle_nomina",
-                type: "POST",
-                data: {
-                    id_nomina: id_nomina,
-                    id_empleado: id_empleado,
-                    data_percepciones: data_percepciones,
-                    data_deducciones: data_deducciones,
-                    data_aportaciones: data_aportaciones
-                },
-                success: function(respuesta) {
-                    var obj = JSON.parse(respuesta);
-                        if (obj.resultado === true) {
-                            // alert(obj.data_per[0].importe);
-                            swal("GUARDADO", "LA NÓMINA SE GUARDADO CORRECTAMENTE", "success");
-                            setTimeout(function(){
-                                window.location.replace(baseURL + "Nomina_controller/detalle_nomina");
-                            }, 1500);                    
-                        }
-                } 
+    if (trabajador_eventual) {
+        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true)) {
+            swal({
+                title: " ",
+                text: "FALTAN CAMPOS POR LLENAR",
+                type: "warning"
             });
-
-        });
-
-    }
-
-    
+        }else{
+            guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+        }
+    }else{
+        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
+            swal({
+                title: " ",
+                text: "FALTAN CAMPOS POR LLENAR",
+                type: "warning"
+            });
+        }else{
+           guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+        }
+    }   
     
 }
+//************************************************************************************
+//GUADRAR NÓMINA EN BASE DE DATOS
+//************************************************************************************
+function guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones){
+    $.ajax({
+        url: baseURL + "Nomina_controller/guardar_detalle_nomina",
+        type: "POST",
+        data: {
+            id_nomina: id_nomina,
+            id_empleado: id_empleado,
+            data_percepciones: data_percepciones,
+            data_deducciones: data_deducciones,
+            data_aportaciones: data_aportaciones
+        },
+        success: function(respuesta) {
+            var obj = JSON.parse(respuesta);
+                if (obj.resultado === true) {
+                    // alert(obj.data_per[0].importe);
+                    swal("GUARDADO", "LA NÓMINA SE GUARDADO CORRECTAMENTE", "success");
+                    setTimeout(function(){
+                        window.location.replace(baseURL + "Nomina_controller/detalle_nomina");
+                    }, 1500);                    
+                }
+        } 
+    });
+}
+
 //************************************************************************************
 //DATOS DE LAS DEDUCCIONES PARA GUARDAR EN LA BASE DE DATOS
 //************************************************************************************

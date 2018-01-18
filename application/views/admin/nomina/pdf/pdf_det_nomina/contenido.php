@@ -68,6 +68,9 @@
 <!-- ************************************************************************ -->
 <!-- APORTACIONES -->
 <!-- ************************************************************************ -->
+
+<?php if ( count($aportaciones) >= 1) { ?>
+   
 <table class="table table-bordered" id="" style="font-size: 12px;">
     <thead>
         <tr>
@@ -76,7 +79,7 @@
         <tr class="warning">                    
             <th class="text-center">CÓDIGO</th>
             <th class="text-center">DESCRIPCIÓN</th>
-            <th class="text-center">IMPORTE</th>
+            <th class="text-center">IMPORTE <?php echo count($aportaciones); ?></th>
         </tr>
     </thead>
     <tbody id="">
@@ -98,6 +101,7 @@
         </tr>
     </tfoot>
 </table>
+<?php } ?>
 <!-- ************************************************************************ -->
 <!-- Imprimir Líquido -->
 <!-- ************************************************************************ -->

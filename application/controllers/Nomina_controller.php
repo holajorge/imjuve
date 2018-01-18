@@ -8,6 +8,7 @@ class Nomina_controller extends CI_Controller {
         parent::__construct();
         // $this->load->library('bcrypt');
         $this->load->model('Nomina_model');
+        $this->load->model('Empleado_model');
     }
 
     public function getAll(){
@@ -50,27 +51,29 @@ class Nomina_controller extends CI_Controller {
     }
 
 	public function detalle_nomina(){
+        $rfc = $this->input->post("rfc");
+        $query["empleados"] = $this->Empleado_model->get_lista_empleados();  
 		$dato['active'] = "nomina";
 		$dato['active1'] = "alta_nomina";
         $this->load->view('global_view/header',$dato);
-		$this->load->view('admin/nomina/detalle_nomina');
+		$this->load->view('admin/nomina/detalle_nomina',$query);
 		$this->load->view('global_view/foother');
 	}
 
-	public function buscar_empleado_nomina(){
+	// public function buscar_empleado_nomina(){
 		
-		$rfc = $this->input->post("rfc");
-		$query = $this->Nomina_model->buscar_empleado_nomina($rfc);
+	// 	$rfc = $this->input->post("rfc");
+	// 	$query = $this->Nomina_model->buscar_empleado_nomina($rfc);
 
-		if ($query != false) {
-            $result['resultado'] = true;
-            $result['empleado'] = $query;
-        } else {
-            $result['resultado'] = false;
-        }
+	// 	if ($query != false) {
+ //            $result['resultado'] = true;
+ //            $result['empleado'] = $query;
+ //        } else {
+ //            $result['resultado'] = false;
+ //        }
 
-        echo json_encode($result);
-	}
+ //        echo json_encode($result);
+	// }
 
     public function guardar_detalle_nomina(){
         $id_nomina = $this->input->post("id_nomina");
@@ -84,7 +87,10 @@ class Nomina_controller extends CI_Controller {
 
         $query_ded = $this->Nomina_model->guardar_deducciones_nomina($id_nomina,$id_empleado,$data_deducciones);
 
-        $query_apor = $this->Nomina_model->guardar_aportaciones_nomina($id_nomina,$id_empleado,$data_aportaciones);
+        if (count($data_aportaciones) > 0) {
+           $query_apor = $this->Nomina_model->guardar_aportaciones_nomina($id_nomina,$id_empleado,$data_aportaciones);
+        }
+        
 
         if ($query_per) {
             $result['resultado'] = true;
