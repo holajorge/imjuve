@@ -18,7 +18,7 @@
                                     <td><label  id="indicador<?php echo $deduccion->id_deduccion ?>"><?php echo  $deduccion->indicador ?></label></td> 
                                     <td><label  id="nombre<?php echo $deduccion->id_deduccion ?>"><?php echo $deduccion->nombre?></label></td>  
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $deduccion->id_deduccion ?>')"><span class="fa fa-times"></span> Desabilitar</button>                                  
+                                        <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $deduccion->id_deduccion ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
                                         <button class="btn btn-info" onclick="editDeduccion('<?php echo $deduccion->id_deduccion ?>')" data-toggle="modal" data-target="#editarDeduccion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                     </td>                                      
                                 </tr>                                

@@ -19,7 +19,7 @@ class Periodo_controller extends CI_Controller {
 		 }else{
 	      redirect('login_ctrl');
 	     }		
-	}
+	}	
 	public function create(){
 
 			$dato['active'] = "periodo";
@@ -27,8 +27,7 @@ class Periodo_controller extends CI_Controller {
 			$this->load->view('global_view/header', $dato);
 			$this->load->view('admin/periodos/alta');
 			$this->load->view('global_view/foother');
-	}
-
+	}	
 	public function create_periodo(){
 	
 		$periodo = array(

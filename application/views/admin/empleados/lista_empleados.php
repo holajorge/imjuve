@@ -42,7 +42,7 @@
                                         <td><label  id="no_empleado<?php echo $empleado->id_empleado ?>"><?php echo $empleado->no_empleado?></label></td>
                                         <td><label  id="trabajador<?php echo $empleado->id_empleado ?>"><?php echo $empleado->trabajador?></label></td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="desabilitarEmpleado('<?php echo $empleado->id_empleado ?>')"><span class="fa fa-times"></span> Desabilitar</button>                                  
+                                            <button type="button" class="btn btn-danger" onclick="deshabilitarEmpleado('<?php echo $empleado->id_empleado ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
                                             <button class="btn btn-info" onclick="editEmpleado('<?php echo $empleado->id_empleado ?>')" data-toggle="modal" data-target="#editarEmpleado"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>  
                                     </tr>
