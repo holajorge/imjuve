@@ -372,6 +372,10 @@ function calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio1, sueldoCo
                     document.getElementById("id_ded_"+id).value = impuesto.toFixed(2);
                     break;
                 case 6:
+                    impuesto = (sueldoConfianzaMasQuinquenio1 * 2) / 100;
+                    document.getElementById("id_ded_"+id).value = impuesto.toFixed(2);
+                    break;
+                case 7:
                     impuesto = (sueldoConfianza1 * 5) / 100;
                     document.getElementById("id_ded_"+id).value = impuesto.toFixed(2);
                     break;
@@ -405,7 +409,7 @@ function lista_deducciones(){
                     var html = "";
                     for (l in obj.deducciones) {
                             var id_d = obj.deducciones[l].id_deduccion;
-                            if ((trabajador_eventual == true) & (id_d > 1 & id_d <= 6)) {
+                            if ((trabajador_eventual == true) & (id_d > 1 & id_d <= 7)) {
 
                             }else{
                             html += "<tr>";
@@ -413,7 +417,7 @@ function lista_deducciones(){
                             html += "<td>" + obj.deducciones[l].indicador + "</td>";
                             html += "<td>" + obj.deducciones[l].nombre +"</td>";
                             //html += "<td>" + "<input type='checkbox' name='check_ded[]' value='"+ num_fila +"'>" +"</td>";
-                            if (id_d > 1 & id_d <= 6) {
+                            if (id_d > 1 & id_d <= 7) {
                                 html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
                             }else{
                                 html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
@@ -472,7 +476,18 @@ function guardar_datos_nomina(){
                 type: "warning"
             });
         }else{
-            guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+             swal({
+            title: "Confirmar",
+            text: "¿Desea guardar los datos de la nómina?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si, Guardar!",
+            closeOnConfirm: false
+            }, function () {
+                guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+            });
+            
         }
     }else{
         if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
@@ -482,7 +497,17 @@ function guardar_datos_nomina(){
                 type: "warning"
             });
         }else{
-           guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+            swal({
+            title: "Confirmar",
+            text: "¿Desea guardar los datos de la nómina?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si, Guardar!",
+            closeOnConfirm: false
+            }, function () {
+                guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+           });
         }
     }   
     

@@ -9,15 +9,12 @@ $(document).ready(function() {
 function serach_periodos(id){
 
 	$("#resultado_periodo").html("");
-	
-	console.log(id);
 	$.ajax({
             url: baseURL + "Nomina_controller/buscar_periodo",
             type: "POST",
             data: {id: id},
             success: function(respuesta) {
                 var obj = JSON.parse(respuesta);
-                	console.log(obj);
                     if (obj.resultado === true) {                                         
                        
                     // **********************************************************************
@@ -40,8 +37,6 @@ function serach_periodos(id){
                     html += "<tbody>";
                     var num_fila = 1;
                     for (l in obj.empleado) {
-                       console.log(obj.empleado[l].id_nomina);
-                       console.log(obj.empleado[l].id_empleado);
                         html += "<tr>";
                         html += "<td>" + obj.empleado[l].no_plaza + "</td>";
                         html += "<td>" + obj.empleado[l].rfc +"</td>";
@@ -51,13 +46,17 @@ function serach_periodos(id){
                         html += "<td>" + obj.empleado[l].curp + "</td>";
                         html += "<td>" + obj.empleado[l].depto + "</td>";
                         html += "<td>" + obj.empleado[l].puesto + "</td>";                        
-                        html += "<td>" + "<button type='button' class='btn btn-primary' onclick='printDetalle("+ obj.empleado[l].id_empleado +","+ obj.empleado[l].id_nomina +")' >IMPRIMIR</button>" + "</td>";
+                        html += "<td>";
+                        html += "<button type='button' class='btn btn-primary' onclick='printDetalle("+ obj.empleado[l].id_empleado +","+ obj.empleado[l].id_nomina +")' ><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>"; 
+                        html += "<a class='btn btn-success' href='"+baseURL +"nomina_controller/editar?id_emp="+ obj.empleado[l].id_empleado +"&id_nom="+obj.empleado[l].id_nomina+"' target='_blank'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
+                        html += "</td>";
                         html += "</tr>";
                         num_fila ++;
                     }
                     html += "</tbody>";
                     html += "</table>";
                     $("#resultado_periodo").html(html);
+                    inicalizarDataTable("miTabla");
 
                     // ***********************************************************************
             }

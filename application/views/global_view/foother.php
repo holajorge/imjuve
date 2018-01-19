@@ -47,8 +47,9 @@
 
     <script src="<?php echo base_url('assets/js/plugins/dataTables/function_dataTables.js'); ?>"></script>
 
-    <!-- js Nómina -->
+    <?php if (isset($NominaJs)){ ?>
     <script src="<?php echo base_url('assets/js/validations/nomina.js'); ?>"></script>
+    <?php } ?>
     
     <!-- js empleado -->
     <script src="<?php echo base_url('assets/js/validations/empleados.js'); ?>"></script>
@@ -79,6 +80,11 @@
 
     <!-- js tipo_empleado -->
     <script src="<?php echo base_url('assets/js/validations/direccion.js'); ?>"></script>
+
+    <?php if (isset($editarNominaJs)): ?>
+        <!-- js para editar la nomina de un empleado-->
+        <script src="<?php echo base_url('assets/js/validations/editar_nomina.js'); ?>"></script> 
+    <?php endif ?>
 
 </body>
 </html>

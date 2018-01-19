@@ -69,7 +69,7 @@
 <!-- APORTACIONES -->
 <!-- ************************************************************************ -->
 
-<?php if ( count($aportaciones) >= 1) { ?>
+<?php if ( !empty($aportaciones) ) { ?>
    
 <table class="table table-bordered" id="" style="font-size: 12px;">
     <thead>
@@ -79,7 +79,7 @@
         <tr class="warning">                    
             <th class="text-center">CÓDIGO</th>
             <th class="text-center">DESCRIPCIÓN</th>
-            <th class="text-center">IMPORTE <?php echo count($aportaciones); ?></th>
+            <th class="text-center">IMPORTE</th>
         </tr>
     </thead>
     <tbody id="">

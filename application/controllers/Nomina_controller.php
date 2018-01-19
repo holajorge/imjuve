@@ -55,25 +55,30 @@ class Nomina_controller extends CI_Controller {
         $query["empleados"] = $this->Empleado_model->get_lista_empleados();  
 		$dato['active'] = "nomina";
 		$dato['active1'] = "alta_nomina";
+        $showScript['NominaJs'] = true;
         $this->load->view('global_view/header',$dato);
 		$this->load->view('admin/nomina/detalle_nomina',$query);
-		$this->load->view('global_view/foother');
+		$this->load->view('global_view/foother',$showScript);
 	}
 
-	// public function buscar_empleado_nomina(){
-		
-	// 	$rfc = $this->input->post("rfc");
-	// 	$query = $this->Nomina_model->buscar_empleado_nomina($rfc);
+    public function editar(){
+        $id_empleado = $this->input->get("id_emp");
+        $id_nomina = $this->input->get("id_nom");
+        $dato['active'] = "nomina";
+        $dato['active1'] = "alta_nomina";
 
-	// 	if ($query != false) {
- //            $result['resultado'] = true;
- //            $result['empleado'] = $query;
- //        } else {
- //            $result['resultado'] = false;
- //        }
-
- //        echo json_encode($result);
-	// }
+        $data["id_empleado"] = $id_empleado;
+        $data["id_nomina"] = $id_nomina;
+        $data['empleado'] = $this->Nomina_model->datos_empleado_nomina($id_empleado, $id_nomina);
+        $data["periodos"] = $this->Nomina_model->getAllPeriodos();
+        $data["percepciones"] = $this->Nomina_model->percepciones_nomina($id_empleado, $id_nomina);
+        $data['deducciones'] = $this->Nomina_model->deducciones_nomina($id_empleado, $id_nomina);
+        $data['aportaciones'] = $this->Nomina_model->aportaciones_nomina($id_empleado, $id_nomina);
+        $showScript['editarNominaJs'] = true;
+        $this->load->view('global_view/header',$dato);
+        $this->load->view('admin/nomina/editar',$data);
+        $this->load->view('global_view/foother',$showScript);
+    }
 
     public function guardar_detalle_nomina(){
         $id_nomina = $this->input->post("id_nomina");
@@ -91,6 +96,42 @@ class Nomina_controller extends CI_Controller {
            $query_apor = $this->Nomina_model->guardar_aportaciones_nomina($id_nomina,$id_empleado,$data_aportaciones);
         }
         
+
+        if ($query_per) {
+            $result['resultado'] = true;
+            $result['data_per'] = "LOS DATOS SE GUARDARON CORRECTAMENTE";
+            // $result['data_per'] = $data_percepciones[0]["importe"];
+        } else {
+            $result['resultado'] = false;
+        }
+
+        echo json_encode($result);
+    }
+    // ****************************************************************************************
+    //IMPRIMIR NÓMINA EN PDF POR EMPLEADO
+    // ****************************************************************************************
+    public function editar_detalle_nomina(){
+        $id_nomina_editando = $this->input->post("id_nomina_editando");
+        $id_nomina_nueva = $this->input->post("id_nomina");
+        $id_empleado = $this->input->post("id_empleado");
+        $data_percepciones = $this->input->post("data_percepciones");
+        $data_deducciones = $this->input->post("data_deducciones");
+        $data_aportaciones = $this->input->post("data_aportaciones");
+
+        $this->Nomina_model->eliminarPercepciones($id_empleado, $id_nomina_editando);
+        $this->Nomina_model->eliminarDeducciones($id_empleado, $id_nomina_editando);
+        $this->Nomina_model->eliminarAportaciones($id_empleado, $id_nomina_editando);
+       
+        //SE GUARDAN LAS PERCEPCIONES
+        $query_per = $this->Nomina_model->guardar_percepciones_nomina($id_nomina_nueva,$id_empleado,$data_percepciones);
+        //SE GUARDAN LAS DEDUCCIONES
+        $query_ded = $this->Nomina_model->guardar_deducciones_nomina($id_nomina_nueva,$id_empleado,$data_deducciones);
+        //SE GUARDAN LAS APORTACIONES
+        if (count($data_aportaciones) > 0) {
+           $query_apor = $this->Nomina_model->guardar_aportaciones_nomina($id_nomina_nueva,$id_empleado,$data_aportaciones);
+        }
+        
+
 
         if ($query_per) {
             $result['resultado'] = true;
@@ -157,6 +198,7 @@ class Nomina_controller extends CI_Controller {
        $query = $this->Nomina_model->datos_empleado_nomina($id_empleado, $id_nomina);
        if ($query) {
             $result['resultado'] = true;
+            $result["data"] = $query;
         } else {
             $result['resultado'] = false;
         }
