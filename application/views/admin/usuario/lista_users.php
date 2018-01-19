@@ -24,7 +24,7 @@
                                         <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->usuario?></label></td>
                                         <td><label  id="usuario<?php echo $user->id_empleadoxusuario ?>"><?php echo $user->status?></label></td>
                                          <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $user->id_empleadoxusuario ?>')">Desabilitar</button>                                  
+                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $user->id_empleadoxusuario ?>')">deshabilitar</button>                                  
                                             <button class="btn btn-info" onclick="editPuesto('<?php echo $user->id_empleadoxusuario ?>')" data-toggle="modal" data-target="#editarUsuario">Editar</button>                                                               
                                         </td>  
                                     </tr>                                

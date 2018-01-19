@@ -19,7 +19,7 @@
                                     <td><label  id="indicador<?php echo $aportacion->id_aportacion ?>"><?php echo  $aportacion->indicador ?></label></td> 
                                     <td><label  id="nombre<?php echo $aportacion->id_aportacion ?>"><?php echo $aportacion->nombre?></label></td>  
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-times"></span> Desabilitar</button>                                  
+                                        <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
                                         <button class="btn btn-info" onclick="editAportacion('<?php echo $aportacion->id_aportacion ?>')" data-toggle="modal" data-target="#editarAportacion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                     </td>                                      
                                 </tr>                                

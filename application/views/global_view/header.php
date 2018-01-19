@@ -12,6 +12,7 @@
 
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/plugins/iCheck/custom.css'); ?>" rel="stylesheet"> 
     <!-- sweetAlert -->
     <link href="<?php echo base_url('assets/css/plugins/sweetalert/sweetalert.css');?>" rel="stylesheet">
      <!-- Toastr style -->
@@ -22,6 +23,7 @@
     <link href="<?php echo base_url('assets/css/animate.css'); ?> " rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?> " rel="styesheet">
     <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">   
+
     
     <script>
       var baseURL = "<?php echo base_url(); ?>"
@@ -66,10 +68,17 @@
                         <a href="index.html"><i class="fa fa-dollar"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li <?php  if (isset($active1)) {  if ($active1 == "periodos") { echo "class='active'"; }}?>>
-                                <a href="<?php echo base_url('nomina_controller/periodos'); ?> ">Periodos</a>
+                                <a href="<?php echo base_url('Nomina_controller/periodos'); ?> ">Periodos</a>
+                            </li>
+                            <li <?php  if (isset($active1)) {  if ($active1 == "extraordinario") { echo "class='active'"; }}?>>
+                                <a href="<?php echo base_url('Nomina_controller/extraordinario'); ?> ">Nómina Extraordinarios</a>
                             </li>
                             <li <?php  if (isset($active1)) {  if ($active1 == "alta_nomina") { echo "class='active'"; }}?>>
-                              <a href="<?php echo base_url('nomina_controller/detalle_nomina'); ?> ">Alta de nómina</a></li>
+                              <a href="<?php echo base_url('Nomina_controller/detalle_nomina'); ?> ">Alta de nómina</a>
+                            </li>
+                            <li <?php  if (isset($active1)) { if ($active1 == "alta_nomina_extradinaria") { echo "class='active'";  }   }    ?>   >                                             
+                              <a href="<?php echo base_url('Nomina_controller/create_extraudinaria'); ?> ">Alta de Nomina Extraodinaria</a>
+                            </li>
                         </ul>
                     </li>
                     <li <?php  if (isset($active)) {     if ($active == "periodo") {  echo "class='active'";   }}  ?> > 
@@ -80,7 +89,7 @@
                             </li>
                             <li <?php  if (isset($active1)) { if ($active1 == "alta_periodo") { echo "class='active'";  }   }    ?>   >                                             
                               <a href="<?php echo base_url('Periodo_controller/create'); ?> ">Alta de Periodo</a>
-                            </li>
+                            </li>                            
                         </ul>
                     </li>                    
                     <li <?php  if (isset($active)) {     if ($active == "empleado") {  echo "class='active'";   }}  ?> > 

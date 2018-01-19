@@ -20,7 +20,7 @@
                                         <td><label  id="nivel<?php echo $puesto->id_puesto ?>"><?php echo  $puesto->nivel ?></label></td> 
                                         <td><label  id="nombre<?php echo $puesto->id_puesto ?>"><?php echo $puesto->nombre?></label></td>
                                          <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $puesto->id_puesto ?>')">Desabilitar</button>                                  
+                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $puesto->id_puesto ?>')">deshabilitar</button>                                  
                                             <button class="btn btn-info" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                         </td>  
                                     </tr>                                

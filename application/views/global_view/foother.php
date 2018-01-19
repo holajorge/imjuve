@@ -21,6 +21,15 @@
     <!-- Custom and plugin javascript -->
     <script src="<?php echo base_url('assets/js/inspinia.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/plugins/pace/pace.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/plugins/iCheck/icheck.min.js'); ?>"></script>
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
 
     <!-- jQuery UI -->
     <script src="<?php echo base_url('assets/js/plugins/jquery-ui/jquery-ui.min.js'); ?>"></script>
@@ -77,8 +86,11 @@
     <!-- js tipo_empleado -->
     <script src="<?php echo base_url('assets/js/validations/tipo_empleado.js'); ?>"></script>
 
-    <!-- js tipo_empleado -->
+    <!-- js direccion -->
     <script src="<?php echo base_url('assets/js/validations/direccion.js'); ?>"></script>
+
+    <!-- js nomina Extrudinaria -->
+    <script src="<?php echo base_url('assets/js/validations/nomina_extraudinaria.js'); ?>"></script>
 
 </body>
 </html>

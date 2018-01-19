@@ -1,11 +1,10 @@
 <?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 class Nomina_model extends CI_Model { 
-   public function __construct() {
+  public function __construct() {
       parent::__construct();
-   }
-   
-   	public function getAll(){
+   }   
+  public function getAll(){
    		$this->db->select('*');      
       	$this->db->from('tab_nomina');
       	$query = $this->db->get();
@@ -15,20 +14,16 @@ class Nomina_model extends CI_Model {
             return false;
         }
    	}
- //   public function buscar_empleado_nomina($rfc){
-	// 	$this->db->select("cat_empleados.id_empleado, cat_empleados.no_plaza, cat_empleados.nombre AS nombre_emp, cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.fecha_nacimiento,       cat_empleados.fecha_ingreso, cat_empleados.curp,  cat_empleados.no_empleado, cat_empleados.rfc, cat_depto.id_depto, cat_depto.nombre AS nombre_depto, cat_puestos.id_puesto, cat_puestos.nivel, cat_puestos.nombre AS nombre_puesto");
-	//     $this->db->from("cat_depto");
-	//     $this->db->join("cat_empleados","cat_depto.id_depto = cat_empleados.id_depto");
-	//     $this->db->join("cat_puestos","cat_empleados.id_puesto = cat_puestos.id_puesto");
-	//     $this->db->where("cat_empleados.rfc = '".$rfc."'");
-	//     $query = $this->db->get();
-	    
-	//     if ($query->num_rows() > 0) {
-	//         return $query->result();
-	//     }else{
-	//         return false;
-	//     }
-	// }
+  public function gelAllCX(){
+      $this->db->select('*');
+        $this->db->from('cat_concepto_extraordinario');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+  }
   public function getAllPeriodos(){
 
     $query = $this->db->query("SELECT * FROM tab_nomina");    
@@ -37,7 +32,20 @@ class Nomina_model extends CI_Model {
       }else{
           return false;
       }
-
+  }
+  public function getAllPeriodosExtraordinario(){
+    $query = $this->db->query("SELECT * FROM cat_concepto_extraordinario");    
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          return false;
+      }
+    }
+  public function insertConceptoExtraoridinario($extraordinario){
+	    return $this->db->insert('cat_concepto_extraordinario', $extraordinario);
+	}
+  public function insertNominaExtraordinaria($nominaExtraordinaria){
+    return $this->db->insert('empleadosxextraoudinaria', $nominaExtraordinaria);
   }
   public function buscar_periodo($id_nomina){
 
@@ -51,8 +59,27 @@ class Nomina_model extends CI_Model {
                         GROUP BY exp.id_empleado");
 
       if ($query->num_rows() > 0) {
-          return $query->result();
-            
+          return $query->result();          
+      }else{
+          return false;
+      }
+  }
+  public function seach_diaExtraordinario($id_extra){
+
+      $query = $this->db->query("SELECT ce.id_empleado, exe.id_concepto_extraordinario , ce.no_plaza, ce.rfc, ce.nombre  AS nombre_emp, 
+                                  ce.ap_paterno,  ce.ap_materno, ce.fecha_ingreso, cd.nombre as 'depto', cp.nombre as 'puesto',  ce.curp 
+                    FROM cat_concepto_extraordinario  cpex, cat_empleados ce, empleadosxextraoudinaria exe,  cat_depto cd, cat_puestos cp
+                    WHERE cp.id_puesto=ce.id_puesto 
+                        AND cd.id_depto=ce.id_depto 
+                        AND ce.id_empleado=exe.id_empleado 
+
+                        AND cpex.id_concepto_extraordinario=exe.id_concepto_extraordinario 
+                        
+                        AND cpex.id_concepto_extraordinario='".$id_extra."' 
+                        GROUP BY exe.id_empleado");
+
+      if ($query->num_rows() > 0) {
+          return $query->result();          
       }else{
           return false;
       }
@@ -98,21 +125,24 @@ class Nomina_model extends CI_Model {
     
     return true;
   }
-    //***************************************************************************
+  //***************************************************************************
   //DATOS DEL EMPLEADO POR NOMINA PARA EL ENCABEZADO DEL PDF
   //***************************************************************************
   public function datos_empleado_nomina($id_empleado, $id_nomina){
 
-    $query = $this->db->query("SELECT cat_empleados.id_empleado,  cat_empleados.nombre as 'empleado', cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.curp, cat_empleados.no_plaza,  cat_empleados.rfc, cat_empleados.horas, cat_puestos.nivel, cat_puestos.nombre as 'puesto',
-                      cat_depto.nombre as 'depto', cat_empleados.no_empleado, tab_nomina.periodo_inicio, tab_nomina.periodo_fin, tab_nomina.periodo_quinquenal
-                   FROM cat_percepciones, empleadosxpercepciones, tab_nomina,  cat_empleados, cat_puestos, cat_depto
-                   WHERE cat_empleados.id_empleado = empleadosxpercepciones.id_empleado 
-                      AND cat_depto.id_depto = cat_empleados.id_depto
-                      AND cat_empleados.id_puesto = cat_puestos.id_puesto
-                    AND empleadosxpercepciones.id_percepcion = cat_percepciones.id_percepcion 
-                    AND empleadosxpercepciones.id_nomina = tab_nomina.id_nomina 
-                        AND cat_empleados.id_empleado =  ".$id_empleado."
-                        AND tab_nomina.id_nomina = ".$id_nomina." group by cat_empleados.id_empleado");
+    $query = $this->db->query("SELECT cat_empleados.id_empleado,  cat_empleados.nombre as 'empleado', cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.curp, 
+                                      cat_empleados.no_plaza,  cat_empleados.rfc, cat_empleados.horas, cat_empleados.no_empleado,
+                                      cat_puestos.nivel, cat_puestos.nombre as 'puesto',
+                                      cat_depto.nombre as 'depto',
+                                      tab_nomina.periodo_inicio, tab_nomina.periodo_fin, tab_nomina.periodo_quinquenal
+                                FROM cat_percepciones, empleadosxpercepciones, tab_nomina,  cat_empleados, cat_puestos, cat_depto
+                                WHERE cat_empleados.id_empleado = empleadosxpercepciones.id_empleado 
+                                      AND cat_depto.id_depto = cat_empleados.id_depto
+                                      AND cat_empleados.id_puesto = cat_puestos.id_puesto
+                                      AND empleadosxpercepciones.id_percepcion = cat_percepciones.id_percepcion 
+                                      AND empleadosxpercepciones.id_nomina = tab_nomina.id_nomina 
+                                      AND cat_empleados.id_empleado =  ".$id_empleado."
+                                      AND tab_nomina.id_nomina = ".$id_nomina." group by cat_empleados.id_empleado");
 
       if ($query->num_rows() > 0) {
           return $query->result();
@@ -121,6 +151,55 @@ class Nomina_model extends CI_Model {
       }
 
   }
+  //***************************************************************************
+  //DATOS DEL EMPLEADO POR NOMINA EXTRAORDINARIA PARA EL ENCABEZADO DEL PDF
+  //***************************************************************************
+  public function datos_empleado_nomina_extraordinaria($id_empleado, $id_extraordinario){
+
+    $query = $this->db->query("SELECT cat_empleados.no_plaza, cat_empleados.no_empleado, cat_empleados.id_empleado,  cat_empleados.nombre as 'empleado', 
+                                      cat_empleados.ap_paterno, cat_empleados.ap_materno, cat_empleados.rfc, cat_empleados.curp, cat_empleados.horas,                                       
+                                      cat_puestos.nivel, cat_puestos.nombre as 'puesto',
+                                      cat_depto.nombre as 'depto',
+                                      cat_tipo_trabajador.nombre_tipo_trabajador,
+                                      cat_concepto_extraordinario.fecha, cat_concepto_extraordinario.nombre as 'concepto_extranombre'
+                                FROM  cat_concepto_extraordinario, empleadosxextraoudinaria, cat_empleados, cat_puestos, cat_depto, cat_tipo_trabajador
+                                WHERE empleadosxextraoudinaria.id_empleado = cat_empleados.id_empleado
+                                      AND cat_tipo_trabajador.id_tipo_trabajador = cat_empleados.id_tipo_trabajador
+                                      AND cat_depto.id_depto = cat_empleados.id_depto
+                                      AND cat_puestos.id_puesto = cat_empleados.id_puesto
+                                      AND empleadosxextraoudinaria.id_concepto_extraordinario = cat_concepto_extraordinario.id_concepto_extraordinario                                       
+                                      AND empleadosxextraoudinaria.id_empleado =  '".$id_empleado."'
+                                      AND cat_concepto_extraordinario.id_concepto_extraordinario = '".$id_extraordinario."' 
+                                      group by cat_empleados.id_empleado");
+
+      if ($query->num_rows() > 0) {
+          var_dump($query->result());
+          return $query->result();
+      }else{
+          return false;
+      }
+
+  }
+  //***************************************************************************
+  //IMPORTE Y ISR POR NOMINA EXTRAORDINARIA PARA EL BODY DEL PDF
+  //***************************************************************************
+  public function extraordinaria_nomina($id_empleado, $id_extraordinario){
+
+    $query = $this->db->query("SELECT cat_empleados.no_plaza, empleadosxextraoudinaria.importe, empleadosxextraoudinaria.isr, 
+                                      cat_empleados.nombre, cat_empleados.ap_materno, cat_empleados.ap_materno
+                                FROM empleadosxextraoudinaria, cat_empleados
+                                WHERE empleadosxextraoudinaria.id_empleado = '".$id_empleado."'
+                                      AND empleadosxextraoudinaria.id_concepto_extraordinario = '".$id_extraordinario."'
+                                      group by empleadosxextraoudinaria.id_empleado ");
+                             
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          return false;
+      }
+
+  }
+
   //***************************************************************************
   //PERCEPCIONES POR NOMINA PARA EL PDF
   //***************************************************************************
