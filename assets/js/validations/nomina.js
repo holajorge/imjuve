@@ -687,6 +687,17 @@ function calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio1, sueldoC
                     document.getElementById("id_apor_"+id).value = impuesto.toFixed(2);
                     break;
                 case 7:
+                    var ahor_sol_emp = 0;
+                    try {
+                        ahor_sol_emp = document.getElementById("id_ded_6").value
+                    }
+                    catch(err) {
+                        //alert(err.message); 
+                    }
+                    impuesto = (ahor_sol_emp * 3.25);
+                    document.getElementById("id_apor_"+id).value = impuesto.toFixed(2);
+                    break;
+                case 8:
                     var total_percepciones = document.getElementById("total_percepcion").innerText;
                     if (total_percepciones != "") {
                         impuesto = (parseFloat(total_percepciones) * 3) / 100;

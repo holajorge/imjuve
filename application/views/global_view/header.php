@@ -68,16 +68,16 @@
                         <a href="index.html"><i class="fa fa-dollar"></i> <span class="nav-label">Nómina</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li <?php  if (isset($active1)) {  if ($active1 == "periodos") { echo "class='active'"; }}?>>
-                                <a href="<?php echo base_url('Nomina_controller/periodos'); ?> ">Periodos</a>
+                                <a href="<?php echo base_url('Nomina_controller/periodos'); ?> ">Ordinaria</a>
                             </li>
                             <li <?php  if (isset($active1)) {  if ($active1 == "extraordinario") { echo "class='active'"; }}?>>
-                                <a href="<?php echo base_url('Nomina_controller/extraordinario'); ?> ">Nómina Extraordinarios</a>
+                                <a href="<?php echo base_url('Nomina_controller/extraordinario'); ?> ">Extraordinaria</a>
                             </li>
                             <li <?php  if (isset($active1)) {  if ($active1 == "alta_nomina") { echo "class='active'"; }}?>>
-                              <a href="<?php echo base_url('Nomina_controller/detalle_nomina'); ?> ">Alta de nómina</a>
+                              <a href="<?php echo base_url('Nomina_controller/detalle_nomina'); ?> ">Alta Ordinaria</a>
                             </li>
                             <li <?php  if (isset($active1)) { if ($active1 == "alta_nomina_extradinaria") { echo "class='active'";  }   }    ?>   >                                             
-                              <a href="<?php echo base_url('Nomina_controller/create_extraudinaria'); ?> ">Alta de Nomina Extraodinaria</a>
+                              <a href="<?php echo base_url('Nomina_controller/create_extraudinaria'); ?> ">Alta Extraodinaria</a>
                             </li>
                         </ul>
                     </li>

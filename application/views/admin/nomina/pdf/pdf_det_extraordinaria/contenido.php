@@ -19,7 +19,7 @@
         <?php foreach ($detalles as $fila){ ?>            
             <tr>
                 <td style="border: 1px solid #dddddd;text-align: center;padding: 8px;" width="15%" > <?php echo $fila->no_plaza; ?> </td>
-                <td style="border: 1px solid #dddddd;text-align: right;padding: 8px;" width="65%" > <?php echo number_format($fila->importe,2); ?> </td>
+                <td style="border: 1px solid #dddddd;text-align: right;padding: 8px;" width="65%" > $<?php echo number_format($fila->importe,2); ?> </td>
                 <td style="border: 1px solid #dddddd;text-align: center;padding: 8px;" width="20%" > $<?php echo number_format($fila->isr,2); ?></td> 
                 
             </tr>
@@ -29,9 +29,10 @@
     </tbody>
     <tfoot>
         <tr style="background-color: #dddddd;">
-         <th  style="border: 1px solid #dddddd;text-align: right;padding: 8px;"  COLSPAN="2">TOTAL</th>
-         <th  style="border: 1px solid #dddddd;text-align: left;padding: 8px;" > $<?php echo number_format($total_extraordinaria,2); ?> </th>
+         <th  style="border: 1px solid #dddddd;text-align: right;padding: 8px;">TOTAL</th>
+         <th  style="border: 1px solid #dddddd;text-align: right;padding: 8px;" > $<?php echo number_format($total_extraordinaria,2); ?> </th>
         </tr>
+        <th></th>
     </tfoot>
 </table>
 
@@ -46,7 +47,7 @@
 <!-- ************************************************************************ -->
 <hr style="width: 200px; margin-bottom: 0; margin-top: 5rem;" />
 <h5 class="text-center" style="margin-top: 0;">
-    <?php echo $detalles[0]->empleado." ".$detalles[0]->ap_paterno." ".$detalles[0]->ap_materno; ?>
+    <?php echo $detalles[0]->nombre." ".$detalles[0]->ap_paterno." ".$detalles[0]->ap_materno; ?>
 </h5>
 <h5 class="text-center">
     RECIBÍ TRANSFERENCIA

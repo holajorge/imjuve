@@ -94,6 +94,8 @@
         <!-- js para editar la nomina de un empleado-->
         <script src="<?php echo base_url('assets/js/validations/editar_nomina.js'); ?>"></script> 
     <?php endif ?>
+    <!-- js direccion -->
+    <script src="<?php echo base_url('assets/js/validations/nomina_extraudinaria.js'); ?>"></script>
 
 </body>
 </html>
