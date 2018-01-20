@@ -9,8 +9,7 @@ class Puesto_ctrl extends CI_Controller {
         $this->load->model('Puesto_model');
     }
 
-    public function index()
-	{
+    public function index(){
 		if($this->session->userdata('logged_in')==true){
 	    
 		    $dato['active'] = "puesto";
@@ -22,20 +21,16 @@ class Puesto_ctrl extends CI_Controller {
 
 	    }else{
 	      redirect('login_ctrl');
-	    }
-		
+	    }	
 	}
-
-	public function create()
-	{
+	public function create(){
 		$dato['active'] = "puesto";
         $dato['active1'] = "registro";
 		$this->load->view('global_view/header', $dato);
 		$this->load->view('admin/puesto/registro');
 		$this->load->view('global_view/foother');
 	}
-	public function create_puesto()
-	{
+	public function create_puesto(){
 		$puesto = array(
 		    'nivel' => $this->input->post('nivel'),			    
 		    'nombre' => $this->input->post('nombre'),	
@@ -66,7 +61,30 @@ class Puesto_ctrl extends CI_Controller {
         }
         echo json_encode($result);	
 	}
+	public function deshabilitar_Puesto(){
 
+		$id = $this->input->post('id');
+		$query = $this->Puesto_model->deshabilitarPuesto($id);
+
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+	public function habilitar_Puesto(){
+
+		$id = $this->input->post('id');
+		$query = $this->Puesto_model->habilitarPuesto($id);
+
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
 }
 
  ?>

@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 });
 
- function editPuesto(id){
+function editPuesto(id){
 
     var nivel=document.getElementById("nivel"+id).innerHTML;    
     var nombre=document.getElementById("nombre"+id).innerHTML;            
@@ -88,9 +88,9 @@ $(document).ready(function() {
     document.getElementById("idEditar").value=id;              
     document.getElementById("nivelEditar").value=nivel;
     document.getElementById("nombreEditar").value=nombre;                      
-    }
+}
 
- function savePuestoEdit(){
+function savePuestoEdit(){
 
         $.ajax({
                 url: baseURL + "Puesto_ctrl/edit_puestos",
@@ -112,4 +112,61 @@ $(document).ready(function() {
                 }
             } 
         });
-    }
+}
+
+function deshabilitarPuesto(id){
+
+  swal({
+      title: "SEGURO DE DESHABILITAR?",            
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Puesto_ctrl/deshabilitar_Puesto",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "PUESTO CORRECTAMENTE DESHABILITADA!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Puesto_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarPuesto(id){
+
+    swal({
+        title: "SEGURO DE HABILITAR PUESTO?",            
+         type: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Puesto_ctrl/habilitar_Puesto",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "PUESTO HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Puesto_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}

@@ -117,23 +117,50 @@ function verificarIndicador(){
     function deletePercepcion(id){
 
        swal({
-            title: "SEGURO DE ELIMINAR?",            
+            title: "SEGURO DE DESHABILITAR?",            
              type: "warning",
              showCancelButton: true,
              confirmButtonColor: "#DD6B55",
-             confirmButtonText: "SI, ELIMINAR AHORA!",
+             confirmButtonText: "SI, DESHABILITAR AHORA!",
              closeOnConfirm: false
            }, function (isConfirm) {
             if (!isConfirm) return;
                 $.ajax({
-                  url: baseURL + "Percepciones_ctrl/delete_Percepcion",
+                  url: baseURL + "Percepciones_ctrl/deshabilitar_Percepcion",
                   type: "POST",
-                  data: {
-                    id: id
-                  },
+                  data: {id: id},
                   dataType: "html",
                   success: function () {
-                    swal("Hecho!", "Eliemeto Eliminado!", "success");
+                    swal("Hecho!", "PERCEPCIÓN CORRECTAMENTE DESHABILITADA!", "success");
+                    setTimeout(function() {
+                      window.location.href = baseURL+"Percepciones_ctrl/index";
+                    }, 2000);
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error deleting!", "Please try again", "error");
+                  }
+                });
+        });
+    }
+
+    function habilitarPercepcion(id){
+
+        swal({
+            title: "SEGURO DE HABILITAR PERCEPCIÓN?",            
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "SI, HABILITAR AHORA!",
+             closeOnConfirm: false
+           }, function (isConfirm) {
+            if (!isConfirm) return;
+                $.ajax({
+                  url: baseURL + "Percepciones_ctrl/habilitar_Percepcion",
+                  type: "POST",
+                  data: {id: id},
+                  dataType: "html",
+                  success: function () {
+                    swal("Hecho!", "PERCEPCIÓN HABILITADO CORRECTAMENTE!", "success");
                     setTimeout(function() {
                       window.location.href = baseURL+"Percepciones_ctrl/index";
                     }, 2000);

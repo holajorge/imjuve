@@ -88,3 +88,60 @@ function editDeduccion(id){
     document.getElementById("indicadorEditar").value=indicador;
     document.getElementById("nombreEditar").value=nombre;           
 }
+
+function deshabilitarDeduccion(id){
+
+  swal({
+      title: "SEGURO DE DESHABILITAR?",            
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Deduciones_ctrl/deshabilitar_Deduccion",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "DEDUCCIÓN CORRECTAMENTE DESHABILITADA!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Deduciones_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarDeduccion(id){
+
+    swal({
+        title: "SEGURO DE HABILITAR DEDUCCIÓN?",            
+         type: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Deduciones_ctrl/habilitar_Deduccion",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "DEDUCCIÓN HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Deduciones_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}

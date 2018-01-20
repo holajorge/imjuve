@@ -19,8 +19,12 @@
                                     <td><label  id="indicador<?php echo $aportacion->id_aportacion ?>"><?php echo  $aportacion->indicador ?></label></td> 
                                     <td><label  id="nombre<?php echo $aportacion->id_aportacion ?>"><?php echo $aportacion->nombre?></label></td>  
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger" onclick="deleteDeduccion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
-                                        <button class="btn btn-info" onclick="editAportacion('<?php echo $aportacion->id_aportacion ?>')" data-toggle="modal" data-target="#editarAportacion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
+                                        <?php if ($aportacion->status == 1): ?>
+                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarAportacion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                        <?php else: ?>
+                                            <button type="button" class="btn btn-success btn-rounded" onclick="habilitarAportacion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                        <?php endif ?>                                        
+                                        <button class="btn btn-info btn-rounded" onclick="editAportacion('<?php echo $aportacion->id_aportacion ?>')" data-toggle="modal" data-target="#editarAportacion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                     </td>                                      
                                 </tr>                                
                             <?php endforeach ?>

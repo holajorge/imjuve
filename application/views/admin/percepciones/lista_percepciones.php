@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a type="button" class="col-lg-2 btn btn-primary pull-right" href="<?php echo base_url('Percepciones_ctrl/create'); ?>" >Registrar Percepcion</a> 
+            <a type="button" class="col-lg-2 btn btn-primary dim pull-right " href="<?php echo base_url('Percepciones_ctrl/create'); ?>" > <span class="fa fa-check"></span> Registrar Percepcion</a> 
             <div class="ibox float-e-margins">
                 <div class="ibox-content">                   
                   <div class="table-responsive">
@@ -18,10 +18,14 @@
                                 <?php foreach ($percepciones as  $percepcion): ?>
                                     <tr class="gradeA">
                                         <td><label  id="indicador<?php echo $percepcion->id_percepcion ?>"><?php echo  $percepcion->indicador ?></label></td> 
-                                        <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>  
+                                        <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
-                                            <button class="btn btn-info" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
+                                            <?php if ($percepcion->status == 1): ?>
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>
+                                                <button class="btn btn-info btn-rounded" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion"><span class="glyphicon glyphicon-edit"></span> Editar</button>
                                         </td>                                    
                                     </tr>                                
                                 <?php endforeach ?>
@@ -36,7 +40,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- NODAL EDITAR PERCEPCION-->
 <div class="modal fade" id="editarPercepcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <form role="form" id="formPercepcionEditar">

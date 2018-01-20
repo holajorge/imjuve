@@ -103,7 +103,6 @@ function saveDepto(){
         } 
     });
 }
-
 function editDepto(id){
 
     var nombre=document.getElementById("nombre"+id).innerHTML;    
@@ -112,7 +111,6 @@ function editDepto(id){
     document.getElementById("idEditar").value=id;              
     document.getElementById("nombreEditar").value=nombre;
 }
-
 function saveDeptoEdit(){
 
     $.ajax({
@@ -134,5 +132,61 @@ function saveDeptoEdit(){
                }, 1300);
             }
         } 
+    });
+}
+function deshabilitarDepto(id){
+
+  swal({
+      title: "SEGURO DE DESHABILITAR?",            
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Depto_ctrl/deshabilitar_Depto",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "DEPARTAMENTO CORRECTAMENTE DESHABILITADA!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Depto_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarDepto(id){
+
+    swal({
+        title: "SEGURO DE HABILITAR DEDUCCIÓN?",            
+         type: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Depto_ctrl/habilitar_Depto",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "DEPARTAMENTO HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Depto_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
     });
 }

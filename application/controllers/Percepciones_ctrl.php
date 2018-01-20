@@ -62,13 +62,32 @@ class Percepciones_ctrl extends CI_Controller {
         }
         echo json_encode($result);	
 	}
-	public function delete_Percepcion()
+	public function deshabilitar_Percepcion()
 	{
-		 $id = $this->input->post('id');
-		 $this->Percepciones_model->eliminarPercepcion($id);
+		$id = $this->input->post('id');
+		$query = $this->Percepciones_model->deshabilitarPercepcion($id);
 		
-		return true;
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
 	}
+
+	public function habilitar_Percepcion(){
+
+		$id = $this->input->post('id');
+		$query = $this->Percepciones_model->habilitarPercepcion($id);
+
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+
 	public function edit_perception(){
 
 		$id = $this->input->post('id');
