@@ -316,7 +316,7 @@ function lista_aportaciones_edit(){
 						    cell1_id_ded.setAttribute("style", "display: none;")
 						    cell2_codigo.innerHTML = obj.aportaciones[l].indicador;
 						    cell3_desc.innerHTML = obj.aportaciones[l].nombre;
-						    if (id_aportacion > 0 & id_aportacion <= 7) {
+						    if (id_aportacion > 0 & id_aportacion <= 8) {
 						    	cell4_importe.innerHTML = "<input type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> ";
                             }else{
                             	cell4_importe.innerHTML = "<input type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> ";

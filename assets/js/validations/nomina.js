@@ -622,7 +622,7 @@ function lista_aportaciones(){
                         html += "<td style='display:none;'>" + obj.aportaciones[l].id_aportacion + "</td>";
                         html += "<td>" + obj.aportaciones[l].indicador + "</td>";
                         html += "<td>" + obj.aportaciones[l].nombre +"</td>";
-                        if (id_apor > 0 & id_apor <= 7) {
+                        if (id_apor > 0 & id_apor <= 8) {
                             html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>";
                         }else{
                             html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";

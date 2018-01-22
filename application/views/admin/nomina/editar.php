@@ -206,7 +206,7 @@
 							  		<td><?php echo $aportacion->indicador; ?> </td>
 							  		<td><?php echo $aportacion->nombre; ?> </td>
 							  		<td>
-							  			<?php if ($aportacion->id_aportacion > 0 & $aportacion->id_aportacion <= 7){ ?>
+							  			<?php if ($aportacion->id_aportacion > 0 & $aportacion->id_aportacion <= 8){ ?>
 							  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled>
 							  			<?php }else{ ?>
 							  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> 

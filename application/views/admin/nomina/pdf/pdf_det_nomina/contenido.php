@@ -1,15 +1,67 @@
+<style type='text/css'>
+
+.tabla-color tr:nth-child(odd) {
+    background-color:#f2f2f2;
+}
+.tabla-color tr:nth-child(even) {
+    background-color:#fbfbfb;
+}
+
+.margen-arriba{
+    margin-top: 25px;
+}
+
+</style>
+<!-- ************************************************************************ -->
+<!-- DATOS DEL EMPLEADO-->
+<!-- ************************************************************************ -->
+<table class="table" id="id_tab_per" style="margin-top: 2rem; font-size: 12px;">
+    <tbody id="">
+       <tr>
+            <td> No. de plaza: </td> 
+            <td> <?php echo $header_pdf[0]->no_plaza; ?> </td>
+            <td> No. de empleado: </td> 
+            <td> <?php echo $header_pdf[0]->no_empleado; ?> </td> 
+       </tr>
+       <tr>
+            <td> Nombre:  </td> 
+            <td > <?php
+                echo $header_pdf[0]->empleado;
+                echo " ";
+                echo $header_pdf[0]->ap_paterno;
+                echo " ";
+                echo $header_pdf[0]->ap_materno; 
+            ?></td>
+            <td> RFC: </td> 
+            <td> <?php echo $header_pdf[0]->rfc; ?> </td> 
+       </tr>
+       <tr>
+            <td> CURP:  </td> 
+            <td> <?php echo $header_pdf[0]->curp; ?></td>
+            <td> DEPARTAMENTO: </td> 
+            <td> <?php echo $header_pdf[0]->depto; ?> </td> 
+       </tr>
+       <tr>
+            <td> NIVEL:  </td> 
+            <td> <?php echo $header_pdf[0]->nivel; ?></td>
+            <td> HORAS: </td> 
+            <td> <?php echo $header_pdf[0]->horas; ?> hrs. </td> 
+       </tr>
+    </tbody>
+</table>
+
 <!-- ************************************************************************ -->
 <!-- PERCEPCIONES-->
 <!-- ************************************************************************ -->
-<table class="table table-bordered" id="" style="font-size: 12px;">
+<table class="tabla-color" id="" style="font-size: 12px;" width="100%">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">PERCEPCIONES</th>
         </tr>
         <tr class="warning">                    
-            <th class="text-center">CÓDIGO</th>
-            <th class="text-center">DESCRIPCIÓN</th>
-            <th class="text-center">IMPORTE</th>
+            <th class="text-center" width="15%">CÓDIGO</th>
+            <th class="text-center" width="65%">DESCRIPCIÓN</th>
+            <th class="text-center" width="20%">IMPORTE</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +87,7 @@
 <!-- ************************************************************************ -->
 <!-- DEDUCCIONES -->
 <!-- ************************************************************************ -->
-<table class="table table-bordered table-striped" id="" style="font-size: 12px;">
+<table class="tabla-color margen-arriba" id="" style="font-size: 12px;" width="100%">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">DEDUCCIONES</th>
@@ -71,7 +123,7 @@
 
 <?php if ( !empty($aportaciones) ) { ?>
    
-<table class="table table-bordered" id="" style="font-size: 12px;">
+<table class="tabla-color margen-arriba" id="" style="font-size: 12px;" width="100%">
     <thead>
         <tr>
             <th COLSPAN="3" class="text-center success">APORTACIONES</th>
@@ -110,7 +162,7 @@
 <!-- ************************************************************************ -->
 <!-- ÁREA DE FIRMAS -->
 <!-- ************************************************************************ -->
-<hr style="width: 200px; margin-bottom: 0; margin-top: 5rem;" />
+<hr style="width: 200px; margin-bottom: 0; margin-top: 50px;" />
 <h5 class="text-center" style="margin-top: 0;">
     <?php echo $deducciones[0]->empleado." ".$deducciones[0]->ap_paterno." ".$deducciones[0]->ap_materno; ?>
 </h5>
