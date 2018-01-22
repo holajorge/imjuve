@@ -18,7 +18,11 @@
                                     <tr class="gradeA">
                                         <td><label  id="nombre<?php echo $tipoEmpleado->id_tipo_trabajador ?>"><?php echo  $tipoEmpleado->nombre_tipo_trabajador ?></label></td>                                                                             
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deleteDepto('<?php echo $tipoEmpleado->id_tipo_trabajador ?>')"><span class="fa fa-times"></span>  Desabilidar</button>
+                                            <?php if ($tipoEmpleado->status == 1): ?>
+                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarEmpleadoTipo('<?php echo $tipoEmpleado->id_tipo_trabajador?>', '<?php echo $tipoEmpleado->nombre_tipo_trabajador?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarEmpleadoTipo('<?php echo $tipoEmpleado->id_tipo_trabajador ?>', '<?php echo $tipoEmpleado->nombre_tipo_trabajador?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>                                        
                                             <button class="btn btn-info" onclick="editTipoEmpleado('<?php echo $tipoEmpleado->id_tipo_trabajador ?>')" data-toggle="modal" data-target="#editarTipoEmpleado"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                

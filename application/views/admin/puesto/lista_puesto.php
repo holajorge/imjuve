@@ -21,9 +21,9 @@
                                         <td><label  id="nombre<?php echo $puesto->id_puesto ?>"><?php echo $puesto->nombre?></label></td>
                                          <td class="text-center">
                                             <?php if ($puesto->status == 1): ?>
-                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarPuesto('<?php echo $puesto->id_puesto ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarPuesto('<?php echo $puesto->id_puesto ?>','<?php echo $puesto->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
                                             <?php else: ?>
-                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPuesto('<?php echo $puesto->id_puesto ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPuesto('<?php echo $puesto->id_puesto ?>', '<?php echo $puesto->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
                                             <?php endif ?>                                            
                                             <button class="btn btn-info  btn-rounded" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                         </td>  

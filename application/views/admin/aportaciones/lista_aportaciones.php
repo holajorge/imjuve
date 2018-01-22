@@ -8,7 +8,7 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tabla_lista_empleados">
                             <thead>
                                 <tr>
-                                    <th>indicador</th>
+                                    <th>Código</th>
                                     <th>Nombre</th> 
                                     <th class="text-center">Acciones</th>                                                  
                                 </tr>
@@ -20,9 +20,9 @@
                                     <td><label  id="nombre<?php echo $aportacion->id_aportacion ?>"><?php echo $aportacion->nombre?></label></td>  
                                     <td class="text-center">
                                         <?php if ($aportacion->status == 1): ?>
-                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarAportacion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarAportacion('<?php echo $aportacion->id_aportacion ?>', '<?php echo $aportacion->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
                                         <?php else: ?>
-                                            <button type="button" class="btn btn-success btn-rounded" onclick="habilitarAportacion('<?php echo $aportacion->id_aportacion ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <button type="button" class="btn btn-success btn-rounded" onclick="habilitarAportacion('<?php echo $aportacion->id_aportacion ?>', '<?php echo $aportacion->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
                                         <?php endif ?>                                        
                                         <button class="btn btn-info btn-rounded" onclick="editAportacion('<?php echo $aportacion->id_aportacion ?>')" data-toggle="modal" data-target="#editarAportacion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                     </td>                                      
@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group ">
-                                <label for="indicador">Indicador</label>
+                                <label for="indicador">Código</label>
                                 <input type="text" name="indicador" id="indicadorEditar" class="form-control input-lg" tabindex="1">
                             </div>
                         </div>

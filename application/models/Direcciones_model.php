@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Direcciones_model extends CI_Model {
 
-    public function __construct() {
+  public function __construct() {
       parent::__construct();
       $this->load->database();
     }
 
-    public function getAll(){
+  public function getAll(){
 
    	  $this->db->select('*');
    	  $this->db->from('cat_direcciones');
@@ -19,15 +19,25 @@ class Direcciones_model extends CI_Model {
             return false;
       }
     }
-    public function createDireccion($direccion){
+  public function createDireccion($direccion){
         return $this->db->insert('cat_direcciones', $direccion );
     }
-    public function updateDireccion($id, $direccion){
+  public function updateDireccion($id, $direccion){
 
        $this->db->where('id_direccion', $id);
        return $this->db->update('cat_direcciones', $direccion);
-
     }
+  public function deshabilitarDireccion($id){
+    $deshabilitar = array('status' => 0);
+              $this->db->where('id_direccion', $id);
+    return  $this->db->update('cat_direcciones', $deshabilitar);
+  }
+  public function habilitarDireccion($id){
+
+      $habilitar = array('status' => 1);
+              $this->db->where('id_direccion', $id);
+      return  $this->db->update('cat_direcciones', $habilitar);
+  }
 
 }
 

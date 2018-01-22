@@ -114,11 +114,13 @@ function verificarIndicador(){
                                        
     }
 
-    function deletePercepcion(id){
-
+    function deletePercepcion(id,nombre){
+      var name = "<p><strong>"+nombre+"</strong><p>";
+      var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
        swal({
-            title: "SEGURO DE DESHABILITAR?",            
+            title: text+name,            
              type: "warning",
+             html:true,
              showCancelButton: true,
              confirmButtonColor: "#DD6B55",
              confirmButtonText: "SI, DESHABILITAR AHORA!",
@@ -143,11 +145,13 @@ function verificarIndicador(){
         });
     }
 
-    function habilitarPercepcion(id){
-
+    function habilitarPercepcion(id,nombre){
+         var name = "<p><strong>"+nombre+"</strong><p>";
+        var text = "<h3>¿SEGURO DE HABILITAR PERCEPCIÓN?</h3>";
         swal({
-            title: "SEGURO DE HABILITAR PERCEPCIÓN?",            
+            title: text+name,            
              type: "warning",
+             html:true,
              showCancelButton: true,
              confirmButtonColor: "#DD6B55",
              confirmButtonText: "SI, HABILITAR AHORA!",

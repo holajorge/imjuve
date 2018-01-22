@@ -114,11 +114,13 @@ function savePuestoEdit(){
         });
 }
 
-function deshabilitarPuesto(id){
-
+function deshabilitarPuesto(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
   swal({
-      title: "SEGURO DE DESHABILITAR?",            
+      title: text+name,            
        type: "warning",
+       html:true,
        showCancelButton: true,
        confirmButtonColor: "#DD6B55",
        confirmButtonText: "SI, DESHABILITAR AHORA!",
@@ -142,11 +144,13 @@ function deshabilitarPuesto(id){
         });
     });
 }
-function habilitarPuesto(id){
-
+function habilitarPuesto(id, nombre){
+    var name = "<p><strong>"+nombre+"</strong><p>";
+    var text = "<h3>¿SEGURO DE HABILITAR PUESTO?</h3>";
     swal({
-        title: "SEGURO DE HABILITAR PUESTO?",            
+        title: text+name,            
          type: "warning",
+         html:true,
          showCancelButton: true,
          confirmButtonColor: "#DD6B55",
          confirmButtonText: "SI, HABILITAR AHORA!",

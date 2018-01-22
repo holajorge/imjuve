@@ -21,9 +21,9 @@
                                         <td><label  id="direccion<?php echo $depto->id_depto ?>"><?php echo $depto->direccion ?></label></td>                                       
                                         <td class="text-center">
                                             <?php if ($depto->status == 1): ?>
-                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDepto('<?php echo $depto->id_depto ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDepto('<?php echo $depto->id_depto ?>', '<?php echo $depto->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
                                             <?php else: ?>
-                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDepto('<?php echo $depto->id_depto ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDepto('<?php echo $depto->id_depto ?>', '<?php echo $depto->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
                                             <?php endif ?>                                            
                                             <button class="btn btn-info btn-rounded" onclick="editDepto('<?php echo $depto->id_depto ?>')" data-toggle="modal" data-target="#editarDepto"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>                                    

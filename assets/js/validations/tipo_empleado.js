@@ -83,3 +83,64 @@ function editTipoEmpleado(id){
     document.getElementById("idEditar").value=id;              
     document.getElementById("nombreEditar").value=nombre;
 }
+
+function deshabilitarEmpleadoTipo(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
+  swal({
+      title: text+name,            
+       type: "warning",
+       showCancelButton: true,
+       html:true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "TipoEmpleado_ctrl/deshabilitar_EmpleadoTipo",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "TIPO EMPLEADO CORRECTAMENTE DESHABILITADO!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"TipoEmpleado_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarEmpleadoTipo(id, nombre){
+    var name = "<p><strong>"+nombre+"</strong><p>";
+    var text = "<h3>¿EGURO DE HABILITAR TIPO EMPLEADO?</h3>";
+    swal({
+        title: text+name,            
+         type: "warning",
+         showCancelButton: true,
+         html:true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "TipoEmpleado_ctrl/habilitar_EmpleadoTipo",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "TIPO EMPLEADO HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"TipoEmpleado_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}

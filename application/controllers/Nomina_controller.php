@@ -39,6 +39,7 @@ class Nomina_controller extends CI_Controller {
         $dato['active'] = "nomina";
         $dato['active1'] = "extraordinario";
         $data['extraordinarios'] = $this->Nomina_model->getAllPeriodosExtraordinario();
+        
         $this->load->view('global_view/header',$dato);
         $this->load->view('admin/nomina/extraordinario', $data);
         $this->load->view('global_view/foother');

@@ -7,7 +7,7 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tabla_lista_empleados">
                             <thead>
                                 <tr>
-                                    <th>indicador</th>
+                                    <th>Código</th>
                                     <th>Nombre</th> 
                                     <th class="text-center">Acciones</th>                                                  
                                 </tr>
@@ -19,9 +19,9 @@
                                     <td><label  id="nombre<?php echo $deduccion->id_deduccion ?>"><?php echo $deduccion->nombre?></label></td>  
                                     <td class="text-center">
                                         <?php if ($deduccion->status == 1): ?>
-                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDeduccion('<?php echo $deduccion->id_deduccion ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDeduccion('<?php echo $deduccion->id_deduccion ?>', '<?php echo $deduccion->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
                                         <?php else: ?>
-                                            <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDeduccion('<?php echo $deduccion->id_deduccion ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDeduccion('<?php echo $deduccion->id_deduccion ?>', '<?php echo $deduccion->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
                                         <?php endif ?>                                        
                                             <button class="btn btn-info btn-rounded" onclick="editDeduccion('<?php echo $deduccion->id_deduccion ?>')" data-toggle="modal" data-target="#editarDeduccion"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                     </td>                                      
@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group ">
-                                <label for="indicador">Indicador</label>
+                                <label for="indicador">Código</label>
                                 <input type="text" name="indicador" id="indicadorEditar" class="form-control input-lg" tabindex="1">
                             </div>
                         </div>

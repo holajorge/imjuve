@@ -21,14 +21,23 @@ class TipoEmpleado_model extends CI_Model {
         }
    }
    public function createTiploEmpleado($tipoEmpleao){
-    return $this->db->insert('cat_tipo_trabajador', $tipoEmpleao );
+      return $this->db->insert('cat_tipo_trabajador', $tipoEmpleao );
    }
    public function updateTipoEmpleado($id, $tipo){
-
-     $this->db->where('id_tipo_trabajador', $id);
-     return $this->db->update('cat_tipo_trabajador', $tipo);
-
+       $this->db->where('id_tipo_trabajador', $id);
+       return $this->db->update('cat_tipo_trabajador', $tipo);
     }
+  public function deshabilitarEmpleadoTipo($id){
+
+        $deshabilitar = array('status' => 0);
+        $this->db->where('id_tipo_trabajador', $id);
+        return $this->db->update('cat_tipo_trabajador', $deshabilitar);
+   }
+  public function habilitarEmpleadoTipo($id){
+        $habilitar = array('status' => 1);
+        $this->db->where('id_tipo_trabajador', $id);
+        return $this->db->update('cat_tipo_trabajador', $habilitar);
+  }
 
 }
 

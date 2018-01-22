@@ -7,8 +7,7 @@ class Direcciones_ctrl extends CI_Controller {
         parent::__construct();        
         $this->load->model('Direcciones_model');
     }    
-    public function index()
-    {
+    public function index(){
          if($this->session->userdata('logged_in')==true){
             $dato['active'] = "direccion";
             $dato['active1'] = "lista_direcciones";   
@@ -56,6 +55,31 @@ class Direcciones_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result); 
+    }
+
+    public function deshabilitar_Direccion(){
+
+        $id = $this->input->post('id');
+        $query = $this->Direcciones_model->deshabilitarDireccion($id);
+        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+    }
+    public function habilitar_Direccion(){
+
+        $id = $this->input->post('id');
+        $query = $this->Direcciones_model->habilitarDireccion($id);
+
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
     }
 
 }

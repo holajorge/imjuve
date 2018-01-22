@@ -83,3 +83,65 @@ function editDireccion(id){
     document.getElementById("idEditar").value=id;              
     document.getElementById("nombreEditar").value=nombre;
 }
+
+function deshabilitarDireccion(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
+  swal({
+      title: text+name+"",
+       type: "warning",
+       html: true,
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Direcciones_ctrl/deshabilitar_Direccion",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "DEPARTAMENTO CORRECTAMENTE DESHABILITADA!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Direcciones_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarDireccion(id,nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE HABILITAR DIRECCIÓN?</h3>";
+    swal({
+        title: text+name+"",            
+         type: "warning",
+         html: true,
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Direcciones_ctrl/habilitar_Direccion",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "DIRECCIÓN HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Direcciones_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}
+

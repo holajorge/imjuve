@@ -18,7 +18,11 @@
                                     <tr class="gradeA">
                                         <td><label  id="nombre<?php echo $direccion->id_direccion ?>"><?php echo  $direccion->nombre ?></label></td>                                                                             
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deleteDepto('<?php echo $direccion->id_direccion ?>')"><span class="fa fa-times"></span>  Desabilidar</button>
+                                            <?php if ($direccion->status == 1): ?>
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDireccion('<?php echo $direccion->id_direccion ?>','<?php echo $direccion->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDireccion('<?php echo $direccion->id_direccion ?>', '<?php echo $direccion->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>                                        
                                             <button class="btn btn-info" onclick="editDireccion('<?php echo $direccion->id_direccion ?>')" data-toggle="modal" data-target="#editarDireccion"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                
