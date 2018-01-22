@@ -8,22 +8,22 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" id="tabla_lista_empleados">
                             <thead>
                                 <tr>                                    
-                                    <th class="text-center">indicador</th>
+                                    <th class="text-center">Código</th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Acciones</th>   
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php if ($percepciones != null): ?>                                                            
+                            <?php if ($percepciones != null): ?>
                                 <?php foreach ($percepciones as  $percepcion): ?>
                                     <tr class="gradeA">
                                         <td><label  id="indicador<?php echo $percepcion->id_percepcion ?>"><?php echo  $percepcion->indicador ?></label></td> 
                                         <td><label  id="nombre<?php echo $percepcion->id_percepcion ?>"><?php echo $percepcion->nombre?></label></td>
-                                        <td class="text-center">
+                                        <td class="text-center">                                            
                                             <?php if ($percepcion->status == 1): ?>
-                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deletePercepcion('<?php echo $percepcion->id_percepcion ?>', '<?php echo $percepcion->nombre ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
                                             <?php else: ?>
-                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPercepcion('<?php echo $percepcion->id_percepcion ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPercepcion('<?php echo $percepcion->id_percepcion ?>', '<?php echo $percepcion->nombre ?>')"><span class="fa fa-heart"></span> Habilitar </button>
                                             <?php endif ?>
                                                 <button class="btn btn-info btn-rounded" onclick="editPercepcion('<?php echo $percepcion->id_percepcion ?>')" data-toggle="modal" data-target="#editarPercepcion"><span class="glyphicon glyphicon-edit"></span> Editar</button>
                                         </td>                                    
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4">
                         <div class="form-group ">
-                            <label for="indicador">Indicador</label>
+                            <label for="indicador">Código</label>
                             <input type="text" name="indicador" id="indicadorEditar" class="form-control input-lg" tabindex="1">
                         </div>
                     </div>

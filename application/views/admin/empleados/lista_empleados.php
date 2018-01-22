@@ -10,6 +10,7 @@
                                 <tr>
                                     <th>NO. PLAZA</th>
                                     <th>HORAS</th>
+                                    <th>NSS</th>
                                     <th>NOMBRE</th>
                                     <th>AP. PATERNO</th>
                                     <th>AP. MATERNO</th>
@@ -30,6 +31,7 @@
                                     <tr class="gradeX">
                                         <td><label  id="no_plaza<?php echo $empleado->id_empleado ?>"><?php echo  $empleado->no_plaza ?></label></td>
                                         <td><label  id="horas<?php echo $empleado->id_empleado ?>"><?php echo  $empleado->horas ?></label></td>  
+                                        <td><label  id="nss<?php echo $empleado->id_empleado ?>"><?php echo  $empleado->nss ?></label></td>  
                                         <td><label  id="nombre_emp<?php echo $empleado->id_empleado ?>"><?php echo $empleado->nombre_emp?></label></td> 
                                         <td><label  id="ap_paterno<?php echo $empleado->id_empleado ?>"><?php echo  $empleado->ap_paterno ?></label></td> 
                                         <td><label  id="ap_materno<?php echo $empleado->id_empleado ?>"><?php echo $empleado->ap_materno?></label></td> 
@@ -42,7 +44,11 @@
                                         <td><label  id="no_empleado<?php echo $empleado->id_empleado ?>"><?php echo $empleado->no_empleado?></label></td>
                                         <td><label  id="trabajador<?php echo $empleado->id_empleado ?>"><?php echo $empleado->trabajador?></label></td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deshabilitarEmpleado('<?php echo $empleado->id_empleado ?>')"><span class="fa fa-times"></span> deshabilitar</button>                                  
+                                            <?php if ($empleado->status == 1): ?>
+                                            <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarEmpleado('<?php echo $empleado->id_empleado?>','<?php echo $empleado->nombre_emp?>','<?php echo $empleado->ap_paterno?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarEmpleado('<?php echo $empleado->id_empleado ?>','<?php echo $empleado->nombre_emp?>','<?php echo $empleado->ap_paterno?>' )"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>                                              
                                             <button class="btn btn-info" onclick="editEmpleado('<?php echo $empleado->id_empleado ?>')" data-toggle="modal" data-target="#editarEmpleado"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>  
                                     </tr>
@@ -69,14 +75,18 @@
         <div class="modal-body">        
                 <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
                                 <label for="num_plaza">Num. Plaza</label>
                                 <input type="number" name="no_plaza" id="num_plazaEdit" class="form-control input-lg" tabindex="1">                             
-                        </div>      
-                        <div class="col-sm-6 col-md-6">
+                        </div>
+                        <div class="col-sm-4 col-md-4">
                                 <label for="horas">HORAS</label>
                                 <input type="number" name="horas" id="horasEdit" class="form-control input-lg" tabindex="2">
-                        </div>                              
+                        </div> 
+                        <div class="col-sm-4 col-md-4">
+                                <label for="nss">NSS</label>
+                                <input type="text" name="nss" id="nssEdit" class="form-control input-lg" tabindex="2">
+                        </div>
                         <div class=" col-sm-6 col-md-6">
                                 <label for="nombre">Nombre</label>                              
                                 <input type="text" name="nombre" id="nombreEdit" class="form-control input-lg" tabindex="3">                                

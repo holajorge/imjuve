@@ -155,13 +155,14 @@ function serach_nominaExtraordinaria(id){
                             html += "<tr>";   
                                 html += "<th>SELECCIONAR </th>";                 
                                 html += "<th>NO. PLAZA </th>";
-                                html += "<th>RFC</th>";
+                                html += "<th>HORAS</th>";
                                 html += "<th>NOMBRE</th>";
                                 html += "<th>APELLIDOS</th>";
+                                html += "<th>FECHA NACIMIENTO</th>";
                                 html += "<th>FECHA INGRESO</th>";                    
-                                html += "<th>DEPTO</th>";
-                                html += "<th>PUESTO</th>";
-                                html += "<th>IMPRIMIR</th>";              
+                                html += "<th>RFC</th>";
+                                html += "<th>CURP</th>";
+                                html += "<th>ACCIONES</th>";              
                             html += "</tr>";
                         html += "</thead>";
                         html += "<tbody>";
@@ -169,16 +170,20 @@ function serach_nominaExtraordinaria(id){
                     for (l in obj.empleado) {
                        console.log(obj.empleado[l].id_concepto_extraordinario);
                        console.log(obj.empleado[l].id_empleado);
-                        html += "<tr>";
+                        html += "<tr>";id="indicador<?php echo $percepcion->id_percepcion ?>"
                             html += "<td class='text-center'><input type='checkbox' class='i-checks' name='input[]'></td>";
-                            html += "<td>" + obj.empleado[l].no_plaza + "</td>";
-                            html += "<td>" + obj.empleado[l].rfc +"</td>";
+                            html += "<td><label id='no_plaza"+obj.empleado[l].id_empleado+"'>" + obj.empleado[l].no_plaza + "</label></td>";
+                            html += "<td>" + obj.empleado[l].horas +"</td>";
                             html += "<td>" + obj.empleado[l].nombre_emp +"</td>";
                             html += "<td>" + obj.empleado[l].ap_paterno + " " + obj.empleado[l].ap_materno+"</td>";
+                            html += "<td>" + obj.empleado[l].fecha_nacimiento +"</td>";
                             html += "<td>" + obj.empleado[l].fecha_ingreso +"</td>";                       
-                            html += "<td>" + obj.empleado[l].depto + "</td>";
-                            html += "<td>" + obj.empleado[l].puesto + "</td>";
-                            html += "<td>" + "<button type='button' class='btn btn-primary' onclick='printDetalleExtraudinaria("+ obj.empleado[l].id_empleado +","+ obj.empleado[l].id_concepto_extraordinario +")' >IMPRIMIR</button>" + "</td>";
+                            html += "<td>" + obj.empleado[l].rfc + "</td>";
+                            html += "<td>" + obj.empleado[l].curp + "</td>";
+                            html += "<td>";
+                            html += "<button type='button' class='btn btn-primary' onclick='editEmpleExtraordinaria("+obj.empleado[l].id_empleado+")'  data-toggle='modal' data-target='#editExtraordinaria' ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
+                            html += "<button type='button' class='btn btn-success' onclick='printDetalleExtraudinaria("+ obj.empleado[l].id_empleado +","+ obj.empleado[l].id_concepto_extraordinario +")' ><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>";
+                             html += "</td>";
                         html += "</tr>";
                         num_fila ++;
                     }
@@ -193,6 +198,15 @@ function serach_nominaExtraordinaria(id){
             }
         } 
     });
+}
+
+function editEmpleExtraordinaria(id){
+
+    var nombre=document.getElementById("no_plaza"+id).innerHTML;    
+
+    document.getElementById("idEditar").innerHTML=id+"";
+    document.getElementById("idEditar").value=id;
+    document.getElementById("num_plazaEdit").value=nombre;
 }
 
 function printDetalleExtraudinaria(id_empleado, id_concepto_extraordinario){

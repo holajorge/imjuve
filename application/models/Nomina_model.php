@@ -7,6 +7,7 @@ class Nomina_model extends CI_Model {
   public function getAll(){
    		$this->db->select('*');      
       	$this->db->from('tab_nomina');
+        $this->db->where('status', 1);
       	$query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -66,17 +67,17 @@ class Nomina_model extends CI_Model {
   }
   public function seach_diaExtraordinario($id_extra){
 
-      $query = $this->db->query("SELECT ce.id_empleado, exe.id_concepto_extraordinario , ce.no_plaza, ce.rfc, ce.nombre  AS nombre_emp, 
-                                  ce.ap_paterno,  ce.ap_materno, ce.fecha_ingreso, cd.nombre as 'depto', cp.nombre as 'puesto',  ce.curp 
-                    FROM cat_concepto_extraordinario  cpex, cat_empleados ce, empleadosxextraoudinaria exe,  cat_depto cd, cat_puestos cp
-                    WHERE cp.id_puesto=ce.id_puesto 
-                        AND cd.id_depto=ce.id_depto 
-                        AND ce.id_empleado=exe.id_empleado 
+      $query = $this->db->query("SELECT ce.id_empleado, exe.id_concepto_extraordinario , ce.no_plaza,ce.horas, ce.rfc, ce.curp, ce.nombre  AS nombre_emp, 
+                                  ce.ap_paterno,  ce.ap_materno, ce.fecha_nacimiento, ce.fecha_ingreso, cd.nombre as 'depto', cp.nombre as 'puesto'   
+                                FROM cat_concepto_extraordinario  cpex, cat_empleados ce, empleadosxextraoudinaria exe,  cat_depto cd, cat_puestos cp
+                                WHERE cp.id_puesto=ce.id_puesto 
+                                    AND cd.id_depto=ce.id_depto 
+                                    AND ce.id_empleado=exe.id_empleado 
 
-                        AND cpex.id_concepto_extraordinario=exe.id_concepto_extraordinario 
-                        
-                        AND cpex.id_concepto_extraordinario='".$id_extra."' 
-                        GROUP BY exe.id_empleado");
+                                    AND cpex.id_concepto_extraordinario=exe.id_concepto_extraordinario 
+                                    
+                                    AND cpex.id_concepto_extraordinario='".$id_extra."' 
+                                    GROUP BY exe.id_empleado");
 
       if ($query->num_rows() > 0) {
           return $query->result();          

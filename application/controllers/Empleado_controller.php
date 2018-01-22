@@ -37,6 +37,8 @@ class Empleado_controller extends CI_Controller {
 
     public function guardar_empleado(){
         $no_plaza = $this->input->post("no_plaza");
+        $horas = $this->input->post("horas");
+        $nss = $this->input->post("nss");
         $nombre = $this->input->post("nombre");
         $ap_paterno = $this->input->post("ap_paterno");
         $ap_materno = $this->input->post("ap_materno");
@@ -46,13 +48,13 @@ class Empleado_controller extends CI_Controller {
         $id_depto = $this->input->post("id_depto");
         $id_puesto = $this->input->post("id_puesto");
         $no_empleado = $this->input->post("no_empleado");
-        $rfc = $this->input->post("rfc");
-        $horas = $this->input->post("horas");
+        $rfc = $this->input->post("rfc");        
         $id_tipo_trabajador = $this->input->post("id_tipo_trabajador");
 
         $emplado = array(
                     'no_plaza' => $no_plaza, 
                     'nombre' => $nombre,
+                    'nss' => $nss,
                     'ap_paterno' => $ap_paterno,
                     'ap_materno' => $ap_materno,
                     'fecha_nacimiento' => $fecha_nacimiento,
@@ -63,7 +65,8 @@ class Empleado_controller extends CI_Controller {
                     'no_empleado' => $no_empleado,
                     'rfc' => $rfc,
                     'horas' => $horas,
-                    'id_tipo_trabajador' => $id_tipo_trabajador
+                    'id_tipo_trabajador' => $id_tipo_trabajador,
+                    'status' => 1
                     );
         $query = $this->Empleado_model->guardar_empleado($emplado);
         if ($query == 1) {
@@ -77,9 +80,9 @@ class Empleado_controller extends CI_Controller {
     public function updater_empleado(){
 
         $id_empleado = $this->input->post("id");
-
         $no_plaza = $this->input->post("no_plaza");
         $horas = $this->input->post("horas");
+        $nss = $this->input->post("nss");
         $nombre = $this->input->post("nombre");
         $ap_paterno = $this->input->post("ap_paterno");
         $ap_materno = $this->input->post("ap_materno");
@@ -95,6 +98,7 @@ class Empleado_controller extends CI_Controller {
         $empleado = array(
             'no_plaza' => $no_plaza, 
             'horas' => $horas,
+            'nss' => $nss,
             'nombre' => $nombre,
             'ap_paterno' => $ap_paterno,
             'ap_materno' => $ap_materno,
@@ -114,6 +118,31 @@ class Empleado_controller extends CI_Controller {
             $result['resultado'] = false;
         }
 
+        echo json_encode($result);
+    }
+
+    public function deshabilitar_Empleado(){
+
+        $id = $this->input->post('id');
+        $query = $this->Empleado_model->deshabilitarEmpleado($id);
+        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+    }
+
+    public function habilitar_Empleado(){
+
+        $id = $this->input->post('id');
+        $query = $this->Empleado_model->habilitarEmpleado($id);        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
         echo json_encode($result);
     }
 

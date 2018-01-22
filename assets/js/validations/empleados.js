@@ -8,8 +8,8 @@ $(document).ready(function() {
             no_plaza: { required: true, maxlength: 5, number: true},
             nombre: { required: true, maxlength: 60, },
             horas: { required: true },
-            ap_paterno: { required: true, maxlength: 30},
-            ap_materno: { required: true, maxlength: 30},
+            nss: {required: true},
+            ap_paterno: { required: true, maxlength: 30},            
             fecha_nacimiento: { required: true, date: true},
             fecha_ingreso: { required: true, date: true},            
             rfc: {required: true},
@@ -22,8 +22,9 @@ $(document).ready(function() {
         messages: {
             horas: "Horas Necesarias",
             no_plaza: "Numero Necesario",
+            nss: "numero de suguro social necesario",
             nombre: "Debe ingresar su Nombre.",  
-            ap_paterno: "Apellido Necesario.",
+            ap_paterno: "Apellido Necesario.",            
             fecha_nacimiento: "Debe ingresar Fecha Nacimiento.",  
             fecha_ingreso: "Debe ingresar Fecha Ingeso.",
             curp: "Debe ingresar CURP.",  
@@ -121,10 +122,72 @@ $(document).ready(function() {
     });
 });
 
+function deshabilitarEmpleado(id, nombre, paterno){
+  var name = "<p><strong>"+nombre+' '+paterno+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR EMPLEADO?</h3>";
+  swal({
+      title: text+name,            
+       type: "warning",
+       showCancelButton: true,
+       html:true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Empleado_controller/deshabilitar_Empleado",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "EMPLEADO CORRECTAMENTE DESHABILITADO!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Empleado_controller/lista_empleado";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarEmpleado(id, nombre, paterno){
+    var name = "<p><strong>"+nombre+' '+paterno+"</strong><p>";
+    var text = "<h3>¿SEGURO DE HABILITAR EMPLEADO?</h3>";
+    swal({
+        title: text+name,            
+         type: "warning",
+         html:true,
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Empleado_controller/habilitar_Empleado",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "EMPLEADO HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Empleado_controller/lista_empleado";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}
+
 function editEmpleado(id){
 
     var no_plaza=document.getElementById("no_plaza"+id).innerHTML;    
     var horas=document.getElementById("horas"+id).innerHTML;
+    var nss=document.getElementById("nss"+id).innerHTML;
     var nombre=document.getElementById("nombre_emp"+id).innerHTML;
     var ap_paterno=document.getElementById("ap_paterno"+id).innerHTML;
     var ap_materno=document.getElementById("ap_materno"+id).innerHTML;
@@ -141,6 +204,7 @@ function editEmpleado(id){
     document.getElementById("idEditar").value=id;              
     document.getElementById("num_plazaEdit").value=no_plaza;
     document.getElementById("horasEdit").value=horas;
+    document.getElementById("nssEdit").value=nss;
     document.getElementById("nombreEdit").value=nombre;
     document.getElementById("ap_paternoEdit").value=ap_paterno;
     document.getElementById("ap_maternoEdit").value=ap_materno;

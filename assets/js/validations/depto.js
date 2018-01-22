@@ -134,12 +134,14 @@ function saveDeptoEdit(){
         } 
     });
 }
-function deshabilitarDepto(id){
-
+function deshabilitarDepto(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
   swal({
-      title: "SEGURO DE DESHABILITAR?",            
+      title: text+name,            
        type: "warning",
        showCancelButton: true,
+       html: true,
        confirmButtonColor: "#DD6B55",
        confirmButtonText: "SI, DESHABILITAR AHORA!",
        closeOnConfirm: false
@@ -162,31 +164,33 @@ function deshabilitarDepto(id){
         });
     });
 }
-function habilitarDepto(id){
-
-    swal({
-        title: "SEGURO DE HABILITAR DEDUCCIÓN?",            
-         type: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#DD6B55",
-         confirmButtonText: "SI, HABILITAR AHORA!",
-         closeOnConfirm: false
-       }, function (isConfirm) {
-        if (!isConfirm) return;
-            $.ajax({
-              url: baseURL + "Depto_ctrl/habilitar_Depto",
-              type: "POST",
-              data: {id: id},
-              dataType: "html",
-              success: function () {
-                swal("Hecho!", "DEPARTAMENTO HABILITADO CORRECTAMENTE!", "success");
-                setTimeout(function() {
-                  window.location.href = baseURL+"Depto_ctrl/index";
-                }, 2000);
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                swal("Error deleting!", "Please try again", "error");
-              }
-            });
-    });
+function habilitarDepto(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE HABILITAR?</h3>";
+  swal({
+      title: text+name,            
+       type: "warning",
+       html:true,
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, HABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Depto_ctrl/habilitar_Depto",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "DEPARTAMENTO HABILITADO CORRECTAMENTE!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Depto_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+          });
+  });
 }

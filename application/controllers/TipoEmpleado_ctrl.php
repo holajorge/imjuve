@@ -9,8 +9,7 @@ class TipoEmpleado_ctrl extends CI_Controller {
         // $this->load->library('bcrypt');
         $this->load->model('TipoEmpleado_model');
     }    
-    public function index()
-    {
+    public function index(){
          if($this->session->userdata('logged_in')==true){
             $dato['active'] = "empleado";
             $dato['active1'] = "lista_TipoEmpleado";   
@@ -60,7 +59,31 @@ class TipoEmpleado_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);  
-    }		
+    }	
+    public function deshabilitar_EmpleadoTipo(){
+
+        $id = $this->input->post('id');
+        $query = $this->TipoEmpleado_model->deshabilitarEmpleadoTipo($id);
+        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+    }
+
+    public function habilitar_EmpleadoTipo(){
+
+        $id = $this->input->post('id');
+        $query = $this->TipoEmpleado_model->habilitarEmpleadoTipo($id);        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);
+    }	
 
 }
 

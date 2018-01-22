@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group ">
-							<label for="indicador">Indicador</label>
+							<label for="indicador">Código</label>
 	                        <input type="text" name="indicador" id="indicador" class="form-control input-lg" tabindex="1" onblur="verificarIndicador()">	                        
 						</div>
 					</div>

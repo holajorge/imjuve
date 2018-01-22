@@ -89,12 +89,14 @@ function editDeduccion(id){
     document.getElementById("nombreEditar").value=nombre;           
 }
 
-function deshabilitarDeduccion(id){
-
+function deshabilitarDeduccion(id,nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR?</h3>";
   swal({
-      title: "SEGURO DE DESHABILITAR?",            
+      title: text+name,            
        type: "warning",
        showCancelButton: true,
+       html:true,
        confirmButtonColor: "#DD6B55",
        confirmButtonText: "SI, DESHABILITAR AHORA!",
        closeOnConfirm: false
@@ -117,11 +119,13 @@ function deshabilitarDeduccion(id){
         });
     });
 }
-function habilitarDeduccion(id){
-
+function habilitarDeduccion(id, nombre){
+    var name = "<p><strong>"+nombre+"</strong><p>";
+    var text = "<h3>¿SEGURO DE HABILITAR DEDUCCIÓN?</h3>";
     swal({
-        title: "SEGURO DE HABILITAR DEDUCCIÓN?",            
+        title: text+name,            
          type: "warning",
+         html:true,
          showCancelButton: true,
          confirmButtonColor: "#DD6B55",
          confirmButtonText: "SI, HABILITAR AHORA!",

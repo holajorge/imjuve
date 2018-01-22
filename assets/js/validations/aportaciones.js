@@ -88,12 +88,14 @@ function editAportacion(id){
     document.getElementById("indicadorEditar").value=indicador;
     document.getElementById("nombreEditar").value=nombre;           
 }
-function deshabilitarAportacion(id){
-
+function deshabilitarAportacion(id, nombre){
+  var name = "<p><strong>"+nombre+"</strong><p>";
+  var text = "<h3>¿SEGURO DE DESHABILITAR APORTACIÓN?</h3>";
   swal({
-      title: "SEGURO DE DESHABILITAR?",            
+      title: text+name,            
        type: "warning",
        showCancelButton: true,
+       html: true,
        confirmButtonColor: "#DD6B55",
        confirmButtonText: "SI, DESHABILITAR AHORA!",
        closeOnConfirm: false
@@ -116,11 +118,13 @@ function deshabilitarAportacion(id){
         });
     });
 }
-function habilitarAportacion(id){
-
+function habilitarAportacion(id,nombre){
+    var name = "<p><strong>"+nombre+"</strong><p>";
+    var text = "<h3>¿SEGURO DE HABILITAR APORTACIÓN?</h3>";
     swal({
-        title: "SEGURO DE HABILITAR APORTACIÓN?",            
+        title: text+name,            
          type: "warning",
+         html:true,
          showCancelButton: true,
          confirmButtonColor: "#DD6B55",
          confirmButtonText: "SI, HABILITAR AHORA!",
