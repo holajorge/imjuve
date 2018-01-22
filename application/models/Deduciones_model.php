@@ -17,6 +17,18 @@ class Deduciones_model extends CI_Model {
           return false;
       }
   }
+
+  public function get_ded_activos(){
+      $this->db->select('*');      
+      $this->db->from('cat_deducciones');
+      $this->db->where('status',1);
+      $query = $this->db->get();
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      } else {
+          return false;
+      }
+  }
   public function insertDeducciones($deduccion){
 
    	  return $this->db->insert('cat_deducciones', $deduccion);

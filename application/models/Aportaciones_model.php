@@ -13,6 +13,18 @@ class Aportaciones_model extends CI_Model {
             return false;
         }
   }
+
+  public function get_apor_activos(){
+        $this->db->select('*');      
+        $this->db->from('cat_aportaciones');
+        $this->db->where('status',1);        
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+  }
   public function createAportacion($aportacion){
     
     return $this->db->insert('cat_aportaciones',$aportacion);

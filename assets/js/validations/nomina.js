@@ -230,9 +230,9 @@ function mostrar_tablas_det_nomina(event,id_nomina){
                     d.setAttribute("style", "display: block;");
                     $("#mostrar_aportaciones").show();
                 //SE OCULTAN LAS APORTACIONES CUANDO ES UN TRABAJADOR DE TIPO EVENTUAL
-                if (trabajador_eventual) {
-                    $("#mostrar_aportaciones").hide();
-                }
+                // if (trabajador_eventual) {
+                //     $("#mostrar_aportaciones").hide();
+                // }
                 //LLAMAR A LA FUNCIÓN DE MOSTRAR PERIODO QUINQUENAL
                 mostrar_per_quinquenal(id_nomina);
             }
@@ -468,8 +468,8 @@ function guardar_datos_nomina(){
     var data_aportaciones = get_data_tabla(".importe_aportacion","tabla_aportaciones","id_apor_");
     
     //SE VERIFICA QUE NO HAYAN CAMPOS VACIOS Y QUE SE HAYAN SELECCIONADO LAS 3 TABLAS
-    if (trabajador_eventual) {
-        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true)) {
+    //if (trabajador_eventual) {
+        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposVaciosFaltantes"] == true) ) {
             swal({
                 title: " ",
                 text: "FALTAN CAMPOS POR LLENAR",
@@ -489,27 +489,27 @@ function guardar_datos_nomina(){
             });
             
         }
-    }else{
-        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
-            swal({
-                title: " ",
-                text: "FALTAN CAMPOS POR LLENAR",
-                type: "warning"
-            });
-        }else{
-            swal({
-            title: "Confirmar",
-            text: "¿Desea guardar los datos de la nómina?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Guardar!",
-            closeOnConfirm: false
-            }, function () {
-                guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
-           });
-        }
-    }   
+    // }else{
+    //     if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
+    //         swal({
+    //             title: " ",
+    //             text: "FALTAN CAMPOS POR LLENAR",
+    //             type: "warning"
+    //         });
+    //     }else{
+    //         swal({
+    //         title: "Confirmar",
+    //         text: "¿Desea guardar los datos de la nómina?",
+    //         type: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#DD6B55",
+    //         confirmButtonText: "Si, Guardar!",
+    //         closeOnConfirm: false
+    //         }, function () {
+    //             guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+    //        });
+    //     }
+    // }   
     
 }
 //************************************************************************************
@@ -551,6 +551,7 @@ function get_data_tabla(nombre, tabla, id_input){
     var data = new Array();
     // var indice_celda = 2;
     var camposVacios = false;
+    var camposVaciosFaltantes = false;
     for (var i = 0; i < valores.length; i++) {
 
         var id  = valores[i].id;
@@ -560,6 +561,7 @@ function get_data_tabla(nombre, tabla, id_input){
         if (valor == "" | parseFloat(valor) <= 0) {
             document.getElementById(id_input+id_data[2]).setAttribute("style", "border-color: red;");
             camposVacios = true;
+            camposVaciosFaltantes = true;
         }
             data.push({"id":id_data[2],"importe":valor});
     }
@@ -570,7 +572,7 @@ function get_data_tabla(nombre, tabla, id_input){
     if (valores.length <= 0) {
         camposVacios = true;
     }
-    data.push({"camposvacios":camposVacios});
+    data.push({"camposvacios":camposVacios, "camposVaciosFaltantes":camposVaciosFaltantes});
     return data;
     //console.log(data);
 }
@@ -600,12 +602,14 @@ $(document).on('click', '#borrar_celda_apor', function (event) {
     $(this).closest('tr').remove();
     //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS APORTACIONES
     calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+    calcular_liquido();
 });
 
 //************************************************************************************
 //APORTACIONES
 //************************************************************************************
 function lista_aportaciones(){
+    var idSubsidioSalario = 9;
     $.ajax({
         url: baseURL + "Aportaciones_ctrl/lista_aportaciones",
         type: "POST",
@@ -623,9 +627,13 @@ function lista_aportaciones(){
                         html += "<td>" + obj.aportaciones[l].indicador + "</td>";
                         html += "<td>" + obj.aportaciones[l].nombre +"</td>";
                         if (id_apor > 0 & id_apor <= 8) {
-                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>";
+                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>"; 
                         }else{
-                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            if (id_apor == idSubsidioSalario) {
+                                html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            }else{
+                                html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            }
                         }
                         html += "<td>" +"<button type='button' id='borrar_celda_apor' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
                         html += "</tr>";
@@ -752,5 +760,19 @@ function calcular_liquido(){
         total_deducciones = 0;
     }
     var liquido = parseFloat(total_percepciones) - parseFloat(total_deducciones);
-    $("#liquido-nom").html("LÍQUIDO: "+liquido.toFixed(2));
+    try {
+        var subsidioSalario = document.getElementById("id_apor_9").value;
+        if (subsidioSalario == "") {
+            subsidioSalario = 0;
+        }
+        var html = "LÍQUIDO: $"+liquido.toFixed(2);
+        var subsidio = parseFloat(subsidioSalario);
+        var total = parseFloat(subsidio + liquido);
+            html += "<br> SUBSIDIO AL SALARIO: $" + subsidio.toFixed(2);
+            html += "<br> TOTAL: $" + total.toFixed(2);
+        $("#liquido-nom").html(html);
+        }
+    catch(err) {
+        $("#liquido-nom").html("LÍQUIDO: $"+liquido.toFixed(2));
+    }
 }

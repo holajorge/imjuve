@@ -107,7 +107,7 @@ class Percepciones_ctrl extends CI_Controller {
 	}
 
 	public function lista_percepciones(){
-		$query = $this->Percepciones_model->getAll();
+		$query = $this->Percepciones_model->get_per_activos();
 		if ($query != false) {
             $result['resultado'] = true;
             $result['percepciones'] = $query;

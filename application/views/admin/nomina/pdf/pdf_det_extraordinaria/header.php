@@ -39,38 +39,5 @@
         </tr>
     </table> 
 
-    <table  class="table table-striped txt-header-pdf " id="id_tab_per" style="margin-top: 2rem; font-size: 12px;">
-        <tbody id="">
-           <tr>
-                <td > No. de plaza: </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->no_plaza; ?> </td>
-                <td> No. de empleado: </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->no_empleado; ?> </td> 
-           </tr>
-           <tr>
-                <td> Nombre:  </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php
-                    echo $header_pdf[0]->empleado;
-                    echo " ";
-                    echo $header_pdf[0]->ap_paterno;
-                    echo " ";
-                    echo $header_pdf[0]->ap_materno; 
-                ?></td>
-                <td> RFC: </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->rfc; ?> </td> 
-           </tr>
-           <tr>
-                <td> CURP:  </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->curp; ?></td>
-                <td> DEPARTAMENTO: </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->depto; ?> </td> 
-           </tr>
-           <tr>
-                <td> NIVEL:  </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->nivel; ?></td>
-                <td> HORAS: </td> 
-                <td style="font:bold 12px "Trebuchet MS"; "> <?php echo $header_pdf[0]->horas; ?> hrs. </td> 
-           </tr>
-        </tbody>
-    </table>
+
     

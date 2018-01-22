@@ -84,7 +84,7 @@ class Deduciones_ctrl extends CI_Controller {
 	}
 
 	public function lista_deducciones(){
-		$query = $this->Deduciones_model->getAll();
+		$query = $this->Deduciones_model->get_ded_activos();
 		if ($query != false) {
             $result['resultado'] = true;
             $result['deducciones'] = $query;
