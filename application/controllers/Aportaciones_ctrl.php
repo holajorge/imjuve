@@ -3,14 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aportaciones_ctrl extends CI_Controller {
 
-	public function __construct()
-    {
+	public function __construct(){
         parent::__construct();
         // $this->load->library('bcrypt');
         $this->load->model('Aportaciones_model');
     }    
-    public function index()
-    {
+    public function index(){
          if($this->session->userdata('logged_in')==true){
             $dato['active'] = "aportacion";
             $dato['active1'] = "lista_aportaciones";
@@ -75,5 +73,30 @@ class Aportaciones_ctrl extends CI_Controller {
         }
         echo json_encode($result);  
     }	
+
+    public function deshabilitar_Aportacion(){
+
+        $id = $this->input->post('id');
+        $query = $this->Aportaciones_model->deshabilitarAportacion($id);
+        
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+    }
+    public function habilitar_Aportacion(){
+
+        $id = $this->input->post('id');
+        $query = $this->Aportaciones_model->habilitarAportacion($id);
+
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+    }
 
 }

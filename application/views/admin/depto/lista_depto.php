@@ -20,8 +20,12 @@
                                         <td><label  id="nombre<?php echo $depto->id_depto ?>"><?php echo  $depto->nombre ?></label></td> 
                                         <td><label  id="direccion<?php echo $depto->id_depto ?>"><?php echo $depto->direccion ?></label></td>                                       
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deleteDepto('<?php echo $depto->id_depto ?>')"><span class="fa fa-times"></span>  Desabilidar</button>
-                                            <button class="btn btn-info" onclick="editDepto('<?php echo $depto->id_depto ?>')" data-toggle="modal" data-target="#editarDepto"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
+                                            <?php if ($depto->status == 1): ?>
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarDepto('<?php echo $depto->id_depto ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarDepto('<?php echo $depto->id_depto ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>                                            
+                                            <button class="btn btn-info btn-rounded" onclick="editDepto('<?php echo $depto->id_depto ?>')" data-toggle="modal" data-target="#editarDepto"><span class="glyphicon glyphicon-edit"></span> Editar</button>                                                               
                                         </td>                                    
                                     </tr>                                
                             <?php endforeach ?>

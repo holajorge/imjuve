@@ -8,8 +8,7 @@ class Depto_ctrl extends CI_Controller {
         parent::__construct();
         $this->load->model('Depto_model');
     }
-	public function index()
-	{
+	public function index(){
 		 if($this->session->userdata('logged_in')==true){
 	      	$dato['active'] = "depto";
 	        $dato['active1'] = "lista_departamentos";
@@ -20,11 +19,9 @@ class Depto_ctrl extends CI_Controller {
 			$this->load->view('global_view/foother');	
 	      }else{
 	      redirect('login_ctrl');
-	    }
-		
+	}		
 	}
-	public function create()
-	{
+	public function create(){
 		$dato['active'] = "depto";
 		$dato['active1'] = "registro";       
 		$data['direcciones'] = $this->Depto_model->get_direcciones(); 
@@ -32,8 +29,7 @@ class Depto_ctrl extends CI_Controller {
 		$this->load->view('admin/depto/registro', $data);
 		$this->load->view('global_view/foother');
 	}
-	public function create_depto()
-	{
+	public function create_depto(){
 		$depto = array(
 		    'nombre' => $this->input->post('nombre'),	
 		    'id_direccion' => $this->input->post('direccion'),	
@@ -47,8 +43,7 @@ class Depto_ctrl extends CI_Controller {
         }
         echo json_encode($result);	
 	}
-	public function edit_depto()
-	{
+	public function edit_depto(){
 		$id = $this->input->post('id');
 		$depto = array(	 
 		    'nombre' => $this->input->post('nombre'),	
@@ -62,8 +57,33 @@ class Depto_ctrl extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);	
-
 	}
+	public function deshabilitar_Depto(){
+
+		$id = $this->input->post('id');
+		$query = $this->Depto_model->deshabilitarDepto($id);
+		
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+	public function habilitar_Depto(){
+
+		$id = $this->input->post('id');
+		$query = $this->Depto_model->habilitarDepto($id);
+
+		if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);	
+	}
+
+
 }
 
 /* End of file Depto_ctrl.php */

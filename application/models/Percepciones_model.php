@@ -8,43 +8,46 @@ class Percepciones_model extends CI_Model {
    }
    
    public function getAll(){
-   	 	$this->db->select('*');
+   	 	  
+        $this->db->select('*');
         $this->db->from('cat_percepciones');
-        $this->db->where('status', 1);
         $query = $this->db->get();
-
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
             return false;
         }
    }
-
-   public function existIndicador($indicador){
-
+  public function existIndicador($indicador){
       $query= $this->db->query("select * from cat_percepciones where indicador='".$indicador."'");             
       if ($query -> num_rows() > 0){
         return true;
       }else{
        return false;
       }
-
-   }
-
-   public function insertPercepciones( $percepcion){
+  }
+  public function insertPercepciones( $percepcion){
    	 	return $this->db->insert('cat_percepciones', $percepcion);
-   }
+  }
 
-   public function updatePercepciones($id, $percepcion){
+  public function updatePercepciones($id, $percepcion){
              $this->db->where('id_percepcion', $id);
       return $this->db->update('cat_percepciones', $percepcion);
 
-   }
+  }
+  function deshabilitarPercepcion($id){
+              
+      $deshabilitar = array('status' => 0);
+              $this->db->where('id_percepcion', $id);
+      return  $this->db->update('cat_percepciones', $deshabilitar);
+  }
 
-   function eliminarPercepcion($id)
-   {
-    return $this->db->delete('cat_percepciones'); 
-   }
+  public function habilitarPercepcion($id){
+
+      $habilitar = array('status' => 1);
+              $this->db->where('id_percepcion', $id);
+      return  $this->db->update('cat_percepciones', $habilitar);
+  }
 
 }
 

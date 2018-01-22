@@ -7,10 +7,10 @@ class Puesto_model extends CI_Model {
       parent::__construct();
    	}
 
-    public function getAll(){
-   	 	$this->db->select('*');
-        $this->db->from('cat_puestos');
-         $this->db->where('status', 1);
+  public function getAll(){
+   	 	  
+        $this->db->select('*');
+        $this->db->from('cat_puestos');         
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -20,17 +20,26 @@ class Puesto_model extends CI_Model {
         }
     }    
 
-    public function insertPuesto($puesto){
-   	 	return $this->db->insert('cat_puestos', $puesto);
+  public function insertPuesto($puesto){
+   	 	
+      return $this->db->insert('cat_puestos', $puesto);
     }
+  public function updatePuesto($id_puesto, $puesto){
 
-   public function updatePuesto($id_puesto, $puesto){
+      $this->db->where('id_puesto', $id_puesto);
+      return $this->db->update('cat_puestos', $puesto);    
+  }
+  public function deshabilitarPuesto($id){
+    $deshabilitar = array('status' => 0);
+              $this->db->where('id_puesto', $id);
+    return  $this->db->update('cat_puestos', $deshabilitar);
+  }
+  public function habilitarPuesto($id){
 
-              $this->db->where('id_puesto', $id_puesto);
-      return $this->db->update('cat_puestos', $puesto);
-    
-   }
-
+      $habilitar = array('status' => 1);
+              $this->db->where('id_puesto', $id);
+      return  $this->db->update('cat_puestos', $habilitar);
+  }
 
 
 }

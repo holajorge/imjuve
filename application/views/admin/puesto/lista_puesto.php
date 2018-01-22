@@ -20,8 +20,12 @@
                                         <td><label  id="nivel<?php echo $puesto->id_puesto ?>"><?php echo  $puesto->nivel ?></label></td> 
                                         <td><label  id="nombre<?php echo $puesto->id_puesto ?>"><?php echo $puesto->nombre?></label></td>
                                          <td class="text-center">
-                                            <button type="button" class="btn btn-danger" onclick="deletePuesto('<?php echo $puesto->id_puesto ?>')">deshabilitar</button>                                  
-                                            <button class="btn btn-info" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
+                                            <?php if ($puesto->status == 1): ?>
+                                                <button type="button" class="btn btn-danger btn-rounded" onclick="deshabilitarPuesto('<?php echo $puesto->id_puesto ?>')"><span class="fa fa-warning"></span> Deshabilitar</button>                                      
+                                            <?php else: ?>
+                                                <button type="button" class="btn btn-success btn-rounded" onclick="habilitarPuesto('<?php echo $puesto->id_puesto ?>')"><span class="fa fa-heart"></span> Habilitar </button>
+                                            <?php endif ?>                                            
+                                            <button class="btn btn-info  btn-rounded" onclick="editPuesto('<?php echo $puesto->id_puesto ?>')" data-toggle="modal" data-target="#editarPuesto"><span class="glyphicon  glyphicon-edit"></span> Editar</button>                                                               
                                         </td>  
                                     </tr>                                
                                 <?php endforeach ?>

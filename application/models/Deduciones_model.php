@@ -5,29 +5,37 @@ class Deduciones_model extends CI_Model {
 
 	public function __construct(){	
       parent::__construct();
-   	}
-   	public function getAll(){
+  }
+  public function getAll(){
    	 	
    	 	$this->db->select('*');      
-      $this->db->from('cat_deducciones');
-       $this->db->where('status', 1);
+      $this->db->from('cat_deducciones');      
       $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
-   }
-   public function insertDeducciones( $deduccion){
-   	 	return $this->db->insert('cat_deducciones', $deduccion);
-   }
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      } else {
+          return false;
+      }
+  }
+  public function insertDeducciones($deduccion){
 
-   public function updateDeducciones($id, $percepcion){
-       $this->db->where('id_deduccion', $id);
+   	  return $this->db->insert('cat_deducciones', $deduccion);
+  }
+  public function updateDeducciones($id, $percepcion){
+      $this->db->where('id_deduccion', $id);
       return $this->db->update('cat_deducciones', $percepcion);
-   }
+  }
+  public function deshabilitarDeduccion($id){
+    $deshabilitar = array('status' => 0);
+              $this->db->where('id_deduccion', $id);
+    return  $this->db->update('cat_deducciones', $deshabilitar);
+  }
+  public function habilitarDeduccion($id){
 
-
+      $habilitar = array('status' => 1);
+              $this->db->where('id_deduccion', $id);
+      return  $this->db->update('cat_deducciones', $habilitar);
+  }
 }
 
 /* End of file Deduciones_model.php */

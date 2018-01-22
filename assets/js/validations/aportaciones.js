@@ -88,3 +88,61 @@ function editAportacion(id){
     document.getElementById("indicadorEditar").value=indicador;
     document.getElementById("nombreEditar").value=nombre;           
 }
+function deshabilitarAportacion(id){
+
+  swal({
+      title: "SEGURO DE DESHABILITAR?",            
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "SI, DESHABILITAR AHORA!",
+       closeOnConfirm: false
+     }, function (isConfirm) {
+      if (!isConfirm) return;
+          $.ajax({
+            url: baseURL + "Aportaciones_ctrl/deshabilitar_Aportacion",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function () {
+              swal("Hecho!", "APORTACÓM CORRECTAMENTE DESHABILITADA!", "success");
+              setTimeout(function() {
+                window.location.href = baseURL+"Aportaciones_ctrl/index";
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              swal("Error deleting!", "Please try again", "error");
+            }
+        });
+    });
+}
+function habilitarAportacion(id){
+
+    swal({
+        title: "SEGURO DE HABILITAR APORTACIÓN?",            
+         type: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#DD6B55",
+         confirmButtonText: "SI, HABILITAR AHORA!",
+         closeOnConfirm: false
+       }, function (isConfirm) {
+        if (!isConfirm) return;
+            $.ajax({
+              url: baseURL + "Aportaciones_ctrl/habilitar_Aportacion",
+              type: "POST",
+              data: {id: id},
+              dataType: "html",
+              success: function () {
+                swal("Hecho!", "APORTACIÓN HABILITADO CORRECTAMENTE!", "success");
+                setTimeout(function() {
+                  window.location.href = baseURL+"Aportaciones_ctrl/index";
+                }, 2000);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error deleting!", "Please try again", "error");
+              }
+            });
+    });
+}
+
+
