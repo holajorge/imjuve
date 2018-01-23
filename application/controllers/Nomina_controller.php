@@ -337,10 +337,27 @@ class Nomina_controller extends CI_Controller {
         echo json_encode($result);
     }
 
-    public function impPdf(){
-        $id_empleado = 2;
-         $id_nomina = 6;
-        $data2["percepciones"] = $this->Nomina_model->datos_empleado_nomina($id_empleado, $id_nomina);
-        echo json_encode($data2);
+    // ****************************************************************************************
+    //SE OBTIENEN LOS DATOS DE LA ÚLTIMA NÓMINA DEL EMPLEADO
+    // ****************************************************************************************
+
+    public function datosDeNomina(){
+        $id_empleado = $this->input->post("id_empleado");
+        $data["percepciones"] = $this->Nomina_model->getLastNominaPercepciones($id_empleado);
+        $id_nomina = $data["percepciones"][0]->id_nomina;
+        $data['deducciones'] = $this->Nomina_model->deducciones_nomina($id_empleado, $id_nomina);
+        $data['aportaciones'] = $this->Nomina_model->aportaciones_nomina($id_empleado, $id_nomina);
+
+        if ($data["percepciones"]) {
+            $result['resultado'] = true;
+            $result["data"] = $data;
+        } else {
+            $result['resultado'] = false;
+        }
+
+        echo json_encode($result);
+        
     }
+
+   
 }

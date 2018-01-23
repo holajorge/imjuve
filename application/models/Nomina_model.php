@@ -7,7 +7,6 @@ class Nomina_model extends CI_Model {
   public function getAll(){
    		$this->db->select('*');      
       	$this->db->from('tab_nomina');
-        $this->db->where('status', 1);
       	$query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -273,7 +272,7 @@ class Nomina_model extends CI_Model {
 
   }
   //***************************************************************************
-  //APORTACIONES POR NÓMINA PARA EL PDF
+  //ELIMINAR REGISTROS DE LA NOMINA PARA SU ACUTUALIZACIÓN
   //***************************************************************************
 
   public function eliminarPercepciones($id_empleado, $id_nomina_editando){
@@ -297,6 +296,37 @@ class Nomina_model extends CI_Model {
       //$this->db->get();
 
   }
+
+  //***************************************************************************
+  //SE TRAEN LOS REGISTROS DE LA ÚLTIMA NÓMINA DEL EMPLEADO
+  //***************************************************************************
+  public function getLastNominaPercepciones($id_empleado){
+
+      $query = $this->db->query("SELECT cat_percepciones.id_percepcion, cat_percepciones.indicador, cat_percepciones.nombre, empleadosxpercepciones.importe, 
+                      cat_empleados.nombre as empleado, cat_empleados.curp, cat_empleados.no_plaza,  cat_empleados.rfc , cat_puestos.nombre as 'puesto',
+                      cat_depto.nombre as 'depto', cat_empleados.no_empleado, tab_nomina.id_nomina,tab_nomina.periodo_inicio, tab_nomina.periodo_fin, tab_nomina.periodo_quinquenal 
+                   FROM cat_percepciones, empleadosxpercepciones, tab_nomina,  cat_empleados, cat_puestos, cat_depto
+                   WHERE cat_empleados.id_empleado = empleadosxpercepciones.id_empleado 
+                      AND cat_depto.id_depto = cat_empleados.id_depto
+                      AND cat_empleados.id_puesto = cat_puestos.id_puesto
+                    AND empleadosxpercepciones.id_percepcion = cat_percepciones.id_percepcion 
+                    AND empleadosxpercepciones.id_nomina = tab_nomina.id_nomina 
+                        AND cat_empleados.id_empleado = ".$id_empleado." 
+                        and tab_nomina.periodo_fin = ( SELECT MAX(tab_nomina.periodo_fin) 
+                   FROM cat_percepciones, empleadosxpercepciones, tab_nomina,  cat_empleados, cat_puestos, cat_depto
+                   WHERE cat_empleados.id_empleado = empleadosxpercepciones.id_empleado 
+                      AND cat_depto.id_depto = cat_empleados.id_depto
+                      AND cat_empleados.id_puesto = cat_puestos.id_puesto
+                    AND empleadosxpercepciones.id_percepcion = cat_percepciones.id_percepcion 
+                    AND empleadosxpercepciones.id_nomina = tab_nomina.id_nomina 
+                        AND cat_empleados.id_empleado =  ".$id_empleado." )");
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          return false;
+      }
+  }
+
 
 }
 

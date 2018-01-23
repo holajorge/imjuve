@@ -87,7 +87,7 @@ function lista_percepciones_edit(){
 						    cell1_id_per.setAttribute("style", "display: none;")
 						    cell2_codigo.innerHTML = obj.percepciones[l].indicador;
 						    cell3_desc.innerHTML = obj.percepciones[l].nombre;
-						    cell4_importe.innerHTML = "<input type='number' id='id_per_"+id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> ";
+						    cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_per_"+id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> ";
 						    cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_per_edit' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
                     	}
                     }
@@ -206,7 +206,6 @@ function calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio1, sueldoCo
 // ***********************************************************************************
 function lista_deducciones_edit(){
       var data=verificarConceptosExistentes("id_tab_ded");
-      console.log(data);
     $.ajax({
         url: baseURL + "Deduciones_ctrl/lista_deducciones",
         type: "POST",
@@ -239,10 +238,10 @@ function lista_deducciones_edit(){
 						    cell2_codigo.innerHTML = obj.deducciones[l].indicador;
 						    cell3_desc.innerHTML = obj.deducciones[l].nombre;
 						    if (id_deduccion > 1 & id_deduccion <= 7) {
-						    	cell4_importe.innerHTML = "<input type='number' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> ";
+						    	cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> ";
                                 //html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
                             }else{
-                            	cell4_importe.innerHTML = "<input type='number' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> ";
+                            	cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> ";
                                 //html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
                             }
 						    //cell4_importe.innerHTML = "<input type='number' id='id_per_ed"+id_deduccion+"' onkeyup='calc_total_deducciones_edit()' onchange='calc_total_deducciones_edit()' name='importe_deduccion' class='importe_deduccion'> ";
@@ -317,15 +316,15 @@ function lista_aportaciones_edit(){
 						    cell2_codigo.innerHTML = obj.aportaciones[l].indicador;
 						    cell3_desc.innerHTML = obj.aportaciones[l].nombre;
 						    if (id_aportacion > 0 & id_aportacion <= 8) {
-						    	cell4_importe.innerHTML = "<input type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> ";
+						    	cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> ";
                             }else{
                                 if (id_aportacion == idSubsidioSalario) {
-                                    cell4_importe.innerHTML = "<input type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> ";
+                                    cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> ";
                                }else{    
-                            	   cell4_importe.innerHTML = "<input type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> ";
+                            	   cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> ";
                                 }
                             }
-						    cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_ded_edit' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
+						    cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_apor_edit' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
                     	}
                     }
                      calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
@@ -529,48 +528,28 @@ function guardar_datos_nomina(){
     if (parseInt(id_tipo_trabajador) == 3) {
     	trabajador_eventual = true;
     }
-    //if (trabajador_eventual) {
-        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposVaciosFaltantes"] == true)) {
-            swal({
-                title: " ",
-                text: "FALTAN CAMPOS POR LLENAR",
-                type: "warning"
-            });
-        }else{
-             swal({
-            title: "Confirmar",
-            text: "¿Desea guardar los datos de la nómina?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Guardar!",
-            closeOnConfirm: false
-            }, function () {
-                guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
-            });
-            
-        }
-    /*}else{
-        if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposvacios"] == true) ) {
-            swal({
-                title: " ",
-                text: "FALTAN CAMPOS POR LLENAR",
-                type: "warning"
-            });
-        }else{
-            swal({
-            title: "Confirmar",
-            text: "¿Desea guardar los datos de la nómina?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Guardar!",
-            closeOnConfirm: false
-            }, function () {
-                guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
-           });
-        }
-    }*/   
+   
+    if ((data_percepciones[data_percepciones.length - 1]["camposvacios"] == true) | (data_deducciones[data_deducciones.length - 1]["camposvacios"] == true) | (data_aportaciones[data_aportaciones.length - 1]["camposVaciosFaltantes"] == true)) {
+        swal({
+            title: " ",
+            text: "FALTAN CAMPOS POR LLENAR",
+            type: "warning"
+        });
+    }else{
+         swal({
+        title: "Confirmar",
+        text: "¿Desea guardar los datos de la nómina?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, Guardar!",
+        closeOnConfirm: false
+        }, function () {
+            guardar_nom_en_db(id_nomina,id_empleado,data_percepciones,data_deducciones,data_aportaciones);
+        });
+        
+    }
+  
     
 }
 //************************************************************************************

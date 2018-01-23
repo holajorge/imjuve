@@ -2,93 +2,6 @@ $(document).ready(function() {
     
 });
 
-function buscar_emp_nomina(event){ //-------------------------------ELIMINAR---
-    event.preventDefault();
-    $("#resultado_emp_nomina").html("");
-    $("#lista_percepciones").html("");
-    $("#body_tabla_percepciones").html("");
-    $("#encabezado_nomina_1").html("");
-    $("#dropdown_lista_periodos").html("");
-    $("#txt_per_quinq").html("");
-
-    var d = document.getElementById("det_nomina_oculto"); 
-        d.setAttribute("style", "display: none;");
-
-    var rfc = document.getElementById("buscar_emp_nom").value;
-    $.ajax({
-            url: baseURL + "Nomina_controller/buscar_empleado_nomina",
-            type: "POST",
-            data: {rfc: rfc},
-            success: function(respuesta) {
-                var obj = JSON.parse(respuesta);
-                    if (obj.resultado === true) {
-                      
-                    $("#form_busc_emp_nom")[0].reset(); 
-                       
-                    // **********************************************************************
-                    //Creación de la tabla de resultados
-                    var html = "";
-                    html += "<table class='table table-bordered table-striped' id='miTabla'>";
-                    html += "<thead>";
-                    html += "<tr>";
-                    html += "<th style='display:none;'>ID </th>";
-                    html += "<th>NO. PLAZA </th>";
-                    html += "<th>RFC</th>";
-                    html += "<th>NOMBRE</th>";
-                    html += "<th>APELLIDOS</th>";
-                    html += "<th>CURP</th>";
-                    html += "<th>PUESTO</th>";
-                    html += "<th>DEPARTAMENTO</th>";
-                    html += "<th>NO. EMPLEADO</th>";
-                    html += "<th>SELECCIONAR</th>";
-                    html += "</tr>";
-                    html += "</thead>";
-                    html += "<tbody>";
-                    var num_fila = 1;
-                    for (l in obj.empleado) {
-                       
-                        html += "<tr>";
-                        html += "<td style='display:none;'>" + obj.empleado[l].id_empleado + "</td>";
-                        html += "<td>" + obj.empleado[l].no_plaza + "</td>";
-                        html += "<td>" + obj.empleado[l].rfc +"</td>";
-                        html += "<td>" + obj.empleado[l].nombre_emp +"</td>";
-                        html += "<td>" + obj.empleado[l].ap_paterno + " " + obj.empleado[l].ap_materno+"</td>";
-                        html += "<td>" + obj.empleado[l].curp + "</td>";
-                        html += "<td>" + obj.empleado[l].nombre_puesto + "</td>";
-                        html += "<td>" + obj.empleado[l].nombre_depto + "</td>";
-                        html += "<td>" + obj.empleado[l].no_empleado + "</td>";
-                        html += "<td>" + "<button type='button' class='btn btn-primary' onclick='tab_det_nomina(" + num_fila + ")'>SELECCIONAR</button>" + "</td>";
-                        html += "</tr>";
-                        num_fila ++;
-                    }
-                    html += "</tbody>";
-                    html += "</table>";
-                    $("#resultado_emp_nomina").html(html);
-
-                    // ***********************************************************************
-            }else{
-                swal({
-                    title: "Error! No se encontró al empleado",
-                    text: "Dar de alta nuevo empleado ",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Si, agregar",
-                    cancelButtonText: "No, cancelar",
-                    closeOnConfirm: true,
-                    closeOnCancel: true },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        window.open(baseURL + "Empleado_controller/create");
-                        // window.open(baseURL + "Nomina_controller/pdf_por_empleado");
-                    } else {
-                       // swal("Cancelado", "", "error");
-                    }
-                });
-            }
-        } 
-    });
-}
 var trabajador_eventual = false;
 function tab_det_nomina(id){
     trabajador_eventual = false;
@@ -96,7 +9,8 @@ function tab_det_nomina(id){
     $("#total_deducciones").html("");
     $("#total_aportaciones").html("");
     $("#liquido-nom").html("");
-    $("#body_tabla_percepciones").html("");
+    //$('#body_tabla_percepciones')[0].reset();
+    $("#body_tabla_percepciones").empty();
     $("#body_tabla_deducciones").html("");
     $("#body_tabla_aportaciones").html("");
     $("#encabezado_nomina_1").html("");
@@ -229,12 +143,10 @@ function mostrar_tablas_det_nomina(event,id_nomina){
                 var d = document.getElementById("det_nomina_oculto"); 
                     d.setAttribute("style", "display: block;");
                     $("#mostrar_aportaciones").show();
-                //SE OCULTAN LAS APORTACIONES CUANDO ES UN TRABAJADOR DE TIPO EVENTUAL
-                // if (trabajador_eventual) {
-                //     $("#mostrar_aportaciones").hide();
-                // }
-                //LLAMAR A LA FUNCIÓN DE MOSTRAR PERIODO QUINQUENAL
                 mostrar_per_quinquenal(id_nomina);
+                //SE AGREGAN LOS DATOS DE LA ÚLTIMA NOMINA DEL EMPLEADO
+                //SOLO SI EXISTIESEN REGISTROS
+                agregarDatosNominaAnterior();
             }
         } 
     });
@@ -261,7 +173,7 @@ function mostrar_per_quinquenal(id_nomina){
 // PERCEPCIONES
 // ***********************************************************************************
 function lista_percepciones(){
-       
+    var data=verificarConceptosExistentes("id_tab_per");
     $.ajax({
         url: baseURL + "Percepciones_ctrl/lista_percepciones",
         type: "POST",
@@ -272,17 +184,31 @@ function lista_percepciones(){
             var obj = JSON.parse(respuesta);
                 if (obj.resultado === true) {
                 
-                    var html = "";
+                    // var html = "";
                     for (l in obj.percepciones) {
-                        html += "<tr>";
-                        html += "<td style='display: none;'>" + obj.percepciones[l].id_percepcion + "</td>";
-                        html += "<td>" + obj.percepciones[l].indicador + "</td>";
-                        html += "<td>" + obj.percepciones[l].nombre +"</td>";
-                        html += "<td>" + "<input type='number' id='id_per_"+obj.percepciones[l].id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> " +"</td>";
-                        html += "<td>" + "<button type='button' id='borrar_celda_per' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>" +"</td>";
-                        html += "</tr>";
+                        var id_percepcion = obj.percepciones[l].id_percepcion;
+                        var existe = false;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].id == id_percepcion) {
+                                existe = true;
+                            } 
+                        }
+                        if ( !existe) {
+                            var table = document.getElementById("id_tab_per");
+                            var row = table.insertRow(2);
+                            var cell1_id_per = row.insertCell(0);
+                            var cell2_codigo = row.insertCell(1);
+                            var cell3_desc = row.insertCell(2);
+                            var cell4_importe = row.insertCell(3);
+                            var cell5_eliminar = row.insertCell(4);
+                            cell1_id_per.innerHTML = obj.percepciones[l].id_percepcion;
+                            cell1_id_per.setAttribute("style", "display: none;")
+                            cell2_codigo.innerHTML = obj.percepciones[l].indicador;
+                            cell3_desc.innerHTML = obj.percepciones[l].nombre;
+                            cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_per_"+id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> ";
+                            cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_per' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
+                        }
                     }
-                    $("#body_tabla_percepciones").html(html);
                     //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS DEDUCCIONES
                     calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
                     calc_total_percepciones();
@@ -393,7 +319,7 @@ function calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio1, sueldoCo
 // DEDUCCIONES
 // ***********************************************************************************
 function lista_deducciones(){
-    // $("#lista_percepciones").html("");
+    var data=verificarConceptosExistentes("id_tab_ded");
     $.ajax({
         url: baseURL + "Deduciones_ctrl/lista_deducciones",
         type: "POST",
@@ -403,30 +329,38 @@ function lista_deducciones(){
         success: function(respuesta) {
             var obj = JSON.parse(respuesta);
                 if (obj.resultado === true) {
-                  
-                   // **********************************************************************
-                    //Creación de la tabla de resultados
-                    var html = "";
+                    // var html = "";
                     for (l in obj.deducciones) {
-                            var id_d = obj.deducciones[l].id_deduccion;
-                            if ((trabajador_eventual == true) & (id_d > 1 & id_d <= 7)) {
-
+                        var id_deduccion = obj.deducciones[l].id_deduccion;
+                        var existe = false;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].id == id_deduccion) {
+                                existe = true;
+                            } 
+                        }
+                        if ( !existe) {
+                            var table = document.getElementById("id_tab_ded");
+                            var row = table.insertRow(2);
+                            var cell1_id_ded = row.insertCell(0);
+                            var cell2_codigo = row.insertCell(1);
+                            var cell3_desc = row.insertCell(2);
+                            var cell4_importe = row.insertCell(3);
+                            var cell5_eliminar = row.insertCell(4);
+                            cell1_id_ded.innerHTML = obj.deducciones[l].id_deduccion;
+                            cell1_id_ded.setAttribute("style", "display: none;")
+                            cell2_codigo.innerHTML = obj.deducciones[l].indicador;
+                            cell3_desc.innerHTML = obj.deducciones[l].nombre;
+                            if (id_deduccion > 1 & id_deduccion <= 7) {
+                                cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> ";
+                                //html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
                             }else{
-                            html += "<tr>";
-                            html += "<td style='display:none;'>" + obj.deducciones[l].id_deduccion + "</td>";
-                            html += "<td>" + obj.deducciones[l].indicador + "</td>";
-                            html += "<td>" + obj.deducciones[l].nombre +"</td>";
-                            //html += "<td>" + "<input type='checkbox' name='check_ded[]' value='"+ num_fila +"'>" +"</td>";
-                            if (id_d > 1 & id_d <= 7) {
-                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
-                            }else{
-                                html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
+                                cell4_importe.innerHTML = "<input type='number' style='text-align: right;' id='id_ded_"+id_deduccion+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> ";
+                                //html += "<td>" + "<input type='number' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
                             }
-                            html += "<td>" +"<button type='button' id='borrar_celda_ded' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
-                            html += "</tr>"; 
+                            //cell4_importe.innerHTML = "<input type='number' id='id_per_ed"+id_deduccion+"' onkeyup='calc_total_deducciones_edit()' onchange='calc_total_deducciones_edit()' name='importe_deduccion' class='importe_deduccion'> ";
+                            cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_ded' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
                         }
                     }
-                    $("#body_tabla_deducciones").html(html);
                     //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS DEDUCCIONES
                     calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
                     //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS APORTACIONES
@@ -609,7 +543,8 @@ $(document).on('click', '#borrar_celda_apor', function (event) {
 //APORTACIONES
 //************************************************************************************
 function lista_aportaciones(){
-    var idSubsidioSalario = 9;
+        var data=verificarConceptosExistentes("id_tab_apor");
+        var idSubsidioSalario = 9;
     $.ajax({
         url: baseURL + "Aportaciones_ctrl/lista_aportaciones",
         type: "POST",
@@ -619,27 +554,41 @@ function lista_aportaciones(){
         success: function(respuesta) {
             var obj = JSON.parse(respuesta);
                 if (obj.resultado === true) {
-                        html = "";
+                
+                    // var html = "";
                     for (l in obj.aportaciones) {
-                        var id_apor = obj.aportaciones[l].id_aportacion;
-                        html += "<tr>";
-                        html += "<td style='display:none;'>" + obj.aportaciones[l].id_aportacion + "</td>";
-                        html += "<td>" + obj.aportaciones[l].indicador + "</td>";
-                        html += "<td>" + obj.aportaciones[l].nombre +"</td>";
-                        if (id_apor > 0 & id_apor <= 8) {
-                            html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>"; 
-                        }else{
-                            if (id_apor == idSubsidioSalario) {
-                                html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
-                            }else{
-                                html += "<td>" +"<input type='number' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
-                            }
+                        var id_aportacion = obj.aportaciones[l].id_aportacion;
+                        var existe = false;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].id == id_aportacion) {
+                                existe = true;
+                            } 
                         }
-                        html += "<td>" +"<button type='button' id='borrar_celda_apor' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
-                        html += "</tr>";
-                     }
-                    $("#body_tabla_aportaciones").html(html);
-                    calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+                        if ( !existe) {
+                            var table = document.getElementById("id_tab_apor");
+                            var row = table.insertRow(2);
+                            var cell1_id_ded = row.insertCell(0);
+                            var cell2_codigo = row.insertCell(1);
+                            var cell3_desc = row.insertCell(2);
+                            var cell4_importe = row.insertCell(3);
+                            var cell5_eliminar = row.insertCell(4);
+                            cell1_id_ded.innerHTML = obj.aportaciones[l].id_aportacion;
+                            cell1_id_ded.setAttribute("style", "display: none;")
+                            cell2_codigo.innerHTML = obj.aportaciones[l].indicador;
+                            cell3_desc.innerHTML = obj.aportaciones[l].nombre;
+                            if (id_aportacion > 0 & id_aportacion <= 8) {
+                                cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> ";
+                            }else{
+                                if (id_aportacion == idSubsidioSalario) {
+                                    cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> ";
+                               }else{    
+                                   cell4_importe.innerHTML = "<input style='text-align: right;' type='number' id='id_apor_"+id_aportacion+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> ";
+                                }
+                            }
+                            cell5_eliminar.innerHTML = "<button type='button' id='borrar_celda_apor' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>";
+                        }
+                    }
+                     calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
             }
         } 
     });
@@ -775,4 +724,109 @@ function calcular_liquido(){
     catch(err) {
         $("#liquido-nom").html("LÍQUIDO: $"+liquido.toFixed(2));
     }
+}
+//************************************************************************************
+//SE AGREGAN LOS DATOS DE LA ÚLTIMA NÓMINA EN CASO DE EXISTIR
+//************************************************************************************
+function agregarDatosNominaAnterior(){
+    var id_empleado = document.getElementById("id_empleado_en_nomina").value;
+
+        $.ajax({
+        url: baseURL + "Nomina_controller/datosDeNomina",
+        type: "POST",
+        data: {
+            id_empleado: id_empleado
+        },
+        success: function(respuesta) {
+                try{
+                    var obj = JSON.parse(respuesta);
+                if (obj.resultado === true) {
+
+                    //--------------listar percepciones--------------------------------------------------------------
+                    var html = "";
+                    for (l in obj.data.percepciones) {
+                        html += "<tr>";
+                        html += "<td style='display: none;'>" + obj.data.percepciones[l].id_percepcion + "</td>";
+                        html += "<td>" + obj.data.percepciones[l].indicador + "</td>";
+                        html += "<td>" + obj.data.percepciones[l].nombre +"</td>";
+                        html += "<td>" + "<input type='number' style='text-align: right;' value='"+ obj.data.percepciones[l].importe+"' id='id_per_"+obj.data.percepciones[l].id_percepcion+"' onkeyup='calc_total_percepciones()' onchange='calc_total_percepciones()' name='importe_percepcion' class='importe_percepcion'> " +"</td>";
+                        html += "<td>" + "<button type='button' id='borrar_celda_per' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>" +"</td>";
+                        html += "</tr>";
+                    }
+                    $("#body_tabla_percepciones").html(html);
+                    //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS DEDUCCIONES
+                    calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+                    calc_total_percepciones();
+                    //-----------------------listar deducciones--------------------------------------------------
+                    html = "";
+                    for (l in obj.data.deducciones) {
+                            var id_d = obj.data.deducciones[l].id_deduccion;
+                            if ((trabajador_eventual == true) & (id_d > 1 & id_d <= 7)) {
+
+                            }else{
+                            html += "<tr>";
+                            html += "<td style='display:none;'>" + obj.data.deducciones[l].id_deduccion + "</td>";
+                            html += "<td>" + obj.data.deducciones[l].indicador + "</td>";
+                            html += "<td>" + obj.data.deducciones[l].nombre +"</td>";
+                            //html += "<td>" + "<input type='checkbox' name='check_ded[]' value='"+ num_fila +"'>" +"</td>";
+                            if (id_d > 1 & id_d <= 7) {
+                                html += "<td>" + "<input type='number' style='text-align: right;' value='"+obj.data.deducciones[l].importe+"' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion' disabled> "+"</td>"; 
+                            }else{
+                                html += "<td>" + "<input type='number' style='text-align: right;' value='"+obj.data.deducciones[l].importe+"' id='id_ded_"+id_d+"' onkeyup='calc_total_deducciones()' onchange='calc_total_deducciones()' name='importe_deduccion' class='importe_deduccion'> "+"</td>";
+                            }
+                            html += "<td>" +"<button type='button' id='borrar_celda_ded' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
+                            html += "</tr>"; 
+                        }
+                    }
+                    $("#body_tabla_deducciones").html(html);
+                    //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS DEDUCCIONES
+                    calc_deducciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+                    //SE LLAMA A LA FUNCIÓN QUE CALCULA UTOMÁTICAMENTE LAS APORTACIONES
+                    calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+
+                    //-----------------------listar aportaciones------------------------------------------------
+                    html = "";
+                    for (l in obj.data.aportaciones) {
+                        var id_apor = obj.data.aportaciones[l].id_aportacion;
+                        html += "<tr>";
+                        html += "<td style='display:none;'>" + obj.data.aportaciones[l].id_aportacion + "</td>";
+                        html += "<td>" + obj.data.aportaciones[l].indicador + "</td>";
+                        html += "<td>" + obj.data.aportaciones[l].nombre +"</td>";
+                        if (id_apor > 0 & id_apor <= 8) {
+                            html += "<td>" +"<input type='number' style='text-align: right;' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled> " + "</td>"; 
+                        }else{
+                            if (id_apor == idSubsidioSalario) {
+                                html += "<td>" +"<input type='number' style='text-align: right;' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones();calcular_liquido();' onchange='calc_total_aportaciones();calcular_liquido();' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            }else{
+                                html += "<td>" +"<input type='number' style='text-align: right;' id='id_apor_"+id_apor+"' onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> "+ "</td>";
+                            }
+                        }
+                        html += "<td>" +"<button type='button' id='borrar_celda_apor' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button>"+ "</td>";
+                        html += "</tr>";
+                     }
+                    $("#body_tabla_aportaciones").html(html);
+                    calc_aportaciones_por_percepcion(sueldoConfianzaMasQuinquenio, sueldoConfianza);
+                }
+                }catch(err){
+
+                }
+            } 
+        });
+
+}
+
+// ***********************************************************************************
+// VERIFICAR CUALES CONCEPTOS YA ESTÁN EN LAS TABLAS
+// ***********************************************************************************
+function verificarConceptosExistentes(nombre_tab){
+    var nFilas = $("#"+nombre_tab+" tr").length;
+    var data = new Array();
+    //Se declara el indice de la celda 
+    var indiceCelda = 2;
+    for (var i = 0; i < nFilas - 3; i++) {
+        var id = document.getElementById(nombre_tab).rows[indiceCelda].cells[0].innerText;
+        data.push({"id":id});
+        indiceCelda++;
+    }
+    return data;
 }

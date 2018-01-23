@@ -59,7 +59,7 @@
                                         <td><label  id="curp<?php echo $empleado->id_empleado ?>"><?php echo $empleado->curp?></label></td>
                                         <td><label  id="no_empleado<?php echo $empleado->id_empleado ?>"><?php echo $empleado->no_empleado?></label></td>
                                         <td class="text-center">                               
-                                            <button class="btn btn-info" onclick="tab_det_nomina('<?php echo $empleado->id_empleado ?>')" data-toggle="modal" data-target="#editarEmpleado"><span class="glyphicon glyphicon-edit"></span> CREAR NÓMINA</button>                                                               
+                                            <button class="btn btn-info" onclick="tab_det_nomina('<?php echo $empleado->id_empleado ?>')"><span class="glyphicon glyphicon-edit"></span> CREAR NÓMINA</button>                                                               
                                         </td>
 
                                     </tr>
