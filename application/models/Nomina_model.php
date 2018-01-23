@@ -41,11 +41,16 @@ class Nomina_model extends CI_Model {
           return false;
       }
     }
+
   public function insertConceptoExtraoridinario($extraordinario){
 	    return $this->db->insert('cat_concepto_extraordinario', $extraordinario);
 	}
   public function insertNominaExtraordinaria($nominaExtraordinaria){
     return $this->db->insert('empleadosxextraoudinaria', $nominaExtraordinaria);
+  }
+  public function editNominaExtraordinaria($id, $editNominaExtraordi){
+           $this->db->where('id_extraordinario', $id);        
+    return $this->db->update('empleadosxextraoudinaria', $editNominaExtraordi);
   }
   public function buscar_periodo($id_nomina){
 
@@ -66,19 +71,19 @@ class Nomina_model extends CI_Model {
   }
   public function seach_diaExtraordinario($id_extra){
 
-      $query = $this->db->query("SELECT ce.id_empleado, exe.id_concepto_extraordinario , ce.no_plaza,ce.horas, ce.rfc, ce.curp, ce.nombre  AS nombre_emp, 
-                                  ce.ap_paterno,  ce.ap_materno, ce.fecha_nacimiento, ce.fecha_ingreso, cd.nombre as 'depto', cp.nombre as 'puesto'   
+      $query = $this->db->query("SELECT ce.id_empleado, exe.id_concepto_extraordinario, ce.no_plaza,ce.horas, ce.rfc, ce.curp, ce.nombre  AS nombre_emp, 
+                                  ce.ap_paterno,  ce.ap_materno, ce.fecha_nacimiento, ce.fecha_ingreso, cd.nombre as 'depto', cp.nombre as 'puesto' , 
+                                  exe.importe, exe.isr , exe.id_extraordinario,
+                                  cpex.nombre as conseptoextra 
                                 FROM cat_concepto_extraordinario  cpex, cat_empleados ce, empleadosxextraoudinaria exe,  cat_depto cd, cat_puestos cp
                                 WHERE cp.id_puesto=ce.id_puesto 
                                     AND cd.id_depto=ce.id_depto 
                                     AND ce.id_empleado=exe.id_empleado 
-
-                                    AND cpex.id_concepto_extraordinario=exe.id_concepto_extraordinario 
-                                    
+                                    AND cpex.id_concepto_extraordinario=exe.id_concepto_extraordinario                                   
                                     AND cpex.id_concepto_extraordinario='".$id_extra."' 
                                     GROUP BY exe.id_empleado");
 
-      if ($query->num_rows() > 0) {
+      if ($query->num_rows() > 0) {        
           return $query->result();          
       }else{
           return false;
