@@ -46,6 +46,20 @@ class Nomina_controller extends CI_Controller {
 
     }
 
+    public function getConceptosExtraordinarios(){
+
+       $query = $this->Nomina_model->getAllPeriodosExtraordinario();
+        if ($query != false) {
+            $result['resultado'] = true;
+            $result['conseptoExtra'] = $query;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);
+
+
+    }
+
     public function create_extraudinaria(){
         
             $dato['active'] = "nomina";
@@ -150,6 +164,25 @@ class Nomina_controller extends CI_Controller {
             $result['resultado'] = false;
         }
         echo json_encode($result);  
+    }
+
+    public function editNominaExtraordinaria(){
+        $id_extraordinario = $this->input->post("idExtra");
+        $editNominaExtraordinaria = array(
+            'id_empleado'                 => $this->input->post("id"), 
+            'id_concepto_extraordinario'  => $this->input->post("dia"), 
+            'importe'                     => $this->input->post("importe"), 
+            'isr'                         => $this->input->post("isr"), 
+        );
+        
+        $query = $this->Nomina_model->editNominaExtraordinaria($id_extraordinario,$editNominaExtraordinaria);
+        if ($query == 1) {
+            $result['resultado'] = true;
+        } else {
+            $result['resultado'] = false;
+        }
+        echo json_encode($result);  
+
     }
 
     public function guardar_detalle_nomina(){

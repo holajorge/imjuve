@@ -20,7 +20,7 @@
 <!-- Modal -->
 <div class="modal fade" id="editExtraordinaria" role="dialog">
     <div class="modal-dialog modal-lg">
-     <form role="form" id="form_edit_empleado">     
+     <form role="form" id="form_edit_extraordinaria">     
       <div class="modal-content">
         <div class="modal-header ">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -53,19 +53,21 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="ap_paternoEdit">Apellido Paterno</label>                                          
+                            <label class="control-label" for="ap_paternoEdit">Apellidos</label>                                          
                             <input type="text" disabled id="ap_paternoEdit" name="ap_paterno" class="form-control">                                         
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="ap_maternoEdit">Apellido Materno</label>                                          
-                            <input type="text" disabled id="ap_maternoEdit" name="ap_materno" class="form-control">                                         
+                            <label class="control-label" for="date_added">Fecha Nacimiento</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="fecha_ingresoEdit" disabled type="date" name="fecha_ingreso" class="form-control">
+                            </div>
                         </div>
-                    </div>                                  
+                    </div>      
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label class="control-label" for="date_modified">Fecha Nacimiento</label>
+                            <label class="control-label" for="date_modified">Fecha Ingreso</label>
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input disabled id="fecha_nacimientoEdit" type="date" class="form-control">
                             </div>
@@ -73,14 +75,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label" for="date_added">Fecha Ingreso</label>
-                            <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="fecha_ingresoEdit" disabled type="date" name="fecha_ingreso" class="form-control">
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label" for="rfcEdit">RFC</label>
@@ -97,35 +91,27 @@
             </div>
             <h3 class="text-center">Nómina Extraodinaria</h3>                           
             <div class=" m-b-sm ">
-                <input type="hidden" id="idEditar" name="id" >
+                <input type="hidden" id="idEditarExtra" name="idExtra" >
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group" id="reloadExtra">
                             <!-- <a class="btn btn-info  input-sm pull-right" data-toggle="modal" data-target="#crearExtraordinario"><span class="glyphicon  glyphicon-plus"></span> Crear Nuevo</a>   -->                                           
-                            <label for="depto">Seleccionar Concepto</label>
-                            <select class="form-control input-lg" id="dia" name="dia" tabindex="1">
-                                <option selected disabled hidden>Seleccione Concepto</option>
-                                <?php if ($extraordinarios != null ): ?>
-                                    <?php foreach ($extraordinarios as $concepto): ?>
-                                        <option value="<?php echo $concepto->id_concepto_extraordinario?>"> 
-                                            <?php echo $concepto->nombre ?>                                                         
-                                        </option>
-                                    <?php endforeach ?>
-                                <?php else: ?>
-                                <?php endif ?>
+                            <label for="depto">Seleccionar Concepto Extraordinaria</label>
+                            <select class="form-control input-lg" id="dia" name="dia" tabindex="1">                                
+                                
                             </select>
                         </div>
                     </div>  
                     <div class="col-sm-4">
                         <div class="form-group" id="reloadExtra">
                             <label for="depto">Importe</label>
-                            <input type="number" class="form-control input-lg" name="importe">
+                            <input type="number" class="form-control input-lg" id="importeEdit" name="importe">
                         </div>
                     </div>  
                     <div class="col-sm-4">
                         <div class="form-group" id="reloadExtra">
                             <label for="depto">ISR</label>
-                            <input type="number" class="form-control input-lg" name="isr">
+                            <input type="number" class="form-control input-lg" id="isrEdit" name="isr">
                         </div>
                     </div>                              
                 </div>
@@ -137,9 +123,9 @@
                 </div>                                
             </div>       
         </div>
-        <div class="modal-footer">          
+        <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <input type="submit" value="Guardar Cambios " class="btn btn-primary " tabindex="14">
+            <input type="submit" value="Guardar Cambios " class="btn btn-primary " tabindex="14" onclick="edit_extraordinaria()">
         </div>
       </div>
     </form>
