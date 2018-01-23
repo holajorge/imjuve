@@ -324,36 +324,31 @@ class Nomina_controller extends CI_Controller {
         //**********************************************************************************
         //       PDF
         //**********************************************************************************
-        $this->load->library('M_pdf');
-        $mpdf = new mPDF('c', 'A4', '', '', '15', '15', '60', '5');        /**************************************** Hoja de estilos ****************************************************/
+        $this->load->library('m_pdf');
+        $mpdf = new \Mpdf\Mpdf([
+        'mode' => 'utf-8',
+        'margin_top' => 36
+        ]);        /**************************************** Hoja de estilos ****************************************************/
         //$stylesheet = file_get_contents('assets/css/pdf/pdf.css');
         $stylesheet = file_get_contents('assets/css/bootstrap.min.css');
         $mpdf->WriteHTML($stylesheet, 1); 
         /******************************************** head pdf ******************************************************/
-        //$data['DatosPaci'] = $this->recepcion_model->DatosPaciente($dato);
         $data['header_pdf'] = $this->Nomina_model->datos_empleado_nomina_extraordinaria($id_empleado, $id_concepto_extraordinario);
         $head               = $this->load->view('admin/nomina/pdf/pdf_det_extraordinaria/header', $data, true);
         $mpdf->SetHTMLHeader($head);
-
         // /***************************************** contenido pdf ****************************************************/
-        //$data2['DatosPaciEstu'] = $this->recepcion_model->DatosPacienteEstudio($dato);
-
+        $data2['header_pdf']=$data['header_pdf'];
         $data2["detalles"] = $this->Nomina_model->extraordinaria_nomina($id_empleado, $id_concepto_extraordinario);
-        // $data2['deducciones'] = $this->Nomina_model->deducciones_nomina($id_empleado, $id_concepto_extraordinario);
-        // $data2['aportaciones'] = $this->Nomina_model->aportaciones_nomina($id_empleado, $id_concepto_extraordinario);
         $html = $this->load->view('admin/nomina/pdf/pdf_det_extraordinaria/contenido', $data2, true);
-
         //**************************************** footer 1 ********************************************************
         //$data3['DatosLabEstudio'] = $this->recepcion_model->DatosLaboratoristaEstudio($dato);
         $data3['DatosLabEstudio'] = "";
         $footer = $this->load->view('admin/nomina/pdf/pdf_det_extraordinaria/footer', $data3, true);
         $mpdf->SetHTMLFooter($footer);
-
         /****************************************** imprmir pagina ********************************************************/
         $mpdf->WriteHTML($html);
         ob_clean();
         $mpdf->Output('Resultados.pdf', "I");
-
     }
 
     // ****************************************************************************************

@@ -22,7 +22,7 @@ class Aportaciones_ctrl extends CI_Controller {
     }
 
     public function lista_aportaciones(){
-        $query = $this->Aportaciones_model->getAll();
+        $query = $this->Aportaciones_model->get_apor_activos();
         if ($query != false) {
             $result['resultado'] = true;
             $result['aportaciones'] = $query;

@@ -30,11 +30,11 @@
         </tr>
         <tr>
             <td></td>
-            <td class="text-center"> <h5>DETALLE DE NÓMINA ORDINARIA <?php echo $header_pdf[0]->periodo_quinquenal; ?></h5> </td>
+            <td class="text-center"> <h5>DETALLE DE NÓMINA ORDINARIA <strong class="txt-negrita"> <?php echo $header_pdf[0]->periodo_quinquenal; ?></strong></h5> </td>
         </tr>
         <tr>
             <td></td>
-            <td class="text-center"> <h5> DEL <?php echo $header_pdf[0]->periodo_inicio; ?> AL <?php echo $header_pdf[0]->periodo_fin; ?> </h5> </td>
+            <td class="text-center txt-negrita"> <h5> DEL <?php echo $header_pdf[0]->periodo_inicio; ?> AL <?php echo $header_pdf[0]->periodo_fin; ?> </h5> </td>
         </tr>
     </table> 
 

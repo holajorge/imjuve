@@ -18,6 +18,19 @@ class Percepciones_model extends CI_Model {
             return false;
         }
    }
+
+   public function get_per_activos(){
+
+        $this->db->select('*');
+        $this->db->from('cat_percepciones');
+        $this->db->where('status',1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+   }
   public function existIndicador($indicador){
       $query= $this->db->query("select * from cat_percepciones where indicador='".$indicador."'");             
       if ($query -> num_rows() > 0){

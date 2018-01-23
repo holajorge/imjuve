@@ -11,6 +11,10 @@
     margin-top: 25px;
 }
 
+.txt-negrita{
+    font:bold 12px;
+}
+
 </style>
 <!-- ************************************************************************ -->
 <!-- DATOS DEL EMPLEADO-->
@@ -19,13 +23,13 @@
     <tbody id="">
        <tr>
             <td> No. de plaza: </td> 
-            <td> <?php echo $header_pdf[0]->no_plaza; ?> </td>
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->no_plaza; ?> </td>
             <td> No. de empleado: </td> 
-            <td> <?php echo $header_pdf[0]->no_empleado; ?> </td> 
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->no_empleado; ?> </td> 
        </tr>
        <tr>
             <td> Nombre:  </td> 
-            <td > <?php
+            <td class="txt-negrita"> <?php
                 echo $header_pdf[0]->empleado;
                 echo " ";
                 echo $header_pdf[0]->ap_paterno;
@@ -33,19 +37,25 @@
                 echo $header_pdf[0]->ap_materno; 
             ?></td>
             <td> RFC: </td> 
-            <td> <?php echo $header_pdf[0]->rfc; ?> </td> 
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->rfc; ?> </td> 
        </tr>
        <tr>
             <td> CURP:  </td> 
-            <td> <?php echo $header_pdf[0]->curp; ?></td>
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->curp; ?></td>
             <td> DEPARTAMENTO: </td> 
-            <td> <?php echo $header_pdf[0]->depto; ?> </td> 
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->depto; ?> </td> 
        </tr>
        <tr>
             <td> NIVEL:  </td> 
-            <td> <?php echo $header_pdf[0]->nivel; ?></td>
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->nivel; ?></td>
             <td> HORAS: </td> 
-            <td> <?php echo $header_pdf[0]->horas; ?> hrs. </td> 
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->horas; ?> hrs. </td> 
+       </tr>
+       <tr>
+            <td> NSS:  </td> 
+            <td class="txt-negrita"> <?php echo $header_pdf[0]->nss; ?></td>
+            <td> </td> 
+            <td> </td> 
        </tr>
     </tbody>
 </table>
@@ -120,9 +130,8 @@
 <!-- ************************************************************************ -->
 <!-- APORTACIONES -->
 <!-- ************************************************************************ -->
-
+<?php $subsidioSalario = 0; ?>
 <?php if ( !empty($aportaciones) ) { ?>
-   
 <table class="tabla-color margen-arriba" id="" style="font-size: 12px;" width="100%">
     <thead>
         <tr>
@@ -138,7 +147,12 @@
             <?php $total_aportaciones = 0; ?>
             <?php foreach ($aportaciones as $fila){ ?>
             <tr class="success">
-                <td width="15%"> <?php echo $fila->indicador; ?> </td>
+                <td width="15%"> 
+                    <?php echo $fila->indicador; ?>
+                    <?php if ((int)$fila->id_aportacion == 9): ?>
+                        <?php $subsidioSalario = $fila->importe; ?>
+                    <?php endif ?>
+                </td>
                 <td width="65%"> <?php echo $fila->nombre; ?> </td>
                 <td width="20%" class="text-right"> $<?php echo number_format($fila->importe,2); ?> </td>
             </tr>
@@ -158,7 +172,13 @@
 <!-- Imprimir Líquido -->
 <!-- ************************************************************************ -->
 <?php $liquido = $total_percepciones - $total_deduccion; ?>
-<h5 class="text-right"> <strong> Líquido: $<?php echo number_format($liquido,2); ?> </strong></h5>
+<h5 class="text-right"> 
+    <strong> Líquido: $<?php echo number_format($liquido,2); ?> </strong> <br>
+    <?php if ($subsidioSalario > 0): ?>
+        Subsidio al salario: $<?php echo number_format($subsidioSalario,2); ?><br>
+        Total: $<?php echo number_format(($subsidioSalario + $liquido),2); ?>
+    <?php endif ?>
+</h5>
 <!-- ************************************************************************ -->
 <!-- ÁREA DE FIRMAS -->
 <!-- ************************************************************************ -->
@@ -170,5 +190,5 @@
     RECIBÍ TRANSFERENCIA
 </h5>
 <h5 class="text-center">
-    $<?php echo number_format($liquido,2); ?>
+    $<?php echo number_format(($subsidioSalario + $liquido),2); ?>  
 </h5>

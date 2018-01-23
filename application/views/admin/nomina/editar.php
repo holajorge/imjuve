@@ -177,11 +177,11 @@
 				<!-- ********************************************************* -->
 				<!-- modal -->
 					<!-- Button trigger modal -->
-				<?php if (!empty($aportaciones)){ ?>
+				<!-- <?php if (!empty($aportaciones)){ ?> -->
 					<div id="mostrar_aportaciones">
-				<?php }else{?>
+				<!-- <?php }else{?>
 					<div id="mostrar_aportaciones" style="display: none;">
-				<?php } ?>
+				<?php } ?> -->
 						<button type="button" class="btn btn-primary" onclick="lista_aportaciones_edit();">
 						  Agregar aportaciones
 						</button>
@@ -200,21 +200,23 @@
 			                    </tr>
 		                    </thead>
 		 					<tbody id="body_tabla_aportaciones">
-							  <?php foreach ($aportaciones as $aportacion) { ?>
-							  	<tr>
-							  		<td style="display: none;" ><?php echo $aportacion->id_aportacion; ?></td>
-							  		<td><?php echo $aportacion->indicador; ?> </td>
-							  		<td><?php echo $aportacion->nombre; ?> </td>
-							  		<td>
-							  			<?php if ($aportacion->id_aportacion > 0 & $aportacion->id_aportacion <= 8){ ?>
-							  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled>
-							  			<?php }else{ ?>
-							  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> 
-							  			<?php } ?>
-							  		</td>
-							  		<td><button type='button' id='borrar_celda_apor_edit' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button></td>
-							  	</tr>
-							  <?php } ?>
+		 						<?php if (!empty($aportaciones)){ ?>
+									  <?php foreach ($aportaciones as $aportacion) { ?>
+									  	<tr>
+									  		<td style="display: none;" ><?php echo $aportacion->id_aportacion; ?></td>
+									  		<td><?php echo $aportacion->indicador; ?> </td>
+									  		<td><?php echo $aportacion->nombre; ?> </td>
+									  		<td>
+									  			<?php if ($aportacion->id_aportacion > 0 & $aportacion->id_aportacion <= 8){ ?>
+									  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion' disabled>
+									  			<?php }else{ ?>
+									  				<input type="number" id='id_apor_<?php echo $aportacion->id_aportacion; ?>' value="<?php echo $aportacion->importe; ?>" onkeyup='calc_total_aportaciones()' onchange='calc_total_aportaciones()' name='importe_aportacion' class='importe_aportacion'> 
+									  			<?php } ?>
+									  		</td>
+									  		<td><button type='button' id='borrar_celda_apor_edit' class='btn btn-danger btn-sm'> <span class='glyphicon glyphicon-trash'></span> </button></td>
+									  	</tr>
+									  <?php } ?>
+		 						<?php } ?>
 							</tbody>
 							<tfoot>
 		                    	<tr>
